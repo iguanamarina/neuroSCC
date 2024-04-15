@@ -6,9 +6,9 @@ Authors@R: c(person("Juan A. Arias", "Developer", role = c("aut", "cre"),
                      email = "iguanamarina@protonmail.com"))
 Author: Juan A. Arias [aut, cre]
 Maintainer: Juan A. Arias <iguanamarina@protonmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package provides auxiliary functions for calculating Simultaneous Confidence Corridors (SCCs) on PET neuroimaging data. It includes functions to load neuroimaging and demographic data in the standard format required, and assists in various tasks throughout the process. Overall, this package is designed to help with the replication process of a cornerstone paper from my thesis "Development of statistical methods for neuroimage data analysis towards early diagnostic of neurodegenerative diseases" and it is best followed using the scripts available at "https://github.com/iguanamarina/SCCneuroimage". Overall, this serves as a support package.
 License: use_mit_license()
+URL: https://github.com/iguanamarina/neuroSCC
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1

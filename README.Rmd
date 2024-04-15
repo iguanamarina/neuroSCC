@@ -14,6 +14,10 @@ This is an R Markdown format used for publishing markdown documents to GitHub. W
 
 ```{r eval=FALSE, include=FALSE}
 
+#----- Instalación básica del paquete
+remotes::install_github("iguanamarina/neuroSCC")
+library(neuroSCC)
+
 #----- Correr estas líneas cada vez que pase algo
 
 library(testthat)
