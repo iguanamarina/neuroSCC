@@ -2,14 +2,10 @@ Package: neuroSCC
 Type: Package
 Title: Estimation of Simultaneous Confidence Corridors for PET Neuroimaging Data
 Version: 0.2.0
-Author: c(
-    person("Juan A.", "Arias", , "iguanamarina@protonmail.com", role = "cre",
-           comment = c(ORCID = "0000-0002-3355-6393"))       
-  )
-Maintainer: c(
-    person("Juan A.", "Arias", , "iguanamarina@protonmail.com", role = "cre",
-           comment = c(ORCID = "0000-0002-3355-6393"))       
-  )
+Authors@R: c(person("Juan A. Arias", "Developer", role = c("aut", "cre"),
+                     email = "iguanamarina@protonmail.com"))
+Author: Juan A. Arias [aut, cre]
+Maintainer: Juan A. Arias <iguanamarina@protonmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: use_mit_license()

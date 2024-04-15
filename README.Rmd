@@ -1,0 +1,34 @@
+---
+title: "README"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub Documents
+
+This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+
+
+```{r eval=FALSE, include=FALSE}
+
+#----- Correr estas líneas cada vez que pase algo
+
+library(testthat)
+library(roxygen2)
+library(devtools)
+
+roxygen2::roxygenise()
+devtools::document() 
+
+#----- Correr estas cada vez que se suba de versión
+
+usethis::use_version()  # actualiza la version 
+devtools::check() # A menudo da pequeños errores pero sigue dejando tirar
+devtools::build_manual(pkg = ".", path = getwd()) # Construye el manual en PDF
+devtools::build() # build package en tar.gz
+
+```
+
