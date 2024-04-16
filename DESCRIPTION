@@ -2,11 +2,11 @@ Package: neuroSCC
 Type: Package
 Title: Estimation of SCC's for PET Neuroimaging Data
 Version: 0.2.0
-Authors@R: c(person("Juan A. Arias", "Developer", role = c("aut", "cre"),
+Authors@R: c(person("Juan A. Arias", role = c("aut", "cre"),
                      email = "iguanamarina@protonmail.com"))
 Author: Juan A. Arias [aut, cre]
 Maintainer: Juan A. Arias <iguanamarina@protonmail.com>
-Description: This package provides auxiliary functions for calculating Simultaneous Confidence Corridors (SCCs) on PET neuroimaging data. It includes functions to load neuroimaging and demographic data in the standard format required, and assists in various tasks throughout the process. Overall, this package is designed to help with the replication process of a cornerstone paper from my thesis "Development of statistical methods for neuroimage data analysis towards early diagnostic of neurodegenerative diseases" and it is best followed using the scripts available at "https://github.com/iguanamarina/SCCneuroimage". Overall, this serves as a support package.
+Description: This package provides functions for the estimation of Simultaneous Confidence Corridors (SCCs) on PET neuroimaging data. It is designed to help with the replication of methods implemented in the Ph.D. Thesis "Development of statistical methods for neuroimage data analysis towards early diagnostic of neurodegenerative diseases" and it is best applied using the scripts available in the link below. Further information on the methodology for SCCs estimation can be found in: "Wang Y, Wang G, Wang L, Ogden RT. Simultaneous confidence corridors for mean functions in functional data analysis of imaging data. Biometrics. 2020 Jun;76(2):427-437".
 License: use_mit_license()
 URL: https://github.com/iguanamarina/neuroSCC
 Encoding: UTF-8
