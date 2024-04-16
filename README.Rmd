@@ -151,6 +151,8 @@ library(devtools)
 
 roxygen2::roxygenise()
 devtools::document() 
+pkgload::load_all(".")
+devtools::install()
 
 #----- Correr estas cada vez que se suba de versión
 
