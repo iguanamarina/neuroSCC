@@ -21,7 +21,7 @@ neuroSCC R Package (v.0.2.0)
 <img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active-El proyecto está siendo activamente desarrollado y puede ser inestable." style="width:125px;"/>
 <img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle: Stable" style="width:100px;"/>
 <img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"/>
-<img src="https://img.shields.io/badge/Commits-5-brightgreen" alt="Commits"/>
+<img src="https://img.shields.io/badge/Commits-6-brightgreen" alt="Commits"/>
 <img src="https://img.shields.io/badge/Issues-1-brightgreen" alt="Issues"/>
 <img src="https://img.shields.io/badge/Size-294KB-brightgreen" alt="Size"/>
 <img src="https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&amp;logo=r&amp;logoColor=white" alt="R" style="width:40px;"/>
@@ -60,7 +60,7 @@ package for other projects related to PET imaging.
 > Wang Y, Wang G, Wang L, Ogden RT. Simultaneous confidence corridors
 > for mean functions in functional data analysis of imaging data.
 > *Biometrics*. 2020 Jun;76(2):427-437. doi:
-> [10.1111/biom.13156](10.1111/biom.13156). Epub 2019 Nov 6. PMID:
-> 31544958; PMCID: PMC7310608.
+> [10.1111/biom.13156](https://pubmed.ncbi.nlm.nih.gov/31544958/). Epub
+> 2019 Nov 6. PMID: 31544958; PMCID: PMC7310608.
 
 </div>
