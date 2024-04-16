@@ -1,6 +1,6 @@
 Package: neuroSCC
 Type: Package
-Title: Estimation of Simultaneous Confidence Corridors for PET Neuroimaging Data
+Title: Estimation of SCC's for PET Neuroimaging Data
 Version: 0.2.0
 Authors@R: c(person("Juan A. Arias", "Developer", role = c("aut", "cre"),
                      email = "iguanamarina@protonmail.com"))
