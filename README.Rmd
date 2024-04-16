@@ -166,6 +166,7 @@ package for other projects related to PET imaging.
 > *Biometrics*. 2020 Jun;76(2):427-437. doi:
 > [10.1111/biom.13156](https://pubmed.ncbi.nlm.nih.gov/31544958/). Epub 2019 Nov 6. PMID:
 > 31544958; PMCID: PMC7310608.
+
 :::
 
 ```{r eval=FALSE, include=FALSE}
