@@ -24,13 +24,6 @@ Then, it converts the image data to a dataframe and selects only the cross-secti
 Afterward, it checks if the demographic dataframe contains the necessary columns and extracts the data for the specified participant.
 Finally, it combines these data with the image data and returns the resulting dataframe for that patient.
 }
-\examples{
-# Assuming your working directory is set to where the files to load are:
-names <- unique(tools::file_path_sans_ext(list.files()))
-# Assuming 'demo' is a dataframe generated with \link[neuroSCC]{demoCleaner}:
-result <- neuroCleaner(names[1], demo = demo)
-head(result)
-}
 \seealso{
 \link[neuroSCC]{demoCleaner} and \code{oro.nifti::readNIfTI()}.
 }
