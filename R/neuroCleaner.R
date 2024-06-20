@@ -20,7 +20,7 @@
 neuroCleaner <- function(name, demo = NULL) {
   # Load data into a dataframe
   file <- oro.nifti::readNIfTI(fname = name, verbose = FALSE, warn = -1, reorient = TRUE, call = NULL, read_data = TRUE)
-  n <- memisc::to.data.frame(img_data(file))
+  n <- memisc::to.data.frame(oro.nifti::img_data(file))
 
   # Get File Name
   namex <- as.character(name)
