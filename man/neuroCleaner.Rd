@@ -4,15 +4,15 @@
 \alias{neuroCleaner}
 \title{Cleans and loads data from NIFTI files}
 \usage{
-neuroCleaner(name, demo)
+neuroCleaner(name, demo = NULL)
 }
 \arguments{
 \item{name}{\code{character}, the name of the NIFTI file to read.}
 
-\item{demo}{\code{data.frame}, a dataframe containing demographic data formatted according to the \link[neuroSCC]{demoCleaner} function.}
+\item{demo}{\code{data.frame}, a dataframe containing demographic data formatted according to the \link[neuroSCC]{demoCleaner} function. If not provided, only image data will be processed.}
 }
 \value{
-A \code{data.frame} that combines the NIFTI image data with the demographic data in the appropriate format. Each row represents a pixel, and the columns include demographic data and pixel intensity.
+A \code{data.frame} that combines the NIFTI image data with the demographic data in the appropriate format. Each row represents a pixel, and the columns include demographic data and pixel intensity. If \code{demo} is not provided, the dataframe will contain only the image data.
 }
 \description{
 This function reads a NIFTI image, transforms it into a dataframe, preserves the cross-section specified by the Z axis,
@@ -21,8 +21,8 @@ and organizes the data into a structured table that other functions work on subs
 \details{
 The function first reads the NIFTI file using the \code{oro.nifti::readNIfTI} function from the package.
 Then, it converts the image data to a dataframe and selects only the cross-section of interest.
-Afterward, it checks if the demographic dataframe contains the necessary columns and extracts the data for the specified participant.
-Finally, it combines these data with the image data and returns the resulting dataframe for that patient.
+If the demographic dataframe is provided, it checks if it contains the necessary columns and extracts the data for the specified participant.
+Finally, it combines these data with the image data and returns the resulting dataframe for that patient. If \code{demo} is not provided, it returns only the image data.
 }
 \seealso{
 \link[neuroSCC]{demoCleaner} and \code{oro.nifti::readNIfTI()}.
