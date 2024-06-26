@@ -1,7 +1,7 @@
 Package: neuroSCC
 Type: Package
 Title: Estimation of SCC's for PET Neuroimaging Data
-Version: 0.4.0
+Version: 0.5.0
 Authors@R: c(person("Juan A. Arias", role = c("aut", "cre"),
                      email = "iguanamarina@protonmail.com"))
 Author: Juan A. Arias [aut, cre]
