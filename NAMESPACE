@@ -2,4 +2,5 @@
 
 export(databaseCreator)
 export(getDimensions)
+export(matrixCreator)
 export(neuroCleaner)
