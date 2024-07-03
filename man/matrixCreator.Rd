@@ -19,7 +19,7 @@ matrixCreator(database, pattern, param.z, xy)
 A matrix where each row represents the PET data from one control subject, formatted as a continuous line of data points to simulate a function.
 }
 \description{
-This function transforms PET image data, previously processed into a database format by \code{databaseCreator}, into a matrix format suitable for functional data analysis. Each row of the matrix represents a function, corresponding to data from one patient or control subject.
+This function transforms PET image data, previously processed into a database format by \code{databaseCreator}, into a matrix format suitable for functional data analysis. Each row of the matrix represents a function, corresponding to data from one patient or control subject. The function recognizes whether the matrix is for Control or Alzheimer's group.
 }
 \details{
 \code{matrixCreator} follows \code{databaseCreator} in the data processing workflow. It reads the data for each file specified by the matched pattern and extracts only the data for the specified z-slice. The function ensures that each row in the resulting matrix corresponds to one patient or control subject, transforming each subset of data into a format suitable for functional data analysis.

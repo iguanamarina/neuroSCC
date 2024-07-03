@@ -1,7 +1,7 @@
 #' Convert PET image data to a functional data matrix format
 #'
 #' @description
-#' This function transforms PET image data, previously processed into a database format by `databaseCreator`, into a matrix format suitable for functional data analysis. Each row of the matrix represents a function, corresponding to data from one patient or control subject.
+#' This function transforms PET image data, previously processed into a database format by `databaseCreator`, into a matrix format suitable for functional data analysis. Each row of the matrix represents a function, corresponding to data from one patient or control subject. The function recognizes whether the matrix is for Control or Alzheimer's group.
 #'
 #' @param database A data frame containing the PET image data with columns for 'CN_number', 'z', 'x', 'y', and 'pet' values, created by `databaseCreator`.
 #' @param pattern The regular expression pattern to match filenames in the database. This pattern should correspond to the naming conventions of the PET image files you want to process.
@@ -26,17 +26,28 @@ matrixCreator <- function(database, pattern, param.z, xy) {
   # Get the list of files matching the pattern
   files <- list.files(pattern = pattern, full.names = TRUE)
 
+  # Determine if the database is for controls (CN) or pathological (AD)
+  if ("CN_number" %in% colnames(database)) {
+    group_label <- "CN_number"
+    label <- "Control Nº"
+  } else if ("AD_number" %in% colnames(database)) {
+    group_label <- "AD_number"
+    label <- "Pathological Nº"
+  } else {
+    stop("Error: Database must contain either 'CN_number' or 'AD_number' column.")
+  }
+
   # Preallocate the matrix with appropriate dimensions
   SCC_matrix <- matrix(nrow = length(files), ncol = xy)
 
   # Loop through the files to process each one
   for (i in seq_along(files)) {
-    # Extract CN_number from the filename
-    CN_number <- sub("masked_swwwC(\\d+)_.*", "\\1", basename(files[i]))
-    print(paste("Converting Control Nº", CN_number))
+    # Extract the number from the filename using the adjusted pattern
+    number <- sub("masked_swwwC(\\d+)_.*", "\\1", basename(files[i]))
+    print(paste("Converting", label, number))
 
-    # Subset the database for the current CN_number and z coordinate
-    subset_data <- database[database$CN_number == CN_number & database$z == param.z, ]
+    # Subset the database for the current number and z coordinate
+    subset_data <- database[database[[group_label]] == number & database$z == param.z, ]
 
     # Extract the 'pet' values, assuming they are ordered to fill one row in the matrix
     Y <- subset_data[1:xy, "pet"]
@@ -51,3 +62,5 @@ matrixCreator <- function(database, pattern, param.z, xy) {
   # Return the matrix
   return(SCC_matrix)
 }
+
+
