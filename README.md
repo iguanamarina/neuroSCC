@@ -6,7 +6,7 @@
 </p>
 <h2 align="center" style="font-size:40px;">
 
-neuroSCC R Package (v.0.7.0)
+neuroSCC R Package (v.0.10.0)
 
 </h2>
 <!-- Badge de ADMIN IGUANAMARINA -->
@@ -21,9 +21,9 @@ neuroSCC R Package (v.0.7.0)
 <img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active-El proyecto está siendo activamente desarrollado y puede ser inestable." style="width:125px;"/>
 <img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle: Stable" style="width:100px;"/>
 <img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"/>
-<img src="https://img.shields.io/badge/Commits-24-brightgreen" alt="Commits"/>
+<img src="https://img.shields.io/badge/Commits-30-brightgreen" alt="Commits"/>
 <img src="https://img.shields.io/badge/Issues-1-brightgreen" alt="Issues"/>
-<img src="https://img.shields.io/badge/Size-3176KB-brightgreen" alt="Size"/>
+<img src="https://img.shields.io/badge/Size-4063KB-brightgreen" alt="Size"/>
 <img src="https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&amp;logo=r&amp;logoColor=white" alt="R" style="width:40px;"/>
 
 </p>
