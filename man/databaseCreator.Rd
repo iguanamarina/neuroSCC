@@ -2,12 +2,14 @@
 % Please edit documentation in R/databaseCreator.R
 \name{databaseCreator}
 \alias{databaseCreator}
-\title{Create a database of processed PET image data with the appropiate format}
+\title{Create a database of processed PET image data with the appropriate format}
 \usage{
-databaseCreator(pattern)
+databaseCreator(pattern, control = TRUE)
 }
 \arguments{
 \item{pattern}{\code{character}, a regular expression pattern that specifies which files to process.}
+
+\item{control}{\code{logical}, if \code{TRUE}, the function processes control group images and if \code{FALSE}, it processes pathological group images. Default is \code{TRUE}.}
 }
 \value{
 A \code{data.frame} that aggregates processed data from each image. Each row represents data from one image, including subject numbers and image data.
@@ -15,12 +17,14 @@ A \code{data.frame} that aggregates processed data from each image. Each row rep
 \description{
 This function automates the processing of PET images based on a specified file name pattern within a working directory.
 It reads each file matching the pattern, processes it using \code{neuroSCC::neuroCleaner}, and compiles the results into a comprehensive data frame.
+The function can handle both control and pathological data based on the \code{control} parameter.
 }
 \details{
 The function first checks if there are files matching the pattern in the working directory.
 If no files are found, it throws an error. Otherwise, it processes each file individually, extracts necessary data,
 and appends it to a growing database. The function leverages \code{neuroSCC::neuroCleaner} for data processing.
-Each file's subject number is extracted from its name using regular expressions.
+Each file's subject number is extracted from its name using regular expressions. Depending on the \code{control} parameter,
+the database will have either a \code{CN_number} column for control data or an \code{AD_number} column for pathological data.
 }
 \examples{
 # Set the working directory where your PET images are stored
@@ -29,8 +33,11 @@ setwd("~/GitHub/PhD-2023-Neuroimage-article-SCC-vs-SPM/PETimg_masked for simulat
 # Define the pattern for file names to process
 pattern <- "^masked_swwwC\\\\d+_tripleNormEsp_w00_rrec_OSEM3D_32_it1.nii"
 
-# Create the database
-database_CN <- databaseCreator(pattern)
+# Create the database for control group images
+database_CN <- databaseCreator(pattern, control = TRUE)
+
+# Create the database for pathological group images
+database_AD <- databaseCreator(pattern, control = FALSE)
 
 }
 \seealso{
