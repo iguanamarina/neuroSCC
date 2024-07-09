@@ -23,7 +23,7 @@ getPoints <- function(aa) {
   n1 <- length(z1); n2 <- length(z2) # Lengths of those positions
   scc <- matrix(NA, n1 * n2, 2) # Matrix with value of that SCC in that position
   ind.inside.band <- aa$ind.inside.cover # Keep only regions inside triangulation
-  scc[ind.inside.band, ] <- aa$scc[, , 2] # Assign SCC to those areas
+  scc[ind.inside.band, ] <- aa$scc[, , 2] # Assign SCC to those areas (IMPORTANT: 1,2,3 FOR DIFFERENT ALPHAS)
   scc.limit <- c(min(scc[, 1], na.rm = TRUE), max(scc[, 2], na.rm = TRUE)) # Limits: minimum of inferior, maximum of superior
   scc.l.mtx <- matrix(scc[, 1], nrow = n2, ncol = n1) # Lower SCC for each location
   scc.u.mtx <- matrix(scc[, 2], nrow = n2, ncol = n1) # Upper SCC for each location
