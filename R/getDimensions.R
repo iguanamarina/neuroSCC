@@ -1,46 +1,67 @@
-#' Get Dimensions from a DICOM File
+#' Get Dimensions from a Neuroimaging File
 #'
 #' @description
-#' This function loads a DICOM image file using the `oro.nifti` package and extracts its dimensions.
-#' It provides the X and Y dimensions as well as the total number of elements ('dim') in the image data.
+#' Extracts dimensional information from NIFTI or similar neuroimaging files.
+#' This function is designed to work together with \code{neuroCleaner()}
+#' but can also be used independently for informative purposes.
 #'
-#' @param filename `character`, optional; the name of the DICOM file to read.
-#' If not provided, the function will search for the first `.img` file in the current working directory.
-#' @return A list containing `xDim`, `yDim`, and `dim`, representing the dimensions of the image in the X and Y axes,
-#' and the total number of elements in the image, respectively.
-#' @details If no filename is provided, the function searches the current directory for the first file with a `.img` extension.
-#' It stops with an error message if no such files are found. It is important to ensure that the specified file or files in the directory are in the DICOM format.
+#' @param file A NIFTI file object or filename to extract dimensions from.
+#'
+#' @return A list containing:
+#' \itemize{
+#'   \item \code{xDim}: Number of voxels in the X dimension
+#'   \item \code{yDim}: Number of voxels in the Y dimension
+#'   \item \code{zDim}: Number of slices in the Z dimension
+#'   \item \code{dim}: Total number of voxels (xDim * yDim)
+#' }
+#'
+#' @details
+#' The function can handle both NIFTI file paths and pre-loaded oro.nifti file objects.
+#' It provides a consistent way to extract dimensional information across the package.
+#'
 #' @examples
-#' # If 'filename' is not provided, it will get the first image in the current working directory:
-#' dimensions <- getDimensions()
+#' \dontrun{
+#' # Using a file path
+#' dims <- neuroSCC::getDimensions("path/to/your/image.nii")
 #'
-#' # Providing a specific filename:
-#' dimensions <- getDimensions("003_S_1059.img")
+#' # If used within neuroCleaner
+#' file <- oro.nifti::readNIfTI("path/to/your/image.nii")
+#' dims <- neuroSCC::getDimensions(file)
+#' }
+#'
 #' @export
-#'
-#' @seealso \link[oro.nifti]{readNIfTI} for the function used to read the DICOM files.
-#'
-
-
-# Function to obtain dimensions from a DICOM file
-getDimensions <- function(filename = NULL) {
-  # If no filename is provided, find the first .img file in the current working directory
-  if (is.null(filename)) {
-    files <- list.files(path = getwd(), pattern = "\\.img$", full.names = TRUE, recursive = FALSE)
-    if (length(files) == 0) {
-      stop("No .img files found in the directory.")
-    }
-    filename <- files[1]  # Use the first file found
+getDimensions <- function(file) {
+  # Input validation
+  if (missing(file)) {
+    stop("A NIFTI file or file path must be provided")
   }
 
-  # Load the data using oro.nifti
-  file <- oro.nifti::readNIfTI(fname = filename, verbose = FALSE, warn = -1, reorient = TRUE)
+  # Handle different input types
+  if (is.character(file)) {
+    # If a file path is provided, read the NIFTI file
+    tryCatch({
+      file <- oro.nifti::readNIfTI(fname = file, verbose = FALSE, warn = -1)
+    }, error = function(e) {
+      stop("Unable to read the NIFTI file: ", e$message)
+    })
+  }
 
-  # Get dimensions X and Y, and calculate 'dim'
+  # Validate that the input is a NIFTI object
+  if (!inherits(file, "nifti")) {
+    stop("Input must be a NIFTI file path or a nifti object")
+  }
+
+  # Extract dimensions
   xDim <- file@dim_[2]
   yDim <- file@dim_[3]
+  zDim <- file@dim_[4]
   dim <- xDim * yDim
 
-  # Return a list with X, Y, and 'dim' dimensions
-  return(list(xDim = xDim, yDim = yDim, dim = dim))
+  # Return dimensions
+  list(
+    xDim = xDim,
+    yDim = yDim,
+    zDim = zDim,
+    dim = dim
+  )
 }
