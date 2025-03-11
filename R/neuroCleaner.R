@@ -187,13 +187,16 @@ neuroCleaner <- function(name, demo = NULL, demoRow = 1) {
 
   # 4. Extract dimensional information
   # ---------------------------
+  # Use the new getDimensions function to extract image dimensions
+  dimensions <- neuroSCC::getDimensions(file)
+
   # Store file name for reference
   namex <- as.character(name)
 
-  # Get dimensions of the image
-  xDim <- file@dim_[2]
-  yDim <- file@dim_[3]
-  dim <- xDim * yDim
+  # Get dimensions from the extracted information
+  xDim <- dimensions$xDim
+  yDim <- dimensions$yDim
+  dim <- dimensions$dim
 
   # Prepare empty data frame for storing the processed data
   dataframe <- data.frame(z = integer(), x = integer(), y = integer(), pet = numeric())
