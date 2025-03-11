@@ -1,22 +1,63 @@
-#' Create a database of processed PET image data with the appropriate format
+#' Create a database of processed PET image data
 #'
 #' @description
-#' This function automates the processing of PET images based on a specified file name pattern within a working directory.
-#' It reads each file matching the pattern, processes it using `neuroSCC::neuroCleaner`, and compiles the results into a comprehensive data frame.
-#' The function can handle both control and pathological data based on the `control` parameter.
+#' This function automates the processing of PET images based on a specified file name pattern
+#' within a working directory. It reads each file matching the pattern, processes it using
+#' \code{\link{neuroCleaner}}, and compiles the results into a comprehensive data frame.
+#' The function serves as a key step in the neuroSCC workflow, bridging between individual
+#' image processing and preparation for functional data analysis with Simultaneous Confidence
+#' Corridors.
 #'
-#' @param pattern `character`, a regular expression pattern that specifies which files to process.
-#' @param control `logical`, if `TRUE`, the function processes control group images and if `FALSE`, it processes pathological group images. Default is `TRUE`.
-#' @return A `data.frame` that aggregates processed data from each image. Each row represents data from one image, including subject numbers and image data.
-#' @details The function first checks if there are files matching the pattern in the working directory.
-#' If no files are found, it throws an error. Otherwise, it processes each file individually, extracts necessary data,
-#' and appends it to a growing database. The function leverages `neuroSCC::neuroCleaner` for data processing.
-#' Each file's subject number is extracted from its name using regular expressions. Depending on the `control` parameter,
-#' the database will have either a `CN_number` column for control data or an `AD_number` column for pathological data.
+#' @param pattern \code{character}, a regular expression pattern that specifies which files to process.
+#'        By default, the function is designed to work with filenames structured like:
+#'        "masked_swwwC1_tripleNormEsp_roiAD_0_1_rrec_OSEM3D_32_it1.nii", where "C1" indicates
+#'        the subject identifier.
+#' @param control \code{logical}, if \code{TRUE}, the function processes control group images
+#'        and if \code{FALSE}, it processes pathological group images. Default is \code{TRUE}.
+#' @param extractPattern \code{character}, optional custom regular expression to extract the subject
+#'        number from filenames. Should contain a capture group \code{(\\d+)} to extract the numerical ID.
+#'        Default is \code{NULL}, which uses the built-in pattern "masked_swwwC(\\d+)_.*".
+#' @param useSequentialNumbering \code{logical}, if \code{TRUE}, assigns sequential numbers (1,2,3,...)
+#'        to files instead of attempting to extract numbers from filenames. Default is \code{FALSE}.
+#' @param demo \code{data.frame}, optional demographic data formatted according to the \code{\link{demoCleaner}} function.
+#'        If provided, this demographic information will be included in the output database for each file.
+#'        Default is \code{NULL}.
+#' @param quiet \code{logical}, if \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.
+#'
+#' @return A \code{data.frame} that aggregates processed data from each image. Each row represents
+#'         data from one voxel (3D pixel), including:
+#'         \itemize{
+#'           \item For control group (\code{control=TRUE}): \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+#'           \item For pathological group (\code{control=FALSE}): \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+#'           \item If demographic data is provided: Additional columns like \code{PPT}, \code{Group}, \code{Sex}, \code{Age} will be included
+#'         }
+#'         The \code{CN_number} or \code{AD_number} column contains the subject identifier extracted from
+#'         the filename or assigned sequentially. The \code{pet} column contains the intensity values.
+#'
+#' @details The function performs several key operations:
+#'
+#' 1. Identifies files in the working directory that match the specified pattern
+#' 2. For each matching file:
+#'    a. Extracts the subject number from the filename or assigns a sequential number
+#'    b. Processes the file using \code{\link{neuroCleaner}}, including demographic data if provided
+#'    c. Adds subject identifier information to each row
+#'    d. Appends the data to a growing database
+#'
+#' The subject number extraction uses either:
+#' \itemize{
+#'   \item The custom pattern provided in \code{extractPattern}
+#'   \item Sequential numbering (1,2,3,...) if \code{useSequentialNumbering=TRUE}
+#'   \item The default pattern "masked_swwwC(\\d+)_.*" which extracts numbers after "C" in filenames
+#' }
+#'
+#' This function is typically followed by \code{\link{matrixCreator}} in the analysis pipeline,
+#' which transforms the database into a format suitable for SCC computation.
 #'
 #' @examples
+#' # Example 1: Basic usage with default settings for control group
+#' \dontrun{
 #' # Set the working directory where your PET images are stored
-#' setwd("~/GitHub/PhD-2023-Neuroimage-article-SCC-vs-SPM/PETimg_masked for simulations")
+#' setwd("~/PET_Images")
 #'
 #' # Define the pattern for file names to process
 #' pattern <- "^masked_swwwC\\d+_tripleNormEsp_w00_rrec_OSEM3D_32_it1.nii"
@@ -24,47 +65,206 @@
 #' # Create the database for control group images
 #' database_CN <- databaseCreator(pattern, control = TRUE)
 #'
+#' # Example output (first few rows):
+#' # CN_number    z    x    y     pet
+#' # 1           35    1    1     0.0
+#' # 1           35    1    2     0.0
+#' # 1           35    1    3     2.3
+#' # ...
+#' }
+#'
+#' # Example 2: Using demographic data
+#' \dontrun{
+#' # Load demographic data
+#' demo_data <- read.csv("demographics.csv")
+#'
+#' # Create database with demographic information
+#' database_CN <- databaseCreator(pattern, control = TRUE, demo = demo_data)
+#'
+#' # Example output with demographic data:
+#' # PPT    Group  Sex  Age  CN_number    z    x    y     pet
+#' # P001   Control  M   65   1           35    1    1     0.0
+#' # P001   Control  M   65   1           35    1    2     0.0
+#' # P001   Control  M   65   1           35    1    3     2.3
+#' # ...
+#' }
+#'
+#' # Example 3: Processing pathological group images
+#' \dontrun{
+#' # Define the pattern for pathological images
+#' pattern <- "^masked_swwwC\\d+_tripleNormEsp_roiAD_0_8_rrec_OSEM3D_32_it1.nii"
+#'
 #' # Create the database for pathological group images
 #' database_AD <- databaseCreator(pattern, control = FALSE)
 #'
-#' @export
-#' @seealso \link[neuroSCC]{neuroCleaner} for the underlying image processing.
+#' # Example output (first few rows):
+#' # AD_number    z    x    y     pet
+#' # 1           35    1    1     0.0
+#' # 1           35    1    2     0.0
+#' # 1           35    1    3     1.8
+#' # ...
+#' }
 #'
+#' # Example 4: Using a custom extraction pattern
+#' \dontrun{
+#' # For files named like "subject_023_scan.nii"
+#' pattern <- "^subject_\\d+_scan.nii"
+#' extractPattern <- "subject_(\\d+)_scan"
+#'
+#' database <- databaseCreator(pattern, extractPattern = extractPattern)
+#' }
+#'
+#' # Example 5: Using sequential numbering instead of extracting from filenames
+#' \dontrun{
+#' # For files that don't contain subject numbers in their names
+#' pattern <- "^pet_scan_.*\\.nii"
+#'
+#' database <- databaseCreator(pattern, useSequentialNumbering = TRUE)
+#' }
+#'
+#' # Example 6: Reproducible example with synthetic data
+#' if (requireNamespace("oro.nifti", quietly = TRUE)) {
+#'   # Create temporary directory and files for demonstration
+#'   temp_dir <- tempdir()
+#'   old_dir <- getwd()
+#'   setwd(temp_dir)
+#'
+#'   # Create two simple synthetic NIFTI files
+#'   for (i in 1:2) {
+#'     # Create a small synthetic array (3x3x3)
+#'     img_data <- array(1:27, dim = c(3, 3, 3))
+#'     nii_obj <- oro.nifti::nifti(img_data)
+#'
+#'     # Save with names that match our expected pattern
+#'     filename <- paste0("masked_swwwC", i, "_tripleNormEsp_w00_rrec_OSEM3D_32_it1.nii")
+#'     oro.nifti::writeNIfTI(nii_obj, filename = file.path(temp_dir, filename), verbose = FALSE)
+#'   }
+#'
+#'   # Process these files
+#'   pattern <- "^masked_swwwC\\d+_tripleNormEsp_w00_rrec_OSEM3D_32_it1.nii"
+#'   # This will not run if oro.nifti is not installed
+#'   # database <- databaseCreator(pattern)
+#'
+#'   # Clean up and restore working directory
+#'   setwd(old_dir)
+#' }
+#'
+#' @seealso
+#' \code{\link{neuroCleaner}} for the underlying image processing function.
+#'
+#' \code{\link{matrixCreator}} for the next step in the workflow that converts
+#' the database to a matrix format for SCC analysis.
+#'
+#' @export
+databaseCreator <- function(pattern, control = TRUE, extractPattern = NULL,
+                            useSequentialNumbering = FALSE, demo = NULL, quiet = FALSE) {
+  # 1. Input validation
+  # ---------------------------
+  if (!is.character(pattern) || length(pattern) != 1) {
+    stop("'pattern' must be a single character string specifying a regular expression")
+  }
 
-databaseCreator <- function(pattern, control = TRUE) {
-  # Get the list of files matching the pattern
+  if (!is.logical(control) || length(control) != 1) {
+    stop("'control' must be a single logical value (TRUE or FALSE)")
+  }
+
+  if (!is.null(extractPattern) && (!is.character(extractPattern) || length(extractPattern) != 1)) {
+    stop("'extractPattern' must be a single character string or NULL")
+  }
+
+  if (!is.logical(useSequentialNumbering) || length(useSequentialNumbering) != 1) {
+    stop("'useSequentialNumbering' must be a single logical value (TRUE or FALSE)")
+  }
+
+  if (!is.logical(quiet) || length(quiet) != 1) {
+    stop("'quiet' must be a single logical value (TRUE or FALSE)")
+  }
+
+  # Validate demographic data if provided
+  if (!is.null(demo) && !is.data.frame(demo)) {
+    stop("'demo' must be a data frame or NULL")
+  }
+
+  # 2. Get the list of files matching the pattern
+  # ---------------------------
   files <- list.files(pattern = pattern, full.names = TRUE)
 
   # Check if files list is empty
   if (length(files) == 0) {
-    stop("Error: No files with this pattern in this working directory.")
+    stop("Error: No files with this pattern found in the current working directory.")
   }
 
-  # Initialize the database for Control or Pathological group images
+  # 3. Initialize the database
+  # ---------------------------
   if (control) {
-    database <- data.frame(CN_number = integer(), z = integer(), x = integer(), y = integer(), pet = numeric())
+    database <- data.frame(CN_number = integer(), z = integer(), x = integer(),
+                           y = integer(), pet = numeric())
     group_label <- "Control"
     number_label <- "CN_number"
   } else {
-    database <- data.frame(AD_number = integer(), z = integer(), x = integer(), y = integer(), pet = numeric())
+    database <- data.frame(AD_number = integer(), z = integer(), x = integer(),
+                           y = integer(), pet = numeric())
     group_label <- "Pathological"
     number_label <- "AD_number"
   }
 
-  # Process each file and append to the database
-  for(file in files) {
-    # Use neuroSCC::neuroCleaner to process the file
-    temporal <- neuroSCC::neuroCleaner(file)
-    # Extract the number from the file name using a regular expression
-    number <- sub("masked_swwwC(\\d+)_.*", "\\1", basename(file))
-    # Print the current control or pathological number being processed
-    print(paste("Processing", group_label, "Nº", number))
-    # Repeat the number for each row in the temporal data frame
-    temporal[[number_label]] <- rep(number, nrow(temporal))
-    # Append the processed data to the main database
-    database <- rbind(database, temporal)
+  # 4. Process each file and append to the database
+  # ---------------------------
+  for (i in seq_along(files)) {
+    file <- files[i]
+
+    # Extract the number from the file name or use sequential numbering
+    if (useSequentialNumbering) {
+      number <- as.character(i)
+    } else if (!is.null(extractPattern)) {
+      number <- sub(extractPattern, "\\1", basename(file))
+      # Check if extraction was successful
+      if (number == basename(file)) {
+        warning("Could not extract number using provided pattern from: ", basename(file),
+                ". Using file index instead.")
+        number <- as.character(i)
+      }
+    } else {
+      # Default extraction pattern
+      number <- sub("masked_swwwC(\\d+)_.*", "\\1", basename(file))
+      # Check if extraction was successful
+      if (number == basename(file)) {
+        warning("Could not extract number using default pattern from: ", basename(file),
+                ". Using file index instead.")
+        number <- as.character(i)
+      }
+    }
+
+    # Print progress message if not quiet
+    if (!quiet) {
+      message(paste("Processing", group_label, "Nº", number, "- File", i, "of", length(files)))
+    }
+
+    # Process the file using neuroCleaner
+    tryCatch({
+      # Process with or without demographic data
+      if (is.null(demo)) {
+        temporal <- neuroSCC::neuroCleaner(file)
+      } else {
+        temporal <- neuroSCC::neuroCleaner(file, demo = demo)
+      }
+
+      # Add subject number to each row
+      temporal[[number_label]] <- rep(number, nrow(temporal))
+
+      # Append the processed data to the main database
+      database <- rbind(database, temporal)
+
+    }, error = function(e) {
+      warning("Error processing file: ", basename(file), " - ", e$message)
+    })
   }
 
-  # Return the complete database
+  # 5. Return the complete database
+  # ---------------------------
+  if (nrow(database) == 0) {
+    warning("No data was successfully processed. Returning empty data frame.")
+  }
+
   return(database)
 }
