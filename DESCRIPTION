@@ -11,7 +11,7 @@ License: use_mit_license()
 URL: https://github.com/iguanamarina/neuroSCC
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Suggests: 
   roxygen2 (>= 7.1.0),
   knitr,

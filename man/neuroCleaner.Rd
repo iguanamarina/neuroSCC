@@ -2,31 +2,137 @@
 % Please edit documentation in R/neuroCleaner.R
 \name{neuroCleaner}
 \alias{neuroCleaner}
-\title{Cleans and loads data from NIFTI files}
+\title{Clean and load data from NIFTI neuroimaging files}
 \usage{
-neuroCleaner(name, demo = NULL)
+neuroCleaner(name, demo = NULL, demoRow = 1)
 }
 \arguments{
-\item{name}{\code{character}, the name of the NIFTI file to read.}
+\item{name}{A character string specifying the path to the NIFTI file.}
 
-\item{demo}{\code{data.frame}, a dataframe containing demographic data formatted according to the \link[neuroSCC]{demoCleaner} function. If not provided, only image data will be processed.}
+\item{demo}{An optional data frame containing demographic information for the participants.
+If provided, it should contain columns that match (case-insensitive): 'PPT', 'Group', 'Sex', and 'Age'.
+The 'PPT' column can contain participant IDs that match the \code{name} parameter for automatic matching,
+but if no match is found, the row specified by \code{demoRow} will be used.
+Default is \code{NULL}.}
+
+\item{demoRow}{An integer specifying which row of the demographic data to use when
+automatic matching fails or multiple matches are possible. Default is \code{1}.}
 }
 \value{
-A \code{data.frame} that combines the NIFTI image data with the demographic data in the appropriate format. Each row represents a pixel, and the columns include demographic data and pixel intensity. If \code{demo} is not provided, the dataframe will contain only the image data.
+A data frame with the following columns:
+\itemize{
+\item If demographic data provided: \code{PPT}, \code{Group}, \code{Sex}, \code{Age}, \code{z}, \code{x}, \code{y}, \code{pet}
+\item If no demographic data: \code{z}, \code{x}, \code{y}, \code{pet}
+}
+Each row represents a voxel (3D pixel) from the image, with \code{pet} containing the
+intensity value at that location.
 }
 \description{
-This function reads a NIFTI image, transforms it into a dataframe, preserves the cross-section specified by the Z axis,
-and organizes the data into a structured table that other functions work on subsequently.
+Loads a NIFTI-format neuroimaging file, converts it to a structured data frame,
+and organizes the data for further analysis. This function serves as the first step
+in the neuroimaging data processing pipeline, transforming raw PET data into a format
+suitable for functional data analysis. The neuroSCC package prepares and organizes neuroimaging
+data, while the actual Simultaneous Confidence Corridors (SCCs) are computed using
+functions from the ImageSCC package such as \code{ImageSCC::scc1g.image} or \code{ImageSCC::scc2g.image}.
 }
 \details{
-The function first reads the NIFTI file using the \code{oro.nifti::readNIfTI} function from the package.
-Then, it converts the image data to a dataframe and selects only the cross-section of interest.
-If the demographic dataframe is provided, it checks if it contains the necessary columns and extracts the data for the specified participant.
-Finally, it combines these data with the image data and returns the resulting dataframe for that patient. If \code{demo} is not provided, it returns only the image data.
+The function performs several key operations:
+\enumerate{
+\item Reads the NIFTI file using \code{oro.nifti} package functions
+\item Converts the 3D image data to a structured data frame
+\item Extracts the dimensional information (\code{z}, \code{x}, \code{y} coordinates)
+\item Organizes the PET intensity values
+\item If demographic data is provided, merges it with the image data
+}
+
+The resulting data frame serves as input for subsequent analysis functions in the
+neuroSCC pipeline, such as \code{databaseCreator} and \code{matrixCreator}, which prepare
+the data for eventual analysis with the ImageSCC package functions.
+}
+\examples{
+# Example 1: Using package sample data
+\dontrun{
+# Access sample files included with the package
+data_dir <- system.file("extdata", package = "neuroSCC")
+nifti_file <- file.path(data_dir, "sampleFile1.nii")
+
+# Basic usage with just a NIFTI file
+pet_data <- neuroCleaner(nifti_file)
+
+# Display the first few rows of the result
+head(pet_data)
+#>   z x  y      pet
+#>   1 1  1  0.00000
+#>   1 1  2  0.00000
+#>   1 1  3  0.78526
+#>   ...
+
+# Example 2: With demographic data
+# Load demographic data
+demo_file <- file.path(data_dir, "Demographics.csv")
+demo_data <- read.csv(demo_file)
+
+# Display the demographic data
+print(demo_data)
+#>         PPT Group Sex Age
+#> 1 041_S_1391    AD   M  85
+#> 2 036_S_1001    AD   M  69
+#> 3 037_S_0627    AD   F  59
+
+# Process the first NIFTI file with demographic data
+# This will attempt to match based on filename
+pet_with_demo <- neuroCleaner(nifti_file, demo = demo_data)
+
+# Display the first few rows with demographic information
+head(pet_with_demo)
+#>         PPT Group Sex Age z x  y      pet
+#>  041_S_1391    AD   M  85 1 1  1  0.00000
+#>  041_S_1391    AD   M  85 1 1  2  0.00000
+#>  041_S_1391    AD   M  85 1 1  3  0.78526
+#>  ...
+
+# Example 3: Using a specific row from demographic data
+# Process another NIFTI file and specify which demographic row to use
+nifti_file2 <- file.path(data_dir, "sampleFile2.nii")
+pet_with_specific_demo <- neuroCleaner(nifti_file2, demo = demo_data, demoRow = 3)
+
+# Display the first few rows (now with demographic info from row 3)
+head(pet_with_specific_demo)
+#>         PPT Group Sex Age z x  y      pet
+#>  037_S_0627    AD   F  59 1 1  1  0.00000
+#>  037_S_0627    AD   F  59 1 1  2  0.00000
+#>  037_S_0627    AD   F  59 1 1  3  0.78526
+#>  ...
+}
+
+# Example 4: Creating synthetic data (fully reproducible)
+# Create a simple 3D array as a synthetic NIFTI image
+if (requireNamespace("oro.nifti", quietly = TRUE)) {
+  # Temporary file path
+  temp_nii <- tempfile(fileext = ".nii")
+
+  # Create a small synthetic NIFTI file (3x3x3)
+  img_data <- array(1:27, dim = c(3, 3, 3))
+  nii_obj <- oro.nifti::nifti(img_data)
+  oro.nifti::writeNIfTI(nii_obj, filename = temp_nii, verbose = FALSE)
+
+  # Sample demographic data
+  demo_data <- data.frame(
+    PPT = c("sample001", "sample002", "sample003"),
+    Group = c("Control", "Patient", "Patient"),
+    Sex = c("M", "F", "M"),
+    Age = c(65, 70, 75)
+  )
+
+  # Process the synthetic NIFTI with demographic data (use row 2)
+  # This will not run if oro.nifti is not installed
+  pet_data <- neuroCleaner(temp_nii, demo = demo_data, demoRow = 2)
+  head(pet_data)
+}
+
 }
 \seealso{
-\link[neuroSCC]{demoCleaner} and \code{oro.nifti::readNIfTI()}.
-}
-\author{
-Juan A. Arias (http://juan-arias.xyz)
+\code{\link{databaseCreator}} for creating databases from multiple NIFTI files.
+
+\code{oro.nifti::readNIfTI} for the underlying function used to read NIFTI files.
 }
