@@ -1,0 +1,75 @@
+# CRAN Submission Checklist: Essential Requirements
+
+## Package Structure and Documentation
+
+- [ ] **DESCRIPTION file** has correct format with all required fields:
+  - [ ] Maintainer field shows a single person's name and valid email address
+  - [ ] License is from the list of [CRAN-accepted licenses](https://svn.r-project.org/R/trunk/share/licenses/license.db)
+  - [ ] Description field is informative and properly formatted:
+    - [ ] Function names written as `foo()` (with parentheses but no quotes)
+    - [ ] Package names and non-English terms in single quotes
+    - [ ] Citations in author-year format with DOI/ISBN/arXiv identifiers in angle brackets
+    - [ ] URLs enclosed in angle brackets
+
+- [ ] **Copyright** is clear for all components (including third-party code)
+  - [ ] All authors and contributors properly credited (ideally using Authors@R)
+  - [ ] Third-party copyrights acknowledged with `cph` role in Authors@R
+
+## Package Content
+
+- [ ] Package contains **NO binary executable code** in source package
+- [ ] Package size is reasonable:
+  - [ ] Documentation under 5MB
+  - [ ] Data properly compressed
+  - [ ] Total package size under 10MB (or explicit justification provided)
+- [ ] All dependencies are:
+  - [ ] Available from mainstream repositories (CRAN, Bioconductor)
+  - [ ] Not orphaned packages (unless in "Suggests" and used conditionally)
+  - [ ] Current release versions (not development versions)
+
+## Code Checks and Testing
+
+- [ ] **R CMD check --as-cran** passes with:
+  - [ ] NO ERRORs
+  - [ ] NO WARNINGs
+  - [ ] NO significant NOTEs (or explanations provided in submission comments)
+- [ ] Package tested on at least two major R platforms
+- [ ] All reverse dependencies checked and still pass their tests
+- [ ] Check Windows compatibility using Winbuilder service
+
+## Code Behavior and Security
+
+- [ ] Package does NOT:
+  - [ ] Write to user's home directory or system files
+  - [ ] Modify the global environment
+  - [ ] Terminate R process with `q()` or C/C++ calls like `exit()`
+  - [ ] Start external software without explicitly closing it
+  - [ ] Send data to external sites without user confirmation
+  - [ ] Tamper with other packages' namespaces
+  - [ ] Use internal/undocumented functions via `:::` or `.Internal()`
+  - [ ] Disable compiler diagnostics or security features
+
+- [ ] Package handles internet resources properly:
+  - [ ] Fails gracefully when resources are unavailable
+  - [ ] Uses secure downloads (https) for any external resources 
+  - [ ] Respects rate limits for web APIs
+
+## Submission Process
+
+- [ ] Use the online [submission form](https://CRAN.R-project.org/submit.html)
+- [ ] Submit source tarball created by `R CMD build` (never binaries)
+- [ ] No re-submission while a package is pending processing
+- [ ] Email confirmation properly handled
+
+## Common Reasons for Rejection
+
+- ERRORs, WARNINGs or significant NOTEs in `R CMD check --as-cran`
+- Vague or unhelpful Description field
+- Issues with license (non-standard or overly restrictive)
+- Writing to user's files without permission
+- Usage of internal/undocumented functions from other packages
+- Package not portable across platforms
+- Examples or tests that take too long to run
+- Missing or incomplete documentation
+- Namespace issues affecting other packages
+- Not responding to web resource unavailability gracefully
