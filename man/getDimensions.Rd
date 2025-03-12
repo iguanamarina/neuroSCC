@@ -2,33 +2,39 @@
 % Please edit documentation in R/getDimensions.R
 \name{getDimensions}
 \alias{getDimensions}
-\title{Get Dimensions from a DICOM File}
+\title{Get Dimensions from a Neuroimaging File}
 \usage{
-getDimensions(filename = NULL)
+getDimensions(file)
 }
 \arguments{
-\item{filename}{\code{character}, optional; the name of the DICOM file to read.
-If not provided, the function will search for the first \code{.img} file in the current working directory.}
+\item{file}{A NIFTI file object or filename to extract dimensions from.}
 }
 \value{
-A list containing \code{xDim}, \code{yDim}, and \code{dim}, representing the dimensions of the image in the X and Y axes,
-and the total number of elements in the image, respectively.
+A list containing:
+\itemize{
+\item \code{xDim}: Number of voxels in the X dimension
+\item \code{yDim}: Number of voxels in the Y dimension
+\item \code{zDim}: Number of slices in the Z dimension
+\item \code{dim}: Total number of voxels (xDim * yDim)
+}
 }
 \description{
-This function loads a DICOM image file using the \code{oro.nifti} package and extracts its dimensions.
-It provides the X and Y dimensions as well as the total number of elements ('dim') in the image data.
+Extracts dimensional information from NIFTI or similar neuroimaging files.
+This function is designed to work together with \code{neuroCleaner()}
+but can also be used independently for informative purposes.
 }
 \details{
-If no filename is provided, the function searches the current directory for the first file with a \code{.img} extension.
-It stops with an error message if no such files are found. It is important to ensure that the specified file or files in the directory are in the DICOM format.
+The function can handle both NIFTI file paths and pre-loaded oro.nifti file objects.
+It provides a consistent way to extract dimensional information across the package.
 }
 \examples{
-# If 'filename' is not provided, it will get the first image in the current working directory:
-dimensions <- getDimensions()
+\dontrun{
+# Using a file path
+dims <- neuroSCC::getDimensions("path/to/your/image.nii")
 
-# Providing a specific filename:
-dimensions <- getDimensions("003_S_1059.img")
+# If used within neuroCleaner
+file <- oro.nifti::readNIfTI("path/to/your/image.nii")
+dims <- neuroSCC::getDimensions(file)
 }
-\seealso{
-\link[oro.nifti]{readNIfTI} for the function used to read the DICOM files.
+
 }
