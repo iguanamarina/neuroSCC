@@ -2,26 +2,85 @@
 % Please edit documentation in R/meanNormalization.R
 \name{meanNormalization}
 \alias{meanNormalization}
-\title{Mean Average Normalization for SCC Data}
+\title{Mean Average Normalization for Matrix Data}
 \usage{
-meanNormalization(SCC_data)
+meanNormalization(
+  matrixData,
+  handleInvalidRows = c("warn", "error", "omit"),
+  returnDetails = FALSE,
+  quiet = FALSE
+)
 }
 \arguments{
-\item{SCC_data}{\code{matrix}, a matrix where each row represents SCC data to be normalized.}
+\item{matrixData}{\code{matrix}, a matrix where each row represents data
+that needs to be normalized, typically the output from \code{\link{matrixCreator}}.}
+
+\item{handleInvalidRows}{\code{character}, specifies how to handle rows with invalid means
+(zero or NA). Options are:
+\code{"warn"} (default) warns and leaves row unnormalized,
+\code{"error"} stops with an error, or
+\code{"omit"} removes problematic rows from the result.}
+
+\item{returnDetails}{\code{logical}, if \code{TRUE}, returns a list containing the normalized
+matrix and additional diagnostic information. If \code{FALSE} (default), returns
+only the normalized matrix.}
+
+\item{quiet}{\subsection{\code{logical}, if \code{TRUE}, suppresses console messages. Default is \code{FALSE}.}{
+}}
 }
 \value{
-A \code{matrix} where each row has been normalized by its mean value.
+If \code{returnDetails=FALSE} (default), returns a \code{matrix} where each row has
+been normalized by its mean value. If \code{returnDetails=TRUE}, returns a \code{list}
+containing:
+\itemize{
+\item \code{normalizedMatrix}: The normalized matrix
+\item \code{rowMeans}: Vector of all calculated row means
+\item \code{problemRows}: Indices of rows with invalid means
+\item \code{outlierRows}: Indices of statistical outliers (based on 1.5\emph{IQR)
+\item \code{extremeOutlierRows}: Indices of extreme outliers (based on 3}IQR)
+\item \code{summary}: Count of normal vs. problematic rows and thresholds used
+}
 }
 \description{
-This function normalizes each row of the given SCC data by its mean value.
+This function normalizes each row of the given matrix by its mean value.
 It divides each element in a row by the mean of that row, ignoring NA values.
+This normalization is a critical pre-processing step when comparing data
+from multiple sources to account for global intensity differences.
 }
 \details{
-The function iterates over each row of the SCC data matrix, calculates the mean of the row,
-and then divides each element of the row by the calculated mean.
+The function iterates over each row of the input matrix, calculates the mean of the row,
+and then divides each element of the row by the calculated mean. This process adjusts
+for global intensity differences between rows in the matrix.
+
+In addition to normalization, the function performs statistical analysis on row means
+to identify potential outliers that might indicate data quality issues. Outlier detection
+uses the Interquartile Range (IQR) method with thresholds at 1.5xIQR and 3xIQR.
+
+This function is typically used after \code{\link{matrixCreator}} in the neuroSCC workflow.
 }
 \examples{
-# Assume SCC_data is a matrix of SCC values
-normalized_SCC_data <- neuroSCC::meanNormalization(SCC_data)
+\dontrun{
+# In a typical workflow:
+# Assuming data matrices already created with matrixCreator
+matrixCN <- matrixCreator(database_CN, pattern, paramZ = 35)
+matrixAD <- matrixCreator(database_AD, pattern, paramZ = 35)
 
+# Basic usage - just normalize the matrices
+matrixCN <- meanNormalization(matrixCN)
+matrixAD <- meanNormalization(matrixAD)
+
+# Advanced usage - get detailed diagnostics
+results <- meanNormalization(matrixCN, returnDetails = TRUE)
+normalizedMatrix <- results$normalizedMatrix
+
+# Remove problematic rows automatically
+cleanMatrix <- meanNormalization(matrixCN, handleInvalidRows = "omit")
+}
+
+}
+\seealso{
+\code{\link{matrixCreator}} for creating the data matrix to be normalized.
+
+\code{ImageSCC::scc2g.image} for computing Simultaneous Confidence Corridors
+for the difference between groups using the normalized matrices of each group.
 }
