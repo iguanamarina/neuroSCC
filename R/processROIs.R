@@ -1,58 +1,117 @@
 #' Process ROIs and Save Data Tables
 #'
 #' @description
-#' This function processes regions of interest (ROIs) from PET image data and saves the resulting data tables. It checks if the ROI tables already exist and, if not, processes the data using `neuroSCC::neuroCleaner` to clean and structure the data.
+#' This function processes **Regions of Interest (ROIs)** from binary NIfTI files containing
+#' manually defined hypoactive regions. It extracts voxel coordinates where `pet = 1` (indicating
+#' hypoactivity) and formats them into structured `.RDS` tables.
 #'
-#' @param base_dir The base directory where the ROI files and tables are located.
-#' @param regions A vector of region names to be processed.
-#' @param numbers A vector of numbers corresponding to the patient or control subjects.
+#' The function is originally designed for the **Ph.D. thesis**:
+#' *"Development of statistical methods for the analysis of neuroimage data towards early diagnosis of neurodegenerative diseases"*
+#' conducted at the **University of Santiago de Compostela** by *Juan A. Arias Lopez, Prof. Pablo Aguiar-Fernández,
+#' Prof. Andrew H. Kemp, & Prof. Carmen Cadarso-Suárez*.
+#' However, options are provided for **other users and setups**.
+#'
+#' @param roiDir \code{character}, the base directory where the ROI NIfTI files are stored.
+#'        Default: `"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas"`.
+#' @param outputDir \code{character}, the directory where processed `ROItable_*` files will be saved.
+#'        Default: `"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables"`.
+#' @param regions \code{character} vector, specifying the ROI region names (e.g., `c("w32", "w79")`).
+#' @param numbers \code{integer} vector, specifying the patient/control numbers (e.g., `1:16`).
+#' @param filePattern \code{character}, a template for the expected NIfTI filenames.
+#'        Should include `{region}` and `{number}` placeholders.
+#'        Default: `"wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii"`.
+#' @param verbose \code{logical}, if \code{TRUE}, prints progress messages. Default: \code{FALSE}.
+#'
+#' @return This function does not return a value. It **processes and saves `.RDS` files** in `outputDir`.
 #'
 #' @details
-#' `processROIs` iterates over each combination of region and number, checking if the corresponding ROI table file already exists. If the file does not exist, the function processes the data using `neuroSCC::neuroCleaner`, adds necessary metadata, and saves the cleaned data as an RDS file. The function provides informative messages about the progress of processing and file saving.
-#'
-#' @return This function does not return a value. It performs data processing and saves the resulting tables to the specified directory.
+#' - This function **extracts voxel coordinates** (`x, y, z`) where `pet = 1` (indicating hypoactivity).
+#' - The **default filename structure** is based on the research thesis setup but can be adjusted.
+#' - Processed tables are saved as **`ROItable_*`** `.RDS` files for later use in **SCC vs. SPM comparisons**.
 #'
 #' @examples
-#' # Assuming 'base_dir', 'regions', and 'numbers' are already defined
-#' processROIs(base_dir, regions, numbers)
+#' \dontrun{
+#' # Process ROIs using the thesis default setup
+#' processROIs()
+#'
+#' # Custom example for a different dataset
+#' processROIs(
+#'   roiDir = "/custom/path/rois",
+#'   outputDir = "/custom/path/tables",
+#'   regions = c("region1", "region2"),
+#'   numbers = 1:10,
+#'   filePattern = "custom_prefix_{region}_sub_{number}.nii",
+#'   verbose = TRUE
+#' )
+#' }
 #'
 #' @export
-#'
-processROIs <- function(base_dir, regions, numbers) {
+processROIs <- function(
+    roiDir = "~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas",
+    outputDir = "~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables",
+    regions,
+    numbers,
+    filePattern = "wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii",
+    verbose = FALSE
+) {
+  # 1. Validate Inputs
+  # ---------------------------
+  if (!dir.exists(roiDir)) stop("ROI directory not found: ", roiDir)
+  if (!dir.exists(outputDir)) dir.create(outputDir, recursive = TRUE)
+
+  if (missing(regions) || missing(numbers)) {
+    stop("Both 'regions' and 'numbers' must be specified.")
+  }
+
+  # 2. Process Each Region and Patient
+  # ---------------------------
   for (region in regions) {
     for (number in numbers) {
-      roi_table_path <- file.path(base_dir, "roisNormalizadas/tables", paste0("ROItable_", region, "_", number, ".RDS"))
+      # Construct file paths dynamically
+      niftiFilename <- gsub("\\{region\\}", region, gsub("\\{number\\}", number, filePattern))
+      niftiPath <- file.path(roiDir, niftiFilename)
+      rdsPath <- file.path(outputDir, paste0("ROItable_", region, "_", number, ".RDS"))
 
-      if (file.exists(roi_table_path)) {
-        print(paste0("The table for region ", region, " and number C", number, " already exists."))
-      } else {
-        print(paste0("Processing ROI for region ", region, " and number C", number))
-        roi_table <- data.frame(group = integer(), z = integer(), x = integer(), y = integer())
-
-        # Set the working directory
-        working_dir <- file.path(base_dir, "roisNormalizadas")
-        setwd(working_dir)
-
-        # Construct the file name
-        name <- paste0("wwwx", region, "_redim_crop_squ_flipLR_newDim_", "C", number, ".nii")
-
-        # Load and clean the data
-        temporal <- neuroSCC::neuroCleaner(name)
-
-        # Add group information
-        group <- rep(paste0(as.character(region), "_number", "C", number), length.out = nrow(temporal))
-        temporal <- cbind(group, temporal)
-
-        # Replace NaN values in 'pet' column with 0
-        temporal$pet[is.nan(temporal$pet)] <- 0
-
-        # Append to the main data frame
-        roi_table <- rbind(roi_table, temporal)
-
-        # Save the resulting table
-        saveRDS(roi_table, file = roi_table_path)
-        print(paste0("Saved the file: ", roi_table_path))
+      # Check if the RDS file already exists
+      if (file.exists(rdsPath)) {
+        message("The table for region ", region, " and number C", number, " already exists.")
+        next  # Skip processing
       }
+
+      # Check if the NIfTI file exists
+      if (!file.exists(niftiPath)) {
+        if (verbose) message("Skipping: File not found: ", niftiPath)
+        next
+      }
+
+      # Load NIfTI file and extract data
+      if (verbose) message("Processing ROI for: ", region, " | Subject C", number)
+
+      roiData <- tryCatch({
+        neuroSCC::neuroCleaner(niftiPath)
+      }, error = function(e) {
+        message("Error loading: ", niftiPath, " - ", e$message)
+        return(NULL)
+      })
+
+      if (is.null(roiData)) next  # Skip if loading failed
+
+      # 3. Extract Relevant Voxels (Where pet == 1)
+      # ---------------------------
+      roiData <- subset(roiData, pet == 1)  # Keep only active voxels
+      if (nrow(roiData) == 0) {
+        if (verbose) message("No significant voxels in: ", niftiPath)
+        next
+      }
+
+      # Add group identifier
+      roiData$group <- paste0(region, "_numberC", number)
+      roiData <- roiData[, c("group", "z", "x", "y", "pet")]  # Reorder columns
+
+      # 4. Save Processed Table
+      # ---------------------------
+      saveRDS(roiData, rdsPath)
+      if (verbose) message("Saved: ", rdsPath)
     }
   }
 }

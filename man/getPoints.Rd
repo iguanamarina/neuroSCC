@@ -2,26 +2,55 @@
 % Please edit documentation in R/getPoints.R
 \name{getPoints}
 \alias{getPoints}
-\title{Extract standalone significant SCC points from a SCC comparison object}
+\title{Extract significant SCC points from an SCC comparison object}
 \usage{
-getPoints(aa)
+getPoints(sccResult)
 }
 \arguments{
-\item{aa}{A list containing SCC comparison results, expected to have elements like \code{Z.band},
-\code{ind.inside.cover}, and \code{scc} matrices.}
+\item{sccResult}{A list containing SCC computation results from \code{ImageSCC::scc.image}.
+The list should include at least:
+\itemize{
+\item \code{Z.band}: Matrix specifying grid positions.
+\item \code{ind.inside.cover}: Indices of grid points inside the confidence band.
+\item \code{scc}: 3D array containing computed SCC values.
+}}
 }
 \value{
-A list with two elements: coordinates of points with positive differences and coordinates
-of points with negative differences. Each element is a matrix where rows are points and
-columns represent coordinates.
+A named list:
+\itemize{
+\item \code{positivePoints}: Data frame with coordinates where the first group
+shows significantly higher values than the second.
+\item \code{negativePoints}: Data frame with coordinates where the second group
+shows significantly higher values than the first.
+}
 }
 \description{
-This function processes an SCC comparison object to identify and extract coordinates of points
-where significant differences are detected by the SCC analysis. It returns the coordinates
-of positive and negative differences separately, which can be used for further analysis or
-visualization on neuroimages.
+This function identifies and extracts coordinates where significant differences
+fall outside the simultaneous confidence corridors (SCCs).
+It processes the results from \code{ImageSCC::scc.image}, returning the extracted coordinates
+where the differences are statistically significant.
+}
+\details{
+\itemize{
+\item Positive points indicate where the first group (e.g., Control) is significantly stronger.
+\item Negative points indicate where the second group (e.g., Pathological) is significantly stronger.
+\item This function must be used \strong{after} running \code{ImageSCC::scc.image}.
+}
 }
 \examples{
-points <- getPoints(SCC_COMP_1)
+\dontrun{
+# Load SCC results (previously computed)
+load("SCC_COMP.RData")
 
+# Extract significant SCC points
+significantPoints <- getPoints(SCC_COMP)
+
+# Display extracted coordinates
+head(significantPoints$positivePoints)  # External significant points
+head(significantPoints$negativePoints)  # Internal significant points (if any)
+}
+
+}
+\seealso{
+\code{ImageSCC::scc.image} for SCC computation.
 }

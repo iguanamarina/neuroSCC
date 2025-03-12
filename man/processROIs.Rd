@@ -4,26 +4,68 @@
 \alias{processROIs}
 \title{Process ROIs and Save Data Tables}
 \usage{
-processROIs(base_dir, regions, numbers)
+processROIs(
+  roiDir = "~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas",
+  outputDir =
+    "~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables",
+  regions,
+  numbers,
+  filePattern = "wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii",
+  verbose = FALSE
+)
 }
 \arguments{
-\item{base_dir}{The base directory where the ROI files and tables are located.}
+\item{roiDir}{\code{character}, the base directory where the ROI NIfTI files are stored.
+Default: \code{"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas"}.}
 
-\item{regions}{A vector of region names to be processed.}
+\item{outputDir}{\code{character}, the directory where processed \verb{ROItable_*} files will be saved.
+Default: \code{"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables"}.}
 
-\item{numbers}{A vector of numbers corresponding to the patient or control subjects.}
+\item{regions}{\code{character} vector, specifying the ROI region names (e.g., \code{c("w32", "w79")}).}
+
+\item{numbers}{\code{integer} vector, specifying the patient/control numbers (e.g., \code{1:16}).}
+
+\item{filePattern}{\code{character}, a template for the expected NIfTI filenames.
+Should include \code{{region}} and \code{{number}} placeholders.
+Default: \code{"wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii"}.}
+
+\item{verbose}{\code{logical}, if \code{TRUE}, prints progress messages. Default: \code{FALSE}.}
 }
 \value{
-This function does not return a value. It performs data processing and saves the resulting tables to the specified directory.
+This function does not return a value. It \strong{processes and saves \code{.RDS} files} in \code{outputDir}.
 }
 \description{
-This function processes regions of interest (ROIs) from PET image data and saves the resulting data tables. It checks if the ROI tables already exist and, if not, processes the data using \code{neuroSCC::neuroCleaner} to clean and structure the data.
+This function processes \strong{Regions of Interest (ROIs)} from binary NIfTI files containing
+manually defined hypoactive regions. It extracts voxel coordinates where \code{pet = 1} (indicating
+hypoactivity) and formats them into structured \code{.RDS} tables.
+
+The function is originally designed for the \strong{Ph.D. thesis}:
+\emph{"Development of statistical methods for the analysis of neuroimage data towards early diagnosis of neurodegenerative diseases"}
+conducted at the \strong{University of Santiago de Compostela} by \emph{Juan A. Arias Lopez, Prof. Pablo Aguiar-Fernández,
+Prof. Andrew H. Kemp, & Prof. Carmen Cadarso-Suárez}.
+However, options are provided for \strong{other users and setups}.
 }
 \details{
-\code{processROIs} iterates over each combination of region and number, checking if the corresponding ROI table file already exists. If the file does not exist, the function processes the data using \code{neuroSCC::neuroCleaner}, adds necessary metadata, and saves the cleaned data as an RDS file. The function provides informative messages about the progress of processing and file saving.
+\itemize{
+\item This function \strong{extracts voxel coordinates} (\verb{x, y, z}) where \code{pet = 1} (indicating hypoactivity).
+\item The \strong{default filename structure} is based on the research thesis setup but can be adjusted.
+\item Processed tables are saved as \strong{\verb{ROItable_*}} \code{.RDS} files for later use in \strong{SCC vs. SPM comparisons}.
+}
 }
 \examples{
-# Assuming 'base_dir', 'regions', and 'numbers' are already defined
-processROIs(base_dir, regions, numbers)
+\dontrun{
+# Process ROIs using the thesis default setup
+processROIs()
+
+# Custom example for a different dataset
+processROIs(
+  roiDir = "/custom/path/rois",
+  outputDir = "/custom/path/tables",
+  regions = c("region1", "region2"),
+  numbers = 1:10,
+  filePattern = "custom_prefix_{region}_sub_{number}.nii",
+  verbose = TRUE
+)
+}
 
 }
