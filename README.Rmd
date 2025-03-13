@@ -60,8 +60,7 @@ badge_url_size <- paste0("https://img.shields.io/badge/Size-", repo_info$size, "
 package_version <- as.character(packageVersion("neuroSCC"))
 ```
 
-
-# neuroSCC ----
+# neuroSCC 
 
 <a href="https://github.com/iguanamarina/neuroSCC">
   <img src="man/figures/logo.png" align="right" width="120" />
@@ -73,22 +72,18 @@ package_version <- as.character(packageVersion("neuroSCC"))
 [![Commits](https://img.shields.io/badge/Commits-`r length(commits)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-`r length(issues)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-`r repo_info$size`KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
-[![R](https://img.shields.io/badge/R-276DC3.svg?style=for-the-badge&logo=r&logoColor=white)](https://www.r-project.org/)
 
-🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs).**  
-It integrates neuroimaging and statistical methodologies to:  
+🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs).** It integrates neuroimaging and statistical methodologies to:  
 
 - 📥 **Load and preprocess** PET neuroimaging files.  
-- 🔬 **Transform data** for **Functional Data Analysis (FDA)**.  
+- 🔬 **Transform data** for a **Functional Data Analysis (FDA)** setup.  
 - 🎯 **Extract meaningful contours** and identify significant SCC regions.  
 - 📊 **Compare SCC-based analyses** with gold-standard methods like **SPM**.  
 
 The package bridges established **[neuroimaging tools](https://github.com/bjw34032/oro.nifti)** (`oro.nifti`) with advanced **[statistical methods](https://github.com/FIRST-Data-Lab/ImageSCC)** (`ImageSCC`), supporting **one-group, two-group, and single-patient vs. group comparisons**.  
 
 📌 Developed as part of the **Ph.D. thesis**:  
-*"Development of statistical methods for neuroimage data analysis towards early diagnosis of neurodegenerative diseases"*,  
-**University of Santiago de Compostela**.  
-
+*"Development of statistical methods for neuroimage data analysis towards early diagnosis of neurodegenerative diseases"*, by Juan A. Arias at **University of Santiago de Compostela (Spain)**.  
 
 ------------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 
-# neuroSCC —-
+# neuroSCC
 
 <a href="https://github.com/iguanamarina/neuroSCC">
 <img src="man/figures/logo.png" align="right" width="120" /> </a>
@@ -11,14 +11,14 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-9-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-9959KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
-[![R](https://img.shields.io/badge/R-276DC3.svg?style=for-the-badge&logo=r&logoColor=white)](https://www.r-project.org/)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
-data for the estimation of Simultaneous Confidence Corridors (SCCs).**  
+data for the estimation of Simultaneous Confidence Corridors (SCCs).**
 It integrates neuroimaging and statistical methodologies to:
 
 - 📥 **Load and preprocess** PET neuroimaging files.  
-- 🔬 **Transform data** for **Functional Data Analysis (FDA)**.  
+- 🔬 **Transform data** for a **Functional Data Analysis (FDA)**
+  setup.  
 - 🎯 **Extract meaningful contours** and identify significant SCC
   regions.  
 - 📊 **Compare SCC-based analyses** with gold-standard methods like
@@ -33,8 +33,8 @@ comparisons**.
 
 📌 Developed as part of the **Ph.D. thesis**:  
 *“Development of statistical methods for neuroimage data analysis
-towards early diagnosis of neurodegenerative diseases”*,  
-**University of Santiago de Compostela**.
+towards early diagnosis of neurodegenerative diseases”*, by Juan A.
+Arias at **University of Santiago de Compostela (Spain)**.
 
 ------------------------------------------------------------------------
 
@@ -110,11 +110,11 @@ remotes::install_github("iguanamarina/neuroSCC")
 #> package 'memisc' successfully unpacked and MD5 sums checked
 #> 
 #> The downloaded binary packages are in
-#>  C:\Users\juana\AppData\Local\Temp\RtmpYrnbcp\downloaded_packages
+#>  C:\Users\juana\AppData\Local\Temp\RtmpGKWDrf\downloaded_packages
 #> ── R CMD build ─────────────────────────────────────────────────────────────────
-#>          checking for file 'C:\Users\juana\AppData\Local\Temp\RtmpYrnbcp\remotes1afc8df6b\iguanamarina-neuroSCC-b78aa7a/DESCRIPTION' ...  ✔  checking for file 'C:\Users\juana\AppData\Local\Temp\RtmpYrnbcp\remotes1afc8df6b\iguanamarina-neuroSCC-b78aa7a/DESCRIPTION'
+#>       ✔  checking for file 'C:\Users\juana\AppData\Local\Temp\RtmpGKWDrf\remotes71201f7778bd\iguanamarina-neuroSCC-dcddc0a/DESCRIPTION'
 #>       ─  preparing 'neuroSCC':
-#>      checking DESCRIPTION meta-information ...     checking DESCRIPTION meta-information ...   ✔  checking DESCRIPTION meta-information
+#>    checking DESCRIPTION meta-information ...     checking DESCRIPTION meta-information ...   ✔  checking DESCRIPTION meta-information
 #>       ─  checking for LF line-endings in source and make files and shell scripts
 #>   ─  checking for empty or unneeded directories
 #>      Omitted 'LazyData' from DESCRIPTION
