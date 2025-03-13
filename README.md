@@ -31,10 +31,10 @@ methods](https://github.com/FIRST-Data-Lab/ImageSCC)** (`ImageSCC`),
 supporting **one-group, two-group, and single-patient vs. group
 comparisons**.
 
-📌 Developed as part of the **Ph.D. thesis**:  
-*“Development of statistical methods for neuroimage data analysis
-towards early diagnosis of neurodegenerative diseases”*, by Juan A.
-Arias at **University of Santiago de Compostela (Spain)**.
+📌 Developed as part of the **Ph.D. thesis**: *“Development of
+statistical methods for neuroimage data analysis towards early diagnosis
+of neurodegenerative diseases”*, by Juan A. Arias at **University of
+Santiago de Compostela (Spain)**.
 
 ------------------------------------------------------------------------
 
@@ -94,42 +94,7 @@ approaches**.
 
 ## 📦 From GitHub
 
-``` r
-# Install the latest development version
-remotes::install_github("iguanamarina/neuroSCC")
-#> Rcpp       (1.0.13      -> 1.0.14     ) [CRAN]
-#> geometry   (0.5.0       -> 0.5.2      ) [CRAN]
-#> jsonlite   (1.8.9       -> 1.9.1      ) [CRAN]
-#> data.table (1.16.2      -> 1.17.0     ) [CRAN]
-#> RNifti     (1.7.0       -> 1.8.0      ) [CRAN]
-#> memisc     (0.99.31.8.1 -> 0.99.31.8.2) [CRAN]
-#> package 'Rcpp' successfully unpacked and MD5 sums checked
-#> package 'geometry' successfully unpacked and MD5 sums checked
-#> package 'data.table' successfully unpacked and MD5 sums checked
-#> package 'RNifti' successfully unpacked and MD5 sums checked
-#> package 'memisc' successfully unpacked and MD5 sums checked
-#> 
-#> The downloaded binary packages are in
-#>  C:\Users\juana\AppData\Local\Temp\RtmpGKWDrf\downloaded_packages
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#>       ✔  checking for file 'C:\Users\juana\AppData\Local\Temp\RtmpGKWDrf\remotes71201f7778bd\iguanamarina-neuroSCC-dcddc0a/DESCRIPTION'
-#>       ─  preparing 'neuroSCC':
-#>    checking DESCRIPTION meta-information ...     checking DESCRIPTION meta-information ...   ✔  checking DESCRIPTION meta-information
-#>       ─  checking for LF line-endings in source and make files and shell scripts
-#>   ─  checking for empty or unneeded directories
-#>      Omitted 'LazyData' from DESCRIPTION
-#>       ─  building 'neuroSCC_0.11-0.tar.gz'
-#>      
-#> 
-library(neuroSCC)
-```
-
 ## 🔜 From CRAN (Future)
-
-``` r
-# Once available on CRAN
-# install.packages("neuroSCC")
-```
 
 ------------------------------------------------------------------------
 
@@ -161,9 +126,20 @@ plot(SCC_result)
 This package contains **several core functions** for neuroimaging data
 processing:
 
+------------------------------------------------------------------------
+
+### 🧼 neuroCleaner(): Load & Clean PET Data
+
+`neuroCleaner()` reads **NIFTI neuroimaging files**, extracts
+**voxel-wise data**, and structures it into a **tidy data frame**.  
+It is the **first preprocessing step**, ensuring that PET images are
+cleaned and formatted for further analysis. It also integrates
+demographic data when available.
+
+*Example with Code:*
 <details>
 <summary>
-🧼 neuroCleaner(): Load & Clean PET Data
+Click to expand
 </summary>
 
 ``` r
@@ -173,9 +149,21 @@ head(clean_data)
 ```
 
 </details>
+
+------------------------------------------------------------------------
+
+### 📊 databaseCreator(): Convert Multiple Files into a Database
+
+`databaseCreator()` scans a directory for **PET image files**, processes
+each with `neuroCleaner()`, and compiles them into a **structured data
+frame**.  
+This function is **critical for batch analysis**, preparing data for
+group-level SCC comparisons.
+
+*Example with Code:*
 <details>
 <summary>
-📊 databaseCreator(): Convert Multiple Files into a Database
+Click to expand
 </summary>
 
 ``` r
@@ -184,9 +172,20 @@ database <- databaseCreator(pattern = ".*nii")
 ```
 
 </details>
+
+------------------------------------------------------------------------
+
+### 📐 getDimensions(): Extract Image Dimensions
+
+`getDimensions()` extracts the **spatial dimensions** of a neuroimaging
+file, returning the number of **voxels in the x, y, and z axes**.  
+This ensures proper alignment of neuroimaging data before further
+processing.
+
+*Example with Code:*
 <details>
 <summary>
-📐 getDimensions(): Extract Image Dimensions
+Click to expand
 </summary>
 
 ``` r
@@ -195,20 +194,64 @@ dims <- getDimensions("path/to/file.nii")
 ```
 
 </details>
+
+------------------------------------------------------------------------
+
+### 📊 matrixCreator(): Convert PET Data into a Functional Matrix
+
+`matrixCreator()` transforms **PET imaging data into a matrix format**
+for functional data analysis.  
+Each row represents a subject’s PET data, formatted to align with FDA
+methodologies.
+
+*Example with Code:*
 <details>
 <summary>
-📉 meanNormalization(): Normalize Data
+Click to expand
+</summary>
+
+``` r
+# Convert database of PET images into a matrix format
+matrix_data <- matrixCreator(database, pattern = ".*nii", paramZ = 35)
+```
+
+</details>
+
+------------------------------------------------------------------------
+
+### 📉 meanNormalization(): Normalize Data
+
+`meanNormalization()` performs **row-wise mean normalization**,
+adjusting intensity values across subjects.  
+This removes global intensity differences, making datasets comparable in
+**Functional Data Analysis (FDA)**.
+
+*Example with Code:*
+<details>
+<summary>
+Click to expand
 </summary>
 
 ``` r
 # Apply mean normalization for functional data analysis
-normalized_matrix <- meanNormalization(matrixData)
+normalized_matrix <- meanNormalization(matrix_data)
 ```
 
 </details>
+
+------------------------------------------------------------------------
+
+### 📈 neuroContour(): Extract Contours
+
+`neuroContour()` extracts **region boundaries (contours) from
+neuroimaging data**.  
+It is particularly useful for defining **masks or Regions of Interest
+(ROIs)** before SCC computation.
+
+*Example with Code:*
 <details>
 <summary>
-📈 neuroContour(): Extract Contours
+Click to expand
 </summary>
 
 ``` r
@@ -217,14 +260,47 @@ contours <- neuroContour("path/to/file.nii")
 ```
 
 </details>
+
+------------------------------------------------------------------------
+
+### 🔺 getPoints(): Identify Significant SCC Differences
+
+`getPoints()` identifies **regions with significant differences** from
+an SCC computation.  
+After `ImageSCC::scc.image()` computes SCCs, `getPoints()` extracts
+**coordinates where group differences exceed confidence boundaries**.
+
+*Example with Code:*
 <details>
 <summary>
-🔺 getPoints(): Identify Significant SCC Differences
+Click to expand
 </summary>
 
 ``` r
 # Extract significant points from SCC results
 points <- getPoints(SCC_result)
+```
+
+</details>
+
+------------------------------------------------------------------------
+
+### 🏷️ processROIs(): Process ROI Data
+
+`processROIs()` processes **Regions of Interest (ROIs)** from
+neuroimaging files.  
+It extracts voxel coordinates for **predefined hypoactive regions**,
+structuring them for SCC analysis.
+
+*Example with Code:*
+<details>
+<summary>
+Click to expand
+</summary>
+
+``` r
+# Process ROIs from a set of files
+processROIs(roiDir = "path/to/rois", regions = c("region1", "region2"), numbers = 1:10)
 ```
 
 </details>
@@ -250,22 +326,118 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
   analysis towards early diagnosis of neurodegenerative
   diseases](https://github.com/iguanamarina/PhD-thesis)
 
-### ✅ **Next Steps**
+------------------------------------------------------------------------
 
-- **Review and Edit**: Fill in placeholders `[Explain this]` and adjust
-  descriptions.  
-- **Style Tweaks**: Adjust layout, spacing, or visuals as needed.  
-- **Focus on Specific Sections**: Start refining details section by
-  section.
+# 📢 **Contributing & Feedback**
 
-Let me know how you’d like to proceed! 🚀 \`\`\`
+We welcome **contributions, feedback, and issue reports** from the
+community! If you would like to help improve `neuroSCC`, here’s how you
+can get involved:
 
-This version: ✔ **Uses the latest DESCRIPTION file information**.  
-✔ **Pulls function descriptions from documentation**.  
-✔ **Improves layout & formatting** for readability.  
-✔ **Ensures structured sections for RStudio Outline**.
+------------------------------------------------------------------------
 
-Would you like to **iterate on any specific section next**? 🚀
+## **🐛 Found a Bug? Report an Issue**
+
+If you encounter a bug, incorrect result, or any unexpected behavior,
+please:
+
+1.  Check **[existing
+    issues](https://github.com/iguanamarina/neuroSCC/issues)** to see if
+    it has already been reported.  
+2.  If not, [open a new
+    issue](https://github.com/iguanamarina/neuroSCC/issues/new) and
+    include:
+    - A **clear description** of the problem.  
+    - Steps to **reproduce** the issue.  
+    - Any **error messages** or screenshots (if applicable).
+
+------------------------------------------------------------------------
+
+## **💡 Have an Idea? Suggest a Feature**
+
+We are always looking to improve `neuroSCC`. If you have a **suggestion
+for a new feature** or an enhancement, please:
+
+1.  Browse the **[open
+    discussions](https://github.com/iguanamarina/neuroSCC/discussions)**
+    to see if your idea has already been suggested.  
+2.  If not, start a **new discussion thread** with:
+    - A **detailed explanation** of your idea.  
+    - Why it would **improve** the package.  
+    - Any **relevant references** or examples from similar projects.
+
+------------------------------------------------------------------------
+
+## **🔧 Want to Contribute Code?**
+
+We love contributions! To submit **a pull request (PR)**:
+
+1.  **Fork the repository** on GitHub.  
+
+2.  **Clone your fork** to your local machine:
+
+    ``` r
+    git clone https://github.com/YOUR_USERNAME/neuroSCC.git
+    cd neuroSCC
+    ```
+
+3.  **Create a new branch** for your feature or fix:
+
+    ``` r
+    git checkout -b feature-new-functionality
+    ```
+
+4.  **Make your changes** and commit them:
+
+    ``` r
+    git add .
+    git commit -m "Added new functionality XYZ"
+    ```
+
+5.  **Push your changes** to your fork:
+
+    ``` r
+    git push origin feature-new-functionality
+    ```
+
+6.  **Submit a pull request** (PR) from your forked repository to the
+    main `neuroSCC` repository.
+
+Before submitting, please:  
+✔ Ensure your code **follows the package style guidelines**.  
+✔ Add **documentation** for any new functions or features.  
+✔ Run **`devtools::check()`** to verify that all package tests pass.
+
+------------------------------------------------------------------------
+
+## **📜 Code of Conduct**
+
+We aim to **foster a welcoming and inclusive** open-source community.
+Please read our **[Code of
+Conduct](https://github.com/iguanamarina/neuroSCC/blob/main/CODE_OF_CONDUCT.md)**
+before contributing.
+
+------------------------------------------------------------------------
+
+## **📧 Contact & Support**
+
+For questions not related to bugs or feature requests, feel free to:  
+📬 Email the maintainer: <juanantonio.arias.lopez@usc.es>  
+💬 Join the discussion on **[GitHub
+Discussions](https://github.com/iguanamarina/neuroSCC/discussions)**
+
+------------------------------------------------------------------------
+
+## **Why Contribute?**
+
+By contributing to `neuroSCC`, you:  
+✔ Help **improve** neuroimaging research tools.  
+✔ Gain **experience** in open-source development.  
+✔ Become part of a growing **scientific community**.
+
+Every contribution—big or small—**is greatly appreciated**! 🚀
+
+------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
