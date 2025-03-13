@@ -26,7 +26,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item Virgilio Gomez Rubio \email{Virgilio.Gomez@uclm.es} [reviewer]
-  \item Pablo Aguiar Fernandez \email{pablo.aguiar@usc.es} [copyright holder]
+  \item Pablo Aguiar Fernandez \email{pablo.aguiar@usc.es} [thesis advisor, copyright holder]
   \item Andrew Haddon Kemp \email{A.H.Kemp@swansea.ac.uk} [thesis advisor]
 }
 

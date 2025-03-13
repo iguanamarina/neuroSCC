@@ -1,0 +1,196 @@
+---
+output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+# Asegúrate de tener el paquete cargado:
+pak::pkg_install("iguanamarina/neuroSCC")
+library(neuroSCC)
+
+# Para el badge con el numero de contributors
+library(httr)
+library(gitcreds)
+
+# Token de GitHub
+token_info <- gitcreds::gitcreds_get()
+token <- token_info$password
+mi_paquete <- "neuroSCC"
+
+# URL del endpoint de contribuyentes
+url <- "https://api.github.com/repos/iguanamarina/neuroSCC/contributors"
+
+# Haz la solicitud
+respuesta <- GET(url, add_headers(Authorization = paste("token", token)))
+
+# Parsea la respuesta como JSON
+contribuyentes <- content(respuesta, "parsed")
+
+badge_url <- paste0("https://img.shields.io/badge/Contributors-", length(contribuyentes), "-brightgreen")
+
+# URL del endpoint de issues
+url_issues <- "https://api.github.com/repos/iguanamarina/neuroSCC/issues"
+
+# Haz la solicitud
+respuesta_issues <- GET(url_issues, add_headers(Authorization = paste("token", token)))
+
+# Parsea la respuesta como JSON
+issues <- content(respuesta_issues, "parsed")
+
+# Filtra las issues para obtener solo las que no son pull requests
+issues <- issues[is.null(issues$pull_request)]
+
+# Crea la URL de la badge
+badge_url_issues <- paste0("https://img.shields.io/badge/Issues-", length(issues), "-brightgreen")
+
+# URL del endpoint de pull requests
+url_commits <- "https://api.github.com/repos/iguanamarina/neuroSCC/commits"
+commits <- list()
+page <- 1
+
+while (TRUE) {
+    response_commits <- GET(paste0(url_commits, "?page=", page), add_headers(Authorization = paste("token", token)))
+    data <- content(response_commits, "parsed")
+    
+    if (length(data) == 0) {
+        break
+    }
+    
+    commits <- c(commits, data)
+    page <- page + 1
+}
+
+# Crea la URL de la badge
+badge_url_commits <- paste0("https://img.shields.io/badge/Commits-", length(commits), "-brightgreen")
+
+# Construye la URL de la API
+url_size <- paste0("https://api.github.com/repos/iguanamarina", "/", mi_paquete)
+
+# Realiza la solicitud GET
+response_size <- GET(url_size, add_headers(Authorization = paste("token", token)))
+
+# Parsea la respuesta como JSON
+repo_info <- content(response_size, "parsed")
+
+# Extrae el tamaño del repositorio
+repo_size <- repo_info$size
+
+# Crea la URL de la badge
+badge_url_size <- paste0("https://img.shields.io/badge/Size-", repo_size, "KB-brightgreen")
+
+# Version del paquete:
+version <- as.character(packageVersion("neuroSCC"))
+
+```
+
+<p align="center">
+
+<img src="man/figures/logo.png" alt="neuroSCC R Package" width="250px" align="center"/>
+
+</p>
+
+<h2 align="center" style="font-size:40px;">
+
+neuroSCC R Package (v.`r version`)
+
+</h2>
+
+<!-- Badge de ADMIN IGUANAMARINA -->
+
+<p align="center">
+
+<img src="https://img.shields.io/badge/Admin:-IGUANAMARINA-informational?style=for-the-badge&amp;logo=award" alt="Admin:" style="width:250px;"/>
+
+</p>
+
+<!-- Badges -->
+
+<p align="center">
+
+<img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active-El proyecto está siendo activamente desarrollado y puede ser inestable." style="width:125px;"/>
+<img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle: Stable" style="width:100px;"/>
+<img src="`r badge_url`" alt="Contributors"/>
+<img src="`r badge_url_commits`" alt="Commits"/>
+<img src="`r badge_url_issues`" alt="Issues"/>
+<img src="`r badge_url_size`" alt="Size"/>
+<img src="https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&amp;logo=r&amp;logoColor=white" alt="R" style="width:40px;"/>
+
+</p>
+
+<hr />
+
+<!-- Descripción del paquete -->
+
+::: {style="text-align: justify; font-weight: normal; font-size:15px; padding: 0 10%;"}
+**Maintainer:** Juan A. Arias
+([*iguanamarina\@protonmail.com*](mailto:iguanamarina@protonmail.com){.email})
+
+**Main Goal:** To load PET data, re-organize it as a *data.frame*,
+estimate Simultaneous Confidence Corridors for one or multiple groups of
+patients, and compare them in order to find brain areas whose activity
+falls out of estimated confidence intervals, thus evidencing changes in
+brain activity in that region compared to the counterpart.
+
+**Description:** This package provides auxiliary functions for
+calculating Simultaneous Confidence Corridors (SCCs) on PET neuroimaging
+data. It includes functions to load neuroimaging and demographic data in
+the standard format required, and assists in various tasks throughout
+the process. Overall, this package is designed to help with the
+replication process of a cornerstone paper from my thesis "*Development
+of statistical methods for neuroimage data analysis towards early
+diagnostic of neurodegenerative diseases*" and it is best followed using
+the scripts available at [the designated GitHub
+Repository](https://github.com/iguanamarina/SCCneuroimage). Overall,
+this serves as a support package, although it can work as a stand-alone
+package for other projects related to PET imaging.
+
+**References:**
+
+> Wang Y, Wang G, Wang L, Ogden RT. Simultaneous confidence corridors
+> for mean functions in functional data analysis of imaging data.
+> *Biometrics*. 2020 Jun;76(2):427-437. doi:
+> [10.1111/biom.13156](https://pubmed.ncbi.nlm.nih.gov/31544958/). Epub 2019 Nov 6. PMID:
+> 31544958; PMCID: PMC7310608.
+
+:::
+
+```{r eval=FALSE, include=FALSE}
+
+#----- Instalación básica del paquete
+remotes::install_github("iguanamarina/neuroSCC")
+library(neuroSCC)
+
+#----- Correr estas líneas cada vez que pase algo
+
+library(testthat)
+library(roxygen2)
+library(devtools)
+
+roxygen2::roxygenise()
+devtools::document() 
+pkgload::load_all(".")
+devtools::install()
+
+#----- Correr estas cada vez que se suba de versión
+
+usethis::use_version()  # actualiza la version 
+devtools::check() # A menudo da pequeños errores pero sigue dejando tirar
+devtools::build_manual(pkg = ".", path = getwd()) # Construye el manual en PDF
+devtools::build() # build package en tar.gz
+
+```

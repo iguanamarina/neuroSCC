@@ -5,7 +5,7 @@ Version: 0.11-0
 Authors@R: c(
     person("Juan A.", "Arias Lopez", email = "juanantonio.arias.lopez@usc.es", role = c("aut", "cre")),
     person("Virgilio", "Gomez Rubio", email = "Virgilio.Gomez@uclm.es", role = "rev"),
-    person("Pablo", "Aguiar Fernandez", email = "pablo.aguiar@usc.es", role = "cph"),
+    person("Pablo", "Aguiar Fernandez", email = "pablo.aguiar@usc.es", role = c("ths", "cph")),
     person("Andrew", "Haddon Kemp", email = "A.H.Kemp@swansea.ac.uk", role = "ths"))
 Maintainer: Juan A. Arias Lopez <juanantonio.arias.lopez@usc.es>
 Description: Provides functions for the structured processing of PET neuroimaging data 

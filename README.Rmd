@@ -17,180 +17,265 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# neuroSCC: Bridging Simultaneous Confidence Corridors with PET Neuroimaging ----
 
-# Asegúrate de tener el paquete cargado:
-pak::pkg_install("iguanamarina/neuroSCC")
-library(neuroSCC)
-
-# Para el badge con el numero de contributors
-library(httr)
-library(gitcreds)
-
-# Token de GitHub
-token_info <- gitcreds::gitcreds_get()
-token <- token_info$password
-mi_paquete <- "neuroSCC"
-
-# URL del endpoint de contribuyentes
-url <- "https://api.github.com/repos/iguanamarina/neuroSCC/contributors"
-
-# Haz la solicitud
-respuesta <- GET(url, add_headers(Authorization = paste("token", token)))
-
-# Parsea la respuesta como JSON
-contribuyentes <- content(respuesta, "parsed")
-
-badge_url <- paste0("https://img.shields.io/badge/Contributors-", length(contribuyentes), "-brightgreen")
-
-# URL del endpoint de issues
-url_issues <- "https://api.github.com/repos/iguanamarina/neuroSCC/issues"
-
-# Haz la solicitud
-respuesta_issues <- GET(url_issues, add_headers(Authorization = paste("token", token)))
-
-# Parsea la respuesta como JSON
-issues <- content(respuesta_issues, "parsed")
-
-# Filtra las issues para obtener solo las que no son pull requests
-issues <- issues[is.null(issues$pull_request)]
-
-# Crea la URL de la badge
-badge_url_issues <- paste0("https://img.shields.io/badge/Issues-", length(issues), "-brightgreen")
-
-# URL del endpoint de pull requests
-url_commits <- "https://api.github.com/repos/iguanamarina/neuroSCC/commits"
-commits <- list()
-page <- 1
-
-while (TRUE) {
-    response_commits <- GET(paste0(url_commits, "?page=", page), add_headers(Authorization = paste("token", token)))
-    data <- content(response_commits, "parsed")
-    
-    if (length(data) == 0) {
-        break
-    }
-    
-    commits <- c(commits, data)
-    page <- page + 1
-}
-
-# Crea la URL de la badge
-badge_url_commits <- paste0("https://img.shields.io/badge/Commits-", length(commits), "-brightgreen")
-
-# Construye la URL de la API
-url_size <- paste0("https://api.github.com/repos/iguanamarina", "/", mi_paquete)
-
-# Realiza la solicitud GET
-response_size <- GET(url_size, add_headers(Authorization = paste("token", token)))
-
-# Parsea la respuesta como JSON
-repo_info <- content(response_size, "parsed")
-
-# Extrae el tamaño del repositorio
-repo_size <- repo_info$size
-
-# Crea la URL de la badge
-badge_url_size <- paste0("https://img.shields.io/badge/Size-", repo_size, "KB-brightgreen")
-
-# Version del paquete:
-version <- as.character(packageVersion("neuroSCC"))
-
+```{r, echo = FALSE, out.width="200px", fig.align="right"}
+knitr::include_graphics("man/figures/logo.png")
 ```
 
-<p align="center">
+🚀 **`neuroSCC`** facilitates **structured processing of PET
+neuroimaging data** for the estimation of **Simultaneous Confidence
+Corridors (SCCs)**. It integrates neuroimaging and statistical
+methodologies to: - 📥 Load and preprocess PET neuroimaging files. - 🔬
+Transform data for **Functional Data Analysis (FDA)**. - 🎯 Extract
+meaningful **contours and significant SCC regions**. - 📊 Compare
+SCC-based analyses to **gold-standard methods like SPM**.
 
-<img src="man/figures/logo.png" alt="neuroSCC R Package" width="250px" align="center"/>
+The package bridges established **neuroimaging** tools (`oro.nifti`)
+with advanced **statistical** methods (`ImageSCC`), supporting
+**one-group, two-group, and single-patient vs. group comparisons**.
 
-</p>
+📌 Developed as part of the **Ph.D. thesis**:\
+*"Development of statistical methods for neuroimage data analysis
+towards early diagnosis of neurodegenerative diseases"*,\
+**University of Santiago de Compostela**.
 
-<h2 align="center" style="font-size:40px;">
+------------------------------------------------------------------------
 
-neuroSCC R Package (v.`r version`)
+## 🚀 Badges ----
 
-</h2>
+```{r, echo = FALSE}
+# knitr::include_graphics("man/figures/badges.png")
 
-<!-- Badge de ADMIN IGUANAMARINA -->
+# CRAN Badge (Commented for future use)
+# ![CRAN Status](https://www.r-pkg.org/badges/version/neuroSCC)
+```
 
-<p align="center">
+------------------------------------------------------------------------
 
-<img src="https://img.shields.io/badge/Admin:-IGUANAMARINA-informational?style=for-the-badge&amp;logo=award" alt="Admin:" style="width:250px;"/>
+# 📖 Table of Contents ----
 
-</p>
+<details open="open">
 
-<!-- Badges -->
+<summary>📖 Click to expand</summary>
 
-<p align="center">
+<ol>
 
-<img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active-El proyecto está siendo activamente desarrollado y puede ser inestable." style="width:125px;"/>
-<img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle: Stable" style="width:100px;"/>
-<img src="`r badge_url`" alt="Contributors"/>
-<img src="`r badge_url_commits`" alt="Commits"/>
-<img src="`r badge_url_issues`" alt="Issues"/>
-<img src="`r badge_url_size`" alt="Size"/>
-<img src="https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&amp;logo=r&amp;logoColor=white" alt="R" style="width:40px;"/>
+<li><a href="#about-the-project"> ➤ About The Project</a></li>
 
-</p>
+<li><a href="#installation"> ➤ Installation</a></li>
 
-<hr />
+<li><a href="#basic-usage"> ➤ Basic Usage</a></li>
 
-<!-- Descripción del paquete -->
+<li><a href="#functions-overview"> ➤ Functions Overview</a></li>
 
-::: {style="text-align: justify; font-weight: normal; font-size:15px; padding: 0 10%;"}
-**Maintainer:** Juan A. Arias
-([*iguanamarina\@protonmail.com*](mailto:iguanamarina@protonmail.com){.email})
+<li><a href="#vignette"> ➤ Vignette & Full Workflow</a></li>
 
-**Main Goal:** To load PET data, re-organize it as a *data.frame*,
-estimate Simultaneous Confidence Corridors for one or multiple groups of
-patients, and compare them in order to find brain areas whose activity
-falls out of estimated confidence intervals, thus evidencing changes in
-brain activity in that region compared to the counterpart.
+<li><a href="#references"> ➤ References</a></li>
 
-**Description:** This package provides auxiliary functions for
-calculating Simultaneous Confidence Corridors (SCCs) on PET neuroimaging
-data. It includes functions to load neuroimaging and demographic data in
-the standard format required, and assists in various tasks throughout
-the process. Overall, this package is designed to help with the
-replication process of a cornerstone paper from my thesis "*Development
-of statistical methods for neuroimage data analysis towards early
-diagnostic of neurodegenerative diseases*" and it is best followed using
-the scripts available at [the designated GitHub
-Repository](https://github.com/iguanamarina/SCCneuroimage). Overall,
-this serves as a support package, although it can work as a stand-alone
-package for other projects related to PET imaging.
+</ol>
 
-**References:**
+</details>
 
-> Wang Y, Wang G, Wang L, Ogden RT. Simultaneous confidence corridors
-> for mean functions in functional data analysis of imaging data.
-> *Biometrics*. 2020 Jun;76(2):427-437. doi:
-> [10.1111/biom.13156](https://pubmed.ncbi.nlm.nih.gov/31544958/). Epub 2019 Nov 6. PMID:
-> 31544958; PMCID: PMC7310608.
+------------------------------------------------------------------------
 
-:::
+# 1️⃣ About the Project ----
 
-```{r eval=FALSE, include=FALSE}
+## Why Use `neuroSCC`? ----
 
-#----- Instalación básica del paquete
+PET neuroimaging data is **complex**, requiring careful **processing and
+statistical validation**. `neuroSCC` is designed to:
+
+✔ **Automate Preprocessing**: Load, clean, and structure PET data 📂\
+✔ **Standardize Analysis**: Convert images into FDA-compatible formats
+🔬\
+✔ **Provide SCC Estimations**: Identify **significant regions** with
+confidence 🎯\
+✔ **Enable Method Comparisons**: SCC vs. **SPM performance evaluation**
+📊
+
+It is **particularly suited for**: - **Clinical neuroimaging research**
+(Alzheimer’s disease, neurodegeneration). - **Statistical validation of
+imaging methods**. - **Comparisons between SCC and other statistical
+approaches**.
+
+------------------------------------------------------------------------
+
+# 2️⃣ Installation ----
+
+## 📦 From GitHub ----
+
+``` {r}
+# Install the latest development version
 remotes::install_github("iguanamarina/neuroSCC")
 library(neuroSCC)
+```
 
-#----- Correr estas líneas cada vez que pase algo
+## 🔜 From CRAN (Future) ----
 
+``` {r}
+# Once available on CRAN
+# install.packages("neuroSCC")
+```
+
+------------------------------------------------------------------------
+
+# 3️⃣ Basic Usage ----
+
+### **Minimal Working Example** ----
+
+```{r eval=FALSE, include=TRUE, echo=TRUE}
+# Load package
+library(neuroSCC)
+
+# Load a PET neuroimaging file
+pet_data <- neuroCleaner("path/to/file.nii")
+
+# Process for functional data analysis
+processed_data <- matrixCreator(pet_data)
+
+# Compute SCCs
+SCC_result <- ImageSCC::scc.image(processed_data)
+
+# Visualize results
+plot(SCC_result)
+```
+
+------------------------------------------------------------------------
+
+# 4️⃣ Functions Overview ----
+
+This package contains **several core functions** for neuroimaging data
+processing:
+
+<details>
+
+<summary>🧼 neuroCleaner(): Load & Clean PET Data</summary>
+
+``` {r, eval=F, echo=T}
+# Load a NIFTI file and structure the data
+clean_data <- neuroCleaner("path/to/file.nii")
+head(clean_data)
+```
+
+</details>
+
+<details>
+
+<summary>📊 databaseCreator(): Convert Multiple Files into a
+Database</summary>
+
+``` {r, eval=F, echo=T}
+# Process multiple PET images into a database
+database <- databaseCreator(pattern = ".*nii")
+```
+
+</details>
+
+<details>
+
+<summary>📐 getDimensions(): Extract Image Dimensions</summary>
+
+``` {r, eval=F, echo=T}
+# Extract spatial dimensions of a PET scan
+dims <- getDimensions("path/to/file.nii")
+```
+
+</details>
+
+<details>
+
+<summary>📉 meanNormalization(): Normalize Data</summary>
+
+``` {r, eval=F, echo=T}
+# Apply mean normalization for functional data analysis
+normalized_matrix <- meanNormalization(matrixData)
+```
+
+</details>
+
+<details>
+
+<summary>📈 neuroContour(): Extract Contours</summary>
+
+``` {r, eval=F, echo=T}
+# Extract region contours from neuroimaging data
+contours <- neuroContour("path/to/file.nii")
+```
+
+</details>
+
+<details>
+
+<summary>🔺 getPoints(): Identify Significant SCC Differences</summary>
+
+``` {r, eval=F, echo=T}
+# Extract significant points from SCC results
+points <- getPoints(SCC_result)
+```
+
+</details>
+
+------------------------------------------------------------------------
+
+# 5️⃣ Vignette & Full Workflow ----
+
+A full walkthrough of using `neuroSCC` from start to finish is available
+in the vignette.
+
+[📄 **Click here to view the full
+vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
+
+------------------------------------------------------------------------
+
+# 6️⃣ References ----
+
+-   Wang, Y., Wang, G., Wang, L., Ogden, R.T. (2020). *Simultaneous
+    Confidence Corridors for Mean Functions in Functional Data Analysis
+    of Imaging Data*. Biometrics, 76(2), 427-437.\
+-   [Ph.D. Thesis: Development of statistical methods for neuroimage
+    data analysis towards early diagnosis of neurodegenerative
+    diseases](https://github.com/iguanamarina/PhD-thesis)
+
+### ✅ **Next Steps**
+
+-   **Review and Edit**: Fill in placeholders `[Explain this]` and
+    adjust descriptions.\
+-   **Style Tweaks**: Adjust layout, spacing, or visuals as needed.\
+-   **Focus on Specific Sections**: Start refining details section by
+    section.
+
+Let me know how you'd like to proceed! 🚀 \`\`\`
+
+This version: ✔ **Uses the latest DESCRIPTION file information**.\
+✔ **Pulls function descriptions from documentation**.\
+✔ **Improves layout & formatting** for readability.\
+✔ **Ensures structured sections for RStudio Outline**.
+
+Would you like to **iterate on any specific section next**? 🚀
+
+
+------------------------------------------------------------------------
+
+# 🔧 Developer Cheatsheet (For Personal Use) ----
+
+```{r eval=FALSE, include=FALSE}
+# Load required packages
 library(testthat)
 library(roxygen2)
 library(devtools)
 
+# Regenerate documentation
 roxygen2::roxygenise()
 devtools::document() 
 pkgload::load_all(".")
 devtools::install()
 
-#----- Correr estas cada vez que se suba de versión
-
-usethis::use_version()  # actualiza la version 
-devtools::check() # A menudo da pequeños errores pero sigue dejando tirar
-devtools::build_manual(pkg = ".", path = getwd()) # Construye el manual en PDF
-devtools::build() # build package en tar.gz
-
+# Version updates
+usethis::use_version()
+devtools::check() 
+devtools::build_manual(pkg = ".", path = getwd())
+devtools::build()
 ```
+
+------------------------------------------------------------------------
