@@ -1,19 +1,22 @@
 
-# neuroSCC: Bridging Simultaneous Confidence Corridors with PET Neuroimaging —-
+# neuroSCC: Bridging Simultaneous Confidence Corridors with PET Neuroimaging
 
-<img src="man/figures/logo.png" width="200px" style="display: block; margin: auto 0 auto auto;" />
+<a href="https://github.com/iguanamarina/neuroSCC">
+<img src="man/figures/logo.png" align="right" width="150" /> </a>
 
 🚀 **`neuroSCC`** facilitates **structured processing of PET
 neuroimaging data** for the estimation of **Simultaneous Confidence
-Corridors (SCCs)**. It integrates neuroimaging and statistical
-methodologies to: - 📥 Load and preprocess PET neuroimaging files. - 🔬
-Transform data for **Functional Data Analysis (FDA)**. - 🎯 Extract
-meaningful **contours and significant SCC regions**. - 📊 Compare
-SCC-based analyses to **gold-standard methods like SPM**.
+Corridors (SCCs)**.
 
-The package bridges established **neuroimaging** tools (`oro.nifti`)
-with advanced **statistical** methods (`ImageSCC`), supporting
-**one-group, two-group, and single-patient vs. group comparisons**.
+It integrates neuroimaging and statistical methodologies to: - 📥 **Load
+and preprocess** PET neuroimaging files. - 🔬 **Transform data** for
+**Functional Data Analysis (FDA)**. - 🎯 **Extract meaningful contours**
+and identify significant SCC regions. - 📊 **Compare SCC-based
+analyses** with gold-standard methods like **SPM**.
+
+The package bridges **neuroimaging tools** (`oro.nifti`) with advanced
+**statistical methods** (`ImageSCC`), supporting **one-group, two-group,
+and single-patient vs. group comparisons**.
 
 📌 Developed as part of the **Ph.D. thesis**:  
 *“Development of statistical methods for neuroimage data analysis
@@ -22,7 +25,20 @@ towards early diagnosis of neurodegenerative diseases”*,
 
 ------------------------------------------------------------------------
 
-## 🚀 Badges —-
+## 🚀 Badges
+
+<p>
+<img src="https://img.shields.io/badge/Admin-IGUANAMARINA-informational?style=for-the-badge&logo=github" alt="Admin">
+<img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active" />
+<img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle: Stable" />
+<img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors" />
+<img src="https://img.shields.io/badge/Commits-30-brightgreen" alt="Commits" />
+<img src="https://img.shields.io/badge/Issues-9-brightgreen" alt="Issues" />
+<img src="https://img.shields.io/badge/Size-9959KB-brightgreen" alt="Size" />
+<img src="https://img.shields.io/badge/R-276DC3.svg?style=for-the-badge&logo=r&logoColor=white" alt="R" />
+</p>
+
+------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
@@ -81,6 +97,31 @@ approaches**.
 # 2️⃣ Installation —-
 
 ## 📦 From GitHub —-
+
+    #> Rcpp       (1.0.13      -> 1.0.14     ) [CRAN]
+    #> geometry   (0.5.0       -> 0.5.2      ) [CRAN]
+    #> jsonlite   (1.8.9       -> 1.9.1      ) [CRAN]
+    #> data.table (1.16.2      -> 1.17.0     ) [CRAN]
+    #> RNifti     (1.7.0       -> 1.8.0      ) [CRAN]
+    #> memisc     (0.99.31.8.1 -> 0.99.31.8.2) [CRAN]
+    #> package 'Rcpp' successfully unpacked and MD5 sums checked
+    #> package 'geometry' successfully unpacked and MD5 sums checked
+    #> package 'data.table' successfully unpacked and MD5 sums checked
+    #> package 'RNifti' successfully unpacked and MD5 sums checked
+    #> package 'memisc' successfully unpacked and MD5 sums checked
+    #> 
+    #> The downloaded binary packages are in
+    #>  C:\Users\juana\AppData\Local\Temp\RtmpI3kLAy\downloaded_packages
+    #> ── R CMD build ─────────────────────────────────────────────────────────────────
+    #>       ✔  checking for file 'C:\Users\juana\AppData\Local\Temp\RtmpI3kLAy\remotes2cd43e644aa4\iguanamarina-neuroSCC-6838d08/DESCRIPTION'
+    #>       ─  preparing 'neuroSCC':
+    #>    checking DESCRIPTION meta-information ...     checking DESCRIPTION meta-information ...   ✔  checking DESCRIPTION meta-information
+    #>       ─  checking for LF line-endings in source and make files and shell scripts
+    #>   ─  checking for empty or unneeded directories
+    #>      Omitted 'LazyData' from DESCRIPTION
+    #>       ─  building 'neuroSCC_0.11-0.tar.gz'
+    #>      
+    #> 
 
 ## 🔜 From CRAN (Future) —-
 
