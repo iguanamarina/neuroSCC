@@ -20,12 +20,12 @@ automatic matching fails or multiple matches are possible. Default is \code{1}.}
 }
 \value{
 A data frame with the following columns:
-\itemize{
-\item If demographic data provided: \code{PPT}, \code{Group}, \code{Sex}, \code{Age}, \code{z}, \code{x}, \code{y}, \code{pet}
-\item If no demographic data: \code{z}, \code{x}, \code{y}, \code{pet}
-}
-Each row represents a voxel (3D pixel) from the image, with \code{pet} containing the
-intensity value at that location.
+  \itemize{
+    \item If demographic data provided: \code{PPT}, \code{Group}, \code{Sex}, \code{Age}, \code{z}, \code{x}, \code{y}, \code{pet}
+    \item If no demographic data: \code{z}, \code{x}, \code{y}, \code{pet}
+  }
+  Each row represents a voxel (3D pixel) from the image, with \code{pet} containing the
+  intensity value at that location.
 }
 \description{
 Loads a NIFTI-format neuroimaging file, converts it to a structured data frame,
@@ -37,13 +37,12 @@ functions from the ImageSCC package such as \code{ImageSCC::scc1g.image} or \cod
 }
 \details{
 The function performs several key operations:
-\enumerate{
-\item Reads the NIFTI file using \code{oro.nifti} package functions
-\item Converts the 3D image data to a structured data frame
-\item Extracts the dimensional information (\code{z}, \code{x}, \code{y} coordinates)
-\item Organizes the PET intensity values
-\item If demographic data is provided, merges it with the image data
-}
+
+1. Reads the NIFTI file using \code{oro.nifti} package functions
+2. Converts the 3D image data to a structured data frame
+3. Extracts the dimensional information (\code{z}, \code{x}, \code{y} coordinates)
+4. Organizes the PET intensity values
+5. If demographic data is provided, merges it with the image data
 
 The resulting data frame serves as input for subsequent analysis functions in the
 neuroSCC pipeline, such as \code{databaseCreator} and \code{matrixCreator}, which prepare

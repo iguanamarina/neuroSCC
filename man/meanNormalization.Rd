@@ -25,21 +25,21 @@ that needs to be normalized, typically the output from \code{\link{matrixCreator
 matrix and additional diagnostic information. If \code{FALSE} (default), returns
 only the normalized matrix.}
 
-\item{quiet}{\subsection{\code{logical}, if \code{TRUE}, suppresses console messages. Default is \code{FALSE}.}{
-}}
+\item{quiet}{\code{logical}, if \code{TRUE}, suppresses console messages. Default is \code{FALSE}.
+-}
 }
 \value{
 If \code{returnDetails=FALSE} (default), returns a \code{matrix} where each row has
-been normalized by its mean value. If \code{returnDetails=TRUE}, returns a \code{list}
-containing:
-\itemize{
-\item \code{normalizedMatrix}: The normalized matrix
-\item \code{rowMeans}: Vector of all calculated row means
-\item \code{problemRows}: Indices of rows with invalid means
-\item \code{outlierRows}: Indices of statistical outliers (based on 1.5\emph{IQR)
-\item \code{extremeOutlierRows}: Indices of extreme outliers (based on 3}IQR)
-\item \code{summary}: Count of normal vs. problematic rows and thresholds used
-}
+        been normalized by its mean value. If \code{returnDetails=TRUE}, returns a \code{list}
+        containing:
+        \itemize{
+          \item \code{normalizedMatrix}: The normalized matrix
+          \item \code{rowMeans}: Vector of all calculated row means
+          \item \code{problemRows}: Indices of rows with invalid means
+          \item \code{outlierRows}: Indices of statistical outliers (based on 1.5*IQR)
+          \item \code{extremeOutlierRows}: Indices of extreme outliers (based on 3*IQR)
+          \item \code{summary}: Count of normal vs. problematic rows and thresholds used
+        }
 }
 \description{
 This function normalizes each row of the given matrix by its mean value.

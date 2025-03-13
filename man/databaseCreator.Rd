@@ -37,14 +37,14 @@ Default is \code{NULL}.}
 }
 \value{
 A \code{data.frame} that aggregates processed data from each image. Each row represents
-data from one voxel (3D pixel), including:
-\itemize{
-\item For control group (\code{control=TRUE}): \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
-\item For pathological group (\code{control=FALSE}): \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
-\item If demographic data is provided: Additional columns like \code{PPT}, \code{Group}, \code{Sex}, \code{Age} will be included
-}
-The \code{CN_number} or \code{AD_number} column contains the subject identifier extracted from
-the filename or assigned sequentially. The \code{pet} column contains the intensity values.
+        data from one voxel (3D pixel), including:
+        \itemize{
+          \item For control group (\code{control=TRUE}): \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+          \item For pathological group (\code{control=FALSE}): \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+          \item If demographic data is provided: Additional columns like \code{PPT}, \code{Group}, \code{Sex}, \code{Age} will be included
+        }
+        The \code{CN_number} or \code{AD_number} column contains the subject identifier extracted from
+        the filename or assigned sequentially. The \code{pet} column contains the intensity values.
 }
 \description{
 This function automates the processing of PET images based on a specified file name pattern
@@ -56,20 +56,19 @@ Corridors.
 }
 \details{
 The function performs several key operations:
-\enumerate{
-\item Identifies files in the working directory that match the specified pattern
-\item For each matching file:
-a. Extracts the subject number from the filename or assigns a sequential number
-b. Processes the file using \code{\link{neuroCleaner}}, including demographic data if provided
-c. Adds subject identifier information to each row
-d. Appends the data to a growing database
-}
+
+1. Identifies files in the working directory that match the specified pattern
+2. For each matching file:
+   a. Extracts the subject number from the filename or assigns a sequential number
+   b. Processes the file using \code{\link{neuroCleaner}}, including demographic data if provided
+   c. Adds subject identifier information to each row
+   d. Appends the data to a growing database
 
 The subject number extraction uses either:
 \itemize{
-\item The custom pattern provided in \code{extractPattern}
-\item Sequential numbering (1,2,3,...) if \code{useSequentialNumbering=TRUE}
-\item The default pattern "masked_swwwC(\\d+)_.*" which extracts numbers after "C" in filenames
+  \item The custom pattern provided in \code{extractPattern}
+  \item Sequential numbering (1,2,3,...) if \code{useSequentialNumbering=TRUE}
+  \item The default pattern "masked_swwwC(\\d+)_.*" which extracts numbers after "C" in filenames
 }
 
 This function is typically followed by \code{\link{matrixCreator}} in the analysis pipeline,

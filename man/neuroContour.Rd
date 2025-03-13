@@ -21,8 +21,8 @@ A \code{list} of data frames, where each data frame contains the x and y coordin
 The first element typically represents the external boundary, while subsequent elements (if present)
 represent internal contours or holes. Each data frame has two columns:
 \itemize{
-\item \code{x}: x-coordinates of the contour points
-\item \code{y}: y-coordinates of the contour points
+  \item \code{x}: x-coordinates of the contour points
+  \item \code{y}: y-coordinates of the contour points
 }
 }
 \description{
@@ -31,12 +31,12 @@ It processes the NIFTI file with \code{neuroCleaner} to extract structured neuro
 using \code{contoureR::getContourLines}. These contours serve as input for \code{Triangulation::TriMesh},
 which is used in Simultaneous Confidence Corridors (SCCs) calculations.
 
-While \strong{not mandatory}, it is \strong{highly recommended} that the input NIFTI file be pre-processed
+While **not mandatory**, it is **highly recommended** that the input NIFTI file be pre-processed
 such that zero values represent the background and non-zero values represent regions of interest.
 The function's default behavior extracts contours at level \code{0}, which is ideal for well-masked data.
 }
 \details{
-This function extracts contours from a \strong{NIFTI} file, typically a \strong{masked} image where background values
+This function extracts contours from a **NIFTI** file, typically a **masked** image where background values
 are set to zero, and regions of interest contain non-zero values. While users can specify a different
 boundary level, the recommended approach is to use \code{levels = 0} for masked data.
 

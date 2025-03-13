@@ -4,21 +4,31 @@
 \name{neuroSCC-package}
 \alias{neuroSCC}
 \alias{neuroSCC-package}
-\title{neuroSCC: Estimation of SCC's for PET Neuroimaging Data}
+\title{neuroSCC: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET Neuroimaging}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-This package provides functions for the estimation of Simultaneous Confidence Corridors (SCCs) on PET neuroimaging data. It is designed to help with the replication of methods implemented in the Ph.D. Thesis "Development of statistical methods for neuroimage data analysis towards early diagnostic of neurodegenerative diseases" and it is best applied using the scripts available in the link below. Further information on the methodology for SCCs estimation can be found in: "Wang Y, Wang G, Wang L, Ogden RT. Simultaneous confidence corridors for mean functions in functional data analysis of imaging data. Biometrics. 2020 Jun;76(2):427-437".
+Provides functions for the structured processing of PET neuroimaging data in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) for one-group, two-group, or single patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, post-SCC identification of significant results, and performance evaluation. It bridges established neuroimaging packages (e.g., 'oro.nifti') with novel statistical methodologies (i.e., 'ImageSCC') and facilitates reproducible analysis pipelines, enabling performance comparison of SCC-based analyses with gold-standard methods such as Statistical Parametric Mapping (SPM).
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://github.com/iguanamarina/neuroSCC}
+  \item \url{https://github.com/iguanamarina/PhD-2023-SCC-vs-SPM-Group-vs-Group}
+  \item \url{https://github.com/iguanamarina/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group}
+  \item Report bugs at \url{https://github.com/iguanamarina/neuroSCC/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Juan A. Arias \email{iguanamarina@protonmail.com}
+\strong{Maintainer}: Juan A. Arias Lopez \email{juanantonio.arias.lopez@usc.es}
+
+Other contributors:
+\itemize{
+  \item Virgilio Gomez Rubio \email{Virgilio.Gomez@uclm.es} [reviewer]
+  \item Pablo Aguiar Fernandez \email{pablo.aguiar@usc.es} [copyright holder]
+  \item Andrew Haddon Kemp \email{A.H.Kemp@swansea.ac.uk} [thesis advisor]
+}
 
 }
 \keyword{internal}

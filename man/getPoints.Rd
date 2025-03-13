@@ -8,20 +8,20 @@ getPoints(sccResult)
 }
 \arguments{
 \item{sccResult}{A list containing SCC computation results from \code{ImageSCC::scc.image}.
-The list should include at least:
+       The list should include at least:
 \itemize{
-\item \code{Z.band}: Matrix specifying grid positions.
-\item \code{ind.inside.cover}: Indices of grid points inside the confidence band.
-\item \code{scc}: 3D array containing computed SCC values.
+  \item \code{Z.band}: Matrix specifying grid positions.
+  \item \code{ind.inside.cover}: Indices of grid points inside the confidence band.
+  \item \code{scc}: 3D array containing computed SCC values.
 }}
 }
 \value{
 A named list:
 \itemize{
-\item \code{positivePoints}: Data frame with coordinates where the first group
-shows significantly higher values than the second.
-\item \code{negativePoints}: Data frame with coordinates where the second group
-shows significantly higher values than the first.
+  \item \code{positivePoints}: Data frame with coordinates where the first group
+        shows significantly higher values than the second.
+  \item \code{negativePoints}: Data frame with coordinates where the second group
+        shows significantly higher values than the first.
 }
 }
 \description{
@@ -31,11 +31,9 @@ It processes the results from \code{ImageSCC::scc.image}, returning the extracte
 where the differences are statistically significant.
 }
 \details{
-\itemize{
-\item Positive points indicate where the first group (e.g., Control) is significantly stronger.
-\item Negative points indicate where the second group (e.g., Pathological) is significantly stronger.
-\item This function must be used \strong{after} running \code{ImageSCC::scc.image}.
-}
+- Positive points indicate where the first group (e.g., Control) is significantly stronger.
+- Negative points indicate where the second group (e.g., Pathological) is significantly stronger.
+- This function must be used **after** running \code{ImageSCC::scc.image}.
 }
 \examples{
 \dontrun{

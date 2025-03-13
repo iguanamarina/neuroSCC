@@ -33,7 +33,7 @@ instead of extracting from filenames.}
 }
 \value{
 A matrix where each row represents the PET data from one subject,
-formatted as a continuous line of data points.
+        formatted as a continuous line of data points.
 }
 \description{
 This function transforms a database created by \code{\link{databaseCreator}} into
@@ -45,21 +45,18 @@ line of data points to simulate a functional representation.
 This function is a critical step in the neuroSCC workflow for preparing data
 for Simultaneous Confidence Corridors (SCC) analysis. It performs several
 key operations:
-\enumerate{
-\item Verifies the existence of the specified z-slice in the input database
-\item Automatically calculates matrix dimensions based on the x and y coordinates
-of the specified z-slice
-\item Extracts PET intensity values for each subject at the specified z-slice
-\item Handles different group types (control or pathological) by recognizing
-appropriate identification columns
-\item Provides flexible subject number extraction:
-\itemize{
-\item Uses a provided custom pattern
-\item Falls back to sequential numbering
-\item Supports default filename-based number extraction
-}
-\item Replaces any NaN values with zero to ensure matrix compatibility
-}
+
+1. Verifies the existence of the specified z-slice in the input database
+2. Automatically calculates matrix dimensions based on the x and y coordinates
+   of the specified z-slice
+3. Extracts PET intensity values for each subject at the specified z-slice
+4. Handles different group types (control or pathological) by recognizing
+   appropriate identification columns
+5. Provides flexible subject number extraction:
+   - Uses a provided custom pattern
+   - Falls back to sequential numbering
+   - Supports default filename-based number extraction
+6. Replaces any NaN values with zero to ensure matrix compatibility
 
 The resulting matrix transforms multidimensional PET image data into a
 format suitable for functional data analysis techniques, particularly

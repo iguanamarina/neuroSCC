@@ -12,10 +12,10 @@ getDimensions(file)
 \value{
 A list containing:
 \itemize{
-\item \code{xDim}: Number of voxels in the X dimension
-\item \code{yDim}: Number of voxels in the Y dimension
-\item \code{zDim}: Number of slices in the Z dimension
-\item \code{dim}: Total number of voxels (xDim * yDim)
+  \item \code{xDim}: Number of voxels in the X dimension
+  \item \code{yDim}: Number of voxels in the Y dimension
+  \item \code{zDim}: Number of slices in the Z dimension
+  \item \code{dim}: Total number of voxels (xDim * yDim)
 }
 }
 \description{

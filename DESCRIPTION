@@ -4,10 +4,9 @@ Title: Bridging Simultaneous Confidence Corridors with Applications and Performa
 Version: 0.11-0
 Authors@R: c(
     person("Juan A.", "Arias Lopez", email = "juanantonio.arias.lopez@usc.es", role = c("aut", "cre")),
-    person("Virgilio", "Gomez Rubio", email = "Virgilio.Gomez@uclm.es", role = "ctb"),
+    person("Virgilio", "Gomez Rubio", email = "Virgilio.Gomez@uclm.es", role = "rev"),
     person("Pablo", "Aguiar Fernandez", email = "pablo.aguiar@usc.es", role = "cph"),
-    person("Andrew", "Haddon Kemp", email = "A.H.Kemp@swansea.ac.uk", role = "cph")
-)
+    person("Andrew", "Haddon Kemp", email = "A.H.Kemp@swansea.ac.uk", role = "ths"))
 Maintainer: Juan A. Arias Lopez <juanantonio.arias.lopez@usc.es>
 Description: Provides functions for the structured processing of PET neuroimaging data 
     in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) for 
@@ -26,21 +25,16 @@ BugReports: https://github.com/iguanamarina/neuroSCC/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
-
 Depends: R (>= 4.2.0)
-
 Imports:
     oro.nifti,
     memisc,
     contoureR
-
 Suggests:
     roxygen2 (>= 7.1.0),
     knitr,
     rmarkdown
-
 VignetteBuilder: knitr
-
 Funding: This work was supported by an internship grant awarded at the 6th Conference 
     of the Spanish National Biostatistics Network (BIOSTATNET) in 2025 as a prize for 
     the best poster presentation and young researcher career.

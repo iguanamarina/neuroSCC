@@ -16,41 +16,39 @@ processROIs(
 }
 \arguments{
 \item{roiDir}{\code{character}, the base directory where the ROI NIfTI files are stored.
-Default: \code{"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas"}.}
+Default: `"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas"`.}
 
-\item{outputDir}{\code{character}, the directory where processed \verb{ROItable_*} files will be saved.
-Default: \code{"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables"}.}
+\item{outputDir}{\code{character}, the directory where processed `ROItable_*` files will be saved.
+Default: `"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables"`.}
 
-\item{regions}{\code{character} vector, specifying the ROI region names (e.g., \code{c("w32", "w79")}).}
+\item{regions}{\code{character} vector, specifying the ROI region names (e.g., `c("w32", "w79")`).}
 
-\item{numbers}{\code{integer} vector, specifying the patient/control numbers (e.g., \code{1:16}).}
+\item{numbers}{\code{integer} vector, specifying the patient/control numbers (e.g., `1:16`).}
 
 \item{filePattern}{\code{character}, a template for the expected NIfTI filenames.
-Should include \code{{region}} and \code{{number}} placeholders.
-Default: \code{"wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii"}.}
+Should include `{region}` and `{number}` placeholders.
+Default: `"wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii"`.}
 
 \item{verbose}{\code{logical}, if \code{TRUE}, prints progress messages. Default: \code{FALSE}.}
 }
 \value{
-This function does not return a value. It \strong{processes and saves \code{.RDS} files} in \code{outputDir}.
+This function does not return a value. It **processes and saves `.RDS` files** in `outputDir`.
 }
 \description{
-This function processes \strong{Regions of Interest (ROIs)} from binary NIfTI files containing
-manually defined hypoactive regions. It extracts voxel coordinates where \code{pet = 1} (indicating
-hypoactivity) and formats them into structured \code{.RDS} tables.
+This function processes **Regions of Interest (ROIs)** from binary NIfTI files containing
+manually defined hypoactive regions. It extracts voxel coordinates where `pet = 1` (indicating
+hypoactivity) and formats them into structured `.RDS` tables.
 
-The function is originally designed for the \strong{Ph.D. thesis}:
-\emph{"Development of statistical methods for the analysis of neuroimage data towards early diagnosis of neurodegenerative diseases"}
-conducted at the \strong{University of Santiago de Compostela} by \emph{Juan A. Arias Lopez, Prof. Pablo Aguiar-Fernández,
-Prof. Andrew H. Kemp, & Prof. Carmen Cadarso-Suárez}.
-However, options are provided for \strong{other users and setups}.
+The function is originally designed for the **Ph.D. thesis**:
+*"Development of statistical methods for the analysis of neuroimage data towards early diagnosis of neurodegenerative diseases"*
+conducted at the **University of Santiago de Compostela** by *Juan A. Arias Lopez, Prof. Pablo Aguiar-Fernández,
+Prof. Andrew H. Kemp, & Prof. Carmen Cadarso-Suárez*.
+However, options are provided for **other users and setups**.
 }
 \details{
-\itemize{
-\item This function \strong{extracts voxel coordinates} (\verb{x, y, z}) where \code{pet = 1} (indicating hypoactivity).
-\item The \strong{default filename structure} is based on the research thesis setup but can be adjusted.
-\item Processed tables are saved as \strong{\verb{ROItable_*}} \code{.RDS} files for later use in \strong{SCC vs. SPM comparisons}.
-}
+- This function **extracts voxel coordinates** (`x, y, z`) where `pet = 1` (indicating hypoactivity).
+- The **default filename structure** is based on the research thesis setup but can be adjusted.
+- Processed tables are saved as **`ROItable_*`** `.RDS` files for later use in **SCC vs. SPM comparisons**.
 }
 \examples{
 \dontrun{
