@@ -50,7 +50,7 @@ Santiago de Compostela (Spain)**.
 
 ------------------------------------------------------------------------
 
-<a id="about-the-project"></a> \# 1️⃣ About the Project
+# 1️⃣ About the Project <a name="about-the-project"></a>
 
 ## Why Use `neuroSCC`?
 
@@ -72,7 +72,7 @@ approaches**.
 
 ------------------------------------------------------------------------
 
-<a id="installation"></a> \# 2️⃣ Installation
+# 2️⃣ Installatio n<a id="installation"></a>
 
 ## 📦 From GitHub
 
@@ -80,7 +80,7 @@ approaches**.
 
 ------------------------------------------------------------------------
 
-<a id="basic-usage"></a> \# 3️⃣ Basic Usage
+# 3️⃣ Basic Usage <a id="basic-usage"></a>
 
 ## **Minimal Working Example**
 
@@ -103,7 +103,7 @@ plot(SCC_result)
 
 ------------------------------------------------------------------------
 
-<a id="functions-overview"></a> \# 4️⃣ Functions Overview
+# 4️⃣ Functions Overview<a id="functions-overview"></a>
 
 This package contains **several core functions** for neuroimaging data
 processing:
@@ -289,7 +289,7 @@ processROIs(roiDir = "path/to/rois", regions = c("region1", "region2"), numbers 
 
 ------------------------------------------------------------------------
 
-<a id="vignette-full-workflow"></a> \# 5️⃣ Vignette & Full Workflow
+# 5️⃣ Vignette & Full Workflow <a id="vignette-full-workflow"></a>
 
 A full walkthrough of using `neuroSCC` from start to finish is available
 in the vignette.
@@ -299,7 +299,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
-<a id="references"></a> \# 6️⃣ References
+# 6️⃣ References <a id="references"></a>
 
 - Wang, Y., Wang, G., Wang, L., Ogden, R.T. (2020). *Simultaneous
   Confidence Corridors for Mean Functions in Functional Data Analysis of
@@ -310,7 +310,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
-<a id="contributing-feedback"></a> \# 📢 Contributing & Feedback
+# 📢 Contributing & Feedback <a id="contributing-feedback"></a>
 
 We welcome **contributions, feedback, and issue reports** from the
 community! If you would like to help improve `neuroSCC`, here’s how you
