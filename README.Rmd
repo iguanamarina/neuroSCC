@@ -439,7 +439,7 @@ A complete visual overview of how `neuroSCC` functions interact with data, the o
 <summary>Click to expand</summary>
 
 <p align="center">
-  <img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="80%">
+  <img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="100%">
 </p>
 
 </details>
