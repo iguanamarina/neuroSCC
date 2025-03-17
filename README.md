@@ -60,9 +60,9 @@ statistical validation**. `neuroSCC` is designed to:
 ✔ **Automate Preprocessing**: Load, clean, and structure PET data 📂  
 ✔ **Standardize Analysis**: Convert images into FDA-compatible formats
 🔬  
-✔ **Provide SCC Estimations**: Identify **significant regions** with
+✔ **Evaluate SCC Estimations**: Identify **significant regions** with
 confidence 🎯  
-✔ **Enable Method Comparisons**: SCC vs. **SPM performance evaluation**
+✔ **Enable Method Comparisons**: SCC vs SPM **performance evaluation**
 📊
 
 It is **particularly suited for**: - **Clinical neuroimaging research**
@@ -72,11 +72,30 @@ approaches**.
 
 ------------------------------------------------------------------------
 
-# 2️⃣ Installatio n<a id="installation"></a>
+# 2️⃣ Installation <a id="installation"></a>
 
-## 📦 From GitHub
+## 🔹 Stable GitHub Release (Future)
+
+``` r
+# Install the latest stable release (Future)
+remotes::install_github("iguanamarina/neuroSCC@releases")
+library(neuroSCC)
+```
+
+## 📦 Development Version (Latest Features)
+
+``` r
+# Install the latest development version
+remotes::install_github("iguanamarina/neuroSCC")
+library(neuroSCC)
+```
 
 ## 🔜 From CRAN (Future)
+
+``` r
+# Once available on CRAN
+install.packages("neuroSCC")
+```
 
 ------------------------------------------------------------------------
 
