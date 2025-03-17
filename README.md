@@ -9,8 +9,8 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-9-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-9987KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Issues](https://img.shields.io/badge/Issues-11-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-11346KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -261,9 +261,6 @@ plot(SCC_1vsG)
 ------------------------------------------------------------------------
 
 # 4️⃣ Functions Overview<a id="functions-overview"></a>
-
-This package contains **several core functions** for neuroimaging data
-processing:
 
 ## 🧼 neuroCleaner(): Load & Clean PET Data
 
