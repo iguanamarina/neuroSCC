@@ -92,12 +92,13 @@ The package bridges established **[neuroimaging tools](https://github.com/bjw340
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [Functions Overview](#functions-overview)
-- [Vignette & Full Workflow](#vignette--full-workflow)
+- [Vignette & Full Workflow](#vignette-full-workflow)
 - [References](#references)
-- [Contributing & Feedback](#contributing--feedback)
+- [Contributing & Feedback](#contributing-feedback)
 
 ------------------------------------------------------------------------
 
+<a id="about-the-project"></a>
 # 1️⃣ About the Project
 
 ## Why Use `neuroSCC`? 
@@ -120,6 +121,7 @@ It is **particularly suited for**:
 
 ------------------------------------------------------------------------
 
+<a id="installation"></a>
 # 2️⃣ Installation
 
 ## 📦 From GitHub
@@ -139,6 +141,7 @@ install.packages("neuroSCC")
 
 ------------------------------------------------------------------------
 
+<a id="basic-usage"></a>
 # 3️⃣ Basic Usage
 
 ## **Minimal Working Example** 
@@ -162,6 +165,7 @@ plot(SCC_result)
 
 ------------------------------------------------------------------------
 
+<a id="functions-overview"></a>
 # 4️⃣ Functions Overview
 
 This package contains **several core functions** for neuroimaging data processing:
@@ -298,6 +302,7 @@ processROIs(roiDir = "path/to/rois", regions = c("region1", "region2"), numbers 
 
 ------------------------------------------------------------------------
 
+<a id="vignette-full-workflow"></a>
 # 5️⃣ Vignette & Full Workflow
 
 A full walkthrough of using `neuroSCC` from start to finish is available
@@ -308,6 +313,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
+<a id="references"></a>
 # 6️⃣ References
 
 -   Wang, Y., Wang, G., Wang, L., Ogden, R.T. (2020). *Simultaneous
@@ -319,6 +325,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
+<a id="contributing-feedback"></a>
 # 📢 Contributing & Feedback  
 
 We welcome **contributions, feedback, and issue reports** from the community! If you would like to help improve `neuroSCC`, here’s how you can get involved:  

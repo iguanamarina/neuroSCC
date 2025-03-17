@@ -44,13 +44,13 @@ Santiago de Compostela (Spain)**.
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [Functions Overview](#functions-overview)
-- [Vignette & Full Workflow](#vignette--full-workflow)
+- [Vignette & Full Workflow](#vignette-full-workflow)
 - [References](#references)
-- [Contributing & Feedback](#contributing--feedback)
+- [Contributing & Feedback](#contributing-feedback)
 
 ------------------------------------------------------------------------
 
-# 1️⃣ About the Project
+<a id="about-the-project"></a> \# 1️⃣ About the Project
 
 ## Why Use `neuroSCC`?
 
@@ -72,7 +72,7 @@ approaches**.
 
 ------------------------------------------------------------------------
 
-# 2️⃣ Installation
+<a id="installation"></a> \# 2️⃣ Installation
 
 ## 📦 From GitHub
 
@@ -80,7 +80,7 @@ approaches**.
 
 ------------------------------------------------------------------------
 
-# 3️⃣ Basic Usage
+<a id="basic-usage"></a> \# 3️⃣ Basic Usage
 
 ## **Minimal Working Example**
 
@@ -103,7 +103,7 @@ plot(SCC_result)
 
 ------------------------------------------------------------------------
 
-# 4️⃣ Functions Overview
+<a id="functions-overview"></a> \# 4️⃣ Functions Overview
 
 This package contains **several core functions** for neuroimaging data
 processing:
@@ -289,7 +289,7 @@ processROIs(roiDir = "path/to/rois", regions = c("region1", "region2"), numbers 
 
 ------------------------------------------------------------------------
 
-# 5️⃣ Vignette & Full Workflow
+<a id="vignette-full-workflow"></a> \# 5️⃣ Vignette & Full Workflow
 
 A full walkthrough of using `neuroSCC` from start to finish is available
 in the vignette.
@@ -299,7 +299,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
-# 6️⃣ References
+<a id="references"></a> \# 6️⃣ References
 
 - Wang, Y., Wang, G., Wang, L., Ogden, R.T. (2020). *Simultaneous
   Confidence Corridors for Mean Functions in Functional Data Analysis of
@@ -310,7 +310,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
-# 📢 Contributing & Feedback
+<a id="contributing-feedback"></a> \# 📢 Contributing & Feedback
 
 We welcome **contributions, feedback, and issue reports** from the
 community! If you would like to help improve `neuroSCC`, here’s how you
