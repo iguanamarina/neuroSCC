@@ -2,7 +2,7 @@
 # neuroSCC
 
 <a href="https://github.com/iguanamarina/neuroSCC">
-<img src="man/figures/logo.png" align="right" width="120" /> </a>
+<img src="man/figures/logo.png" align="right" width="150" /> </a>
 
 [![Project
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
