@@ -101,24 +101,168 @@ install.packages("neuroSCC")
 
 # 3️⃣ Basic Usage <a id="basic-usage"></a>
 
-## **Minimal Working Example**
+------------------------------------------------------------------------
+
+### **🧩 One-group SCC Estimation**
+
+This example computes **Simultaneous Confidence Corridors (SCCs)** for a
+**single group** (e.g., control subjects).
+
+*Example with Code:*
+<details>
+<summary>
+Click to expand
+</summary>
 
 ``` r
-# Load package
+# Load required packages
 library(neuroSCC)
+library(ImageSCC)
 
-# Load a PET neuroimaging file
-pet_data <- neuroCleaner("path/to/file.nii")
+# Load sample PET data for a single group (e.g., control group)
+control_data <- neuroCleaner(system.file("extdata", "control_1.nii", package = "neuroSCC"))
 
-# Process for functional data analysis
-processed_data <- matrixCreator(pet_data)
+# Convert to matrix format for functional data analysis
+control_matrix <- matrixCreator(control_data, paramZ = 35)
 
-# Compute SCCs
-SCC_result <- ImageSCC::scc.image(processed_data)
+# Normalize intensity values across subjects
+control_matrix <- meanNormalization(control_matrix)
 
-# Visualize results
-plot(SCC_result)
+# Load predefined contour (assuming already available in package data)
+contourCoordinates <- neuroContour(system.file("extdata", "brain_mask.nii", package = "neuroSCC"))
+
+# Generate triangulation mesh from contours
+Brain.V <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$V
+Brain.Tr <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$Tr
+
+# Define SCC parameters
+d.est <- 5  # Spline degree for mean function
+d.band <- 2  # Spline degree for SCCs
+lambda <- 10^{seq(-6, 3, 0.5)}  # Regularization parameters
+alpha.grid <- c(0.10, 0.05, 0.01)  # Confidence levels
+
+# Compute SCCs for the group
+SCC_control <- ImageSCC::scc.image(Ya = control_matrix, Z = 35,
+                                   d.est = d.est, d.band = d.band,
+                                   V.est.a = Brain.V, Tr.est.a = Brain.Tr,
+                                   penalty = TRUE, lambda = lambda, alpha.grid = alpha.grid,
+                                   adjust.sigma = TRUE)
+
+# Plot SCC results
+plot(SCC_control)
 ```
+
+</details>
+
+------------------------------------------------------------------------
+
+### **⚖️ Two-group SCC Estimation and Comparison**
+
+This example computes SCCs for two groups (e.g., **Control vs
+Pathological**) and detects regions where activity levels
+**significantly differ**.
+
+*Example with Code:*
+<details>
+<summary>
+Click to expand
+</summary>
+
+``` r
+# Load required packages
+library(neuroSCC)
+library(ImageSCC)
+
+# Load PET images for both groups
+control_data <- neuroCleaner(system.file("extdata", "control_1.nii", package = "neuroSCC"))
+pathological_data <- neuroCleaner(system.file("extdata", "pathological_1.nii", package = "neuroSCC"))
+
+# Convert to functional matrix format
+control_matrix <- matrixCreator(control_data, paramZ = 35)
+pathological_matrix <- matrixCreator(pathological_data, paramZ = 35)
+
+# Normalize both groups
+control_matrix <- meanNormalization(control_matrix)
+pathological_matrix <- meanNormalization(pathological_matrix)
+
+# Load contour and create triangulation mesh
+contourCoordinates <- neuroContour(system.file("extdata", "brain_mask.nii", package = "neuroSCC"))
+Brain.V <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$V
+Brain.Tr <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$Tr
+
+# Compare SCC results between the two groups
+SCC_diff <- ImageSCC::scc.image(Ya = pathological_matrix, Yb = control_matrix, Z = 35,
+                                d.est = 5, d.band = 2,
+                                V.est.a = Brain.V, Tr.est.a = Brain.Tr,
+                                penalty = TRUE, lambda = 10^{seq(-6, 3, 0.5)},
+                                alpha.grid = c(0.10, 0.05, 0.01), adjust.sigma = TRUE)
+
+# Identify points where differences exceed confidence intervals
+significantPoints <- getPoints(SCC_diff)
+
+# Plot the results
+plot(SCC_diff)
+```
+
+</details>
+
+------------------------------------------------------------------------
+
+### **🎯 1vsGroup SCC Estimation and Comparison**
+
+This example compares **a single patient** against a **control group**,
+detecting regions where the patient’s activity differs significantly.
+
+*Example with Code:*
+<details>
+<summary>
+Click to expand
+</summary>
+
+``` r
+# Load required packages
+library(neuroSCC)
+library(ImageSCC)
+
+# Load PET data for a single patient and the control group
+patient_data <- neuroCleaner(system.file("extdata", "patient_1.nii", package = "neuroSCC"))
+control_data <- neuroCleaner(system.file("extdata", "control_1.nii", package = "neuroSCC"))
+
+# Convert to matrix format
+control_matrix <- matrixCreator(control_data, paramZ = 35)
+patient_matrix <- matrixCreator(patient_data, paramZ = 35)
+
+# Normalize both datasets
+control_matrix <- meanNormalization(control_matrix)
+patient_matrix <- meanNormalization(patient_matrix)
+
+# Load predefined contours and triangulation mesh
+contourCoordinates <- neuroContour(system.file("extdata", "brain_mask.nii", package = "neuroSCC"))
+Brain.V <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$V
+Brain.Tr <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$Tr
+
+# Expand patient data by generating synthetic "clones" to increase sample size
+numClones <- 5
+patient_clones <- do.call(rbind, replicate(numClones, patient_matrix, simplify = FALSE))
+
+# Combine original patient data with clones
+expanded_patient_data <- rbind(patient_matrix, patient_clones)
+
+# Compute SCC comparing single patient vs control group
+SCC_1vsG <- ImageSCC::scc.image(Ya = expanded_patient_data, Yb = control_matrix, Z = 35,
+                                d.est = 5, d.band = 2,
+                                V.est.a = Brain.V, Tr.est.a = Brain.Tr,
+                                penalty = TRUE, lambda = 10^{seq(-6, 3, 0.5)},
+                                alpha.grid = c(0.10, 0.05, 0.01), adjust.sigma = TRUE)
+
+# Identify significant points where patient differs from control
+significantPoints_1vsG <- getPoints(SCC_1vsG)
+
+# Plot SCC results
+plot(SCC_1vsG)
+```
+
+</details>
 
 ------------------------------------------------------------------------
 
