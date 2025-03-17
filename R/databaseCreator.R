@@ -19,7 +19,7 @@
 #'        Default is \code{NULL}, which uses the built-in pattern "masked_swwwC(\\d+)_.*".
 #' @param useSequentialNumbering \code{logical}, if \code{TRUE}, assigns sequential numbers (1,2,3,...)
 #'        to files instead of attempting to extract numbers from filenames. Default is \code{FALSE}.
-#' @param demo \code{data.frame}, optional demographic data formatted according to the \code{\link{demoCleaner}} function.
+#' @param demo \code{data.frame}, optional demographic data.
 #'        If provided, this demographic information will be included in the output database for each file.
 #'        Default is \code{NULL}.
 #' @param quiet \code{logical}, if \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.
@@ -237,7 +237,7 @@ databaseCreator <- function(pattern, control = TRUE, extractPattern = NULL,
 
     # Print progress message if not quiet
     if (!quiet) {
-      message(paste("Processing", group_label, "Nº", number, "- File", i, "of", length(files)))
+      message(paste("Processing", group_label, "Number", number, "- File", i, "of", length(files)))
     }
 
     # Process the file using neuroCleaner

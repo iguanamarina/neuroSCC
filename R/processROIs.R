@@ -18,8 +18,8 @@
 #' @param regions \code{character} vector, specifying the ROI region names (e.g., `c("w32", "w79")`).
 #' @param numbers \code{integer} vector, specifying the patient/control numbers (e.g., `1:16`).
 #' @param filePattern \code{character}, a template for the expected NIfTI filenames.
-#'        Should include `{region}` and `{number}` placeholders.
-#'        Default: `"wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii"`.
+#'        Should include \verb{{region}} and \verb{{number}} placeholders.
+#'        Default: \code{"wwwx\{region\}_redim_crop_squ_flipLR_newDim_C\{number\}.nii"}.
 #' @param verbose \code{logical}, if \code{TRUE}, prints progress messages. Default: \code{FALSE}.
 #'
 #' @return This function does not return a value. It **processes and saves `.RDS` files** in `outputDir`.

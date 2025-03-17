@@ -120,7 +120,7 @@ matrixCreator <- function(database,
 
     # Print progress message if not quiet
     if (!quiet) {
-      message(sprintf("Converting %s Nº %s", groupLabel, number))
+      message(sprintf("Converting %s Number %s", groupLabel, number))
     }
 
     # Subset the database for the current number and z coordinate

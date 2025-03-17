@@ -9,8 +9,8 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-12-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-11346KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Issues](https://img.shields.io/badge/Issues-10-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-12301KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -421,6 +421,97 @@ Click to expand
 ``` r
 # Process ROIs from a set of files
 processROIs(roiDir = "path/to/rois", regions = c("region1", "region2"), numbers = 1:10)
+```
+
+</details>
+
+## 👥 generatePoissonClones(): Generate Synthetic PET Data
+
+`generatePoissonClones()` creates **synthetic clones of PET neuroimaging
+data** by adding Poisson-distributed noise. This function is essential
+for **1 vs. Group SCC analyses**, where a single subject’s data needs to
+be expanded to allow for valid statistical inference.
+
+*Example with Code:*  
+<details>
+<summary>
+Click to expand
+</summary>
+
+``` r
+# Simulated PET matrix (3 subjects, 4 pixels each)
+petMatrix <- matrix(c(5, 10, 15, 0,
+                      3, 8, 12, 0,
+                      7, 14, 21, 0), nrow = 3, byrow = TRUE)
+
+# Generate 5 synthetic clones
+clones <- generatePoissonClones(petMatrix, numClones = 5, lambdaFactor = 0.01)
+
+# Check the cloned dataset
+print(clones)
+```
+
+</details>
+
+## 📊 calculateMetrics(): Evaluate SCC Performance
+
+`calculateMetrics()` assesses the accuracy of **SCC-detected significant
+points** by comparing them to known **true ROI regions**. It computes
+**Sensitivity, Specificity, PPV, and NPV**, allowing for a quantitative
+evaluation of SCC performance.
+
+*Example with Code:*  
+<details>
+<summary>
+Click to expand
+</summary>
+
+``` r
+# Example: Evaluate SCC detection performance
+
+# SCC-detected significant points
+detected <- data.frame(x = c(1, 2, 3), y = c(2, 3, 4))
+
+# True ROI points (ground truth)
+trueROI <- data.frame(x = c(2, 3), y = c(3, 4))
+
+# Full coordinate grid (all possible points in the image)
+totalGrid <- expand.grid(x = 1:5, y = 1:5)
+
+# Compute SCC performance metrics
+results <- calculateMetrics(detected, trueROI, totalGrid, "ExampleRegion")
+
+# Display results
+print(results)
+```
+
+</details>
+
+## 🖼️ plotSCC(): Visualize SCC Result
+
+`plotSCC()` generates a **heatmap visualization of SCC values**, with
+the option to **overlay significant detected points**. This function
+helps interpret SCC results by highlighting **regions where detected
+differences exceed confidence bands**.
+
+*Example with Code:*  
+<details>
+<summary>
+Click to expand
+</summary>
+
+``` r
+# Load SCC results
+load("SCC_COMP.RData")
+
+# Basic SCC visualization
+plotSCC(SCC_COMP)
+
+# SCC plot with a specific confidence threshold and custom color palette
+plotSCC(SCC_COMP, alphaLevel = 0.01, colorPalette = "magma", title = "SCC Analysis (α = 0.01)")
+
+# Disable significant point overlay
+plotSCC(SCC_COMP, showPoints = FALSE)
 ```
 
 </details>

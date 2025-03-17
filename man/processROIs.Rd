@@ -26,8 +26,8 @@ Default: `"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/
 \item{numbers}{\code{integer} vector, specifying the patient/control numbers (e.g., `1:16`).}
 
 \item{filePattern}{\code{character}, a template for the expected NIfTI filenames.
-Should include `{region}` and `{number}` placeholders.
-Default: `"wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii"`.}
+Should include \verb{{region}} and \verb{{number}} placeholders.
+Default: \code{"wwwx\{region\}_redim_crop_squ_flipLR_newDim_C\{number\}.nii"}.}
 
 \item{verbose}{\code{logical}, if \code{TRUE}, prints progress messages. Default: \code{FALSE}.}
 }

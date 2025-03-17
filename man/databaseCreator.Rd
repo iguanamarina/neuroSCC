@@ -29,7 +29,7 @@ Default is \code{NULL}, which uses the built-in pattern "masked_swwwC(\\d+)_.*".
 \item{useSequentialNumbering}{\code{logical}, if \code{TRUE}, assigns sequential numbers (1,2,3,...)
 to files instead of attempting to extract numbers from filenames. Default is \code{FALSE}.}
 
-\item{demo}{\code{data.frame}, optional demographic data formatted according to the \code{\link{demoCleaner}} function.
+\item{demo}{\code{data.frame}, optional demographic data.
 If provided, this demographic information will be included in the output database for each file.
 Default is \code{NULL}.}
 

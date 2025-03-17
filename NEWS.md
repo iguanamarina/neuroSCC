@@ -1,6 +1,11 @@
 # neuroSCC 0.12.0
 
-# neuroSCC 0.11-0
+### Major Changes
+
+- **Function Integration**:
+  - Included `plotSCC()` for visualization.
+  - Included `generatePoissonClones()` for 1vsGroup setups.
+  - Included `calculateMetrics()` for performante estimation.
 
 ### Major Changes
 
