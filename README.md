@@ -442,9 +442,18 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 - Wang, Y., Wang, G., Wang, L., Ogden, R.T. (2020). *Simultaneous
   Confidence Corridors for Mean Functions in Functional Data Analysis of
   Imaging Data*. Biometrics, 76(2), 427-437.  
-- [Ph.D. Thesis: Development of statistical methods for neuroimage data
-  analysis towards early diagnosis of neurodegenerative
-  diseases](https://github.com/iguanamarina/PhD-thesis)
+- Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2021).
+  *Computational Issues in the Application of Functional Data Analysis
+  to Imaging Data*. In *International Conference on Computational
+  Science and Its Applications* (pp. 630–638). Springer International
+  Publishing Cham.  
+- Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2022).
+  *Functional Data Analysis for Imaging Mean Function Estimation:
+  Computing Times and Parameter Selection*. *Computers*, 11(6), 91.
+  MDPI.  
+- **Ph.D. Thesis: Development of Statistical Methods for Neuroimage Data
+  Analysis Towards Early Diagnosis of Neurodegenerative Diseases**
+  (*Under development*).
 
 ------------------------------------------------------------------------
 
@@ -535,14 +544,5 @@ For questions not related to bugs or feature requests, feel free to:
 📬 Email the maintainer: <juanantonio.arias.lopez@usc.es>  
 💬 Join the discussion on **[GitHub
 Discussions](https://github.com/iguanamarina/neuroSCC/discussions)**
-
-## **Why Contribute?**
-
-By contributing to `neuroSCC`, you:  
-✔ Help **improve** neuroimaging research tools.  
-✔ Gain **experience** in open-source development.  
-✔ Become part of a growing **scientific community**.
-
-Every contribution—big or small—**is greatly appreciated**! 🚀
 
 ------------------------------------------------------------------------
