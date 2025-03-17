@@ -86,29 +86,15 @@ The package bridges established **[neuroimaging tools](https://github.com/bjw340
 
 ------------------------------------------------------------------------
 
-# 📖 Table of Contents 
+# 📖 Table of Contents
 
-<details open="open">
-
-<summary>📖 Click to expand</summary>
-
-<ol>
-
-<li><a href="#about-the-project"> ➤ About The Project</a></li>
-
-<li><a href="#installation"> ➤ Installation</a></li>
-
-<li><a href="#basic-usage"> ➤ Basic Usage</a></li>
-
-<li><a href="#functions-overview"> ➤ Functions Overview</a></li>
-
-<li><a href="#vignette"> ➤ Vignette & Full Workflow</a></li>
-
-<li><a href="#references"> ➤ References</a></li>
-
-</ol>
-
-</details>
+- [About the Project](#about-the-project)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+- [Functions Overview](#functions-overview)
+- [Vignette & Full Workflow](#vignette-full-workflow)
+- [References](#references)
+- [Contributing & Feedback](#contributing-feedback)
 
 ------------------------------------------------------------------------
 
@@ -155,7 +141,7 @@ install.packages("neuroSCC")
 
 # 3️⃣ Basic Usage
 
-### **Minimal Working Example** 
+## **Minimal Working Example** 
 
 ```{r eval=FALSE, include=TRUE, echo=TRUE}
 # Load package
@@ -182,7 +168,7 @@ This package contains **several core functions** for neuroimaging data processin
 
 ---
 
-### 🧼 neuroCleaner(): Load & Clean PET Data
+## 🧼 neuroCleaner(): Load & Clean PET Data
 `neuroCleaner()` reads **NIFTI neuroimaging files**, extracts **voxel-wise data**, and structures it into a **tidy data frame**.  
 It is the **first preprocessing step**, ensuring that PET images are cleaned and formatted for further analysis. It also integrates demographic data when available.
 
@@ -199,7 +185,7 @@ head(clean_data)
 
 ---
 
-### 📊 databaseCreator(): Convert Multiple Files into a Database
+## 📊 databaseCreator(): Convert Multiple Files into a Database
 `databaseCreator()` scans a directory for **PET image files**, processes each with `neuroCleaner()`, and compiles them into a **structured data frame**.  
 This function is **critical for batch analysis**, preparing data for group-level SCC comparisons.
 
@@ -215,7 +201,7 @@ database <- databaseCreator(pattern = ".*nii")
 
 ---
 
-### 📐 getDimensions(): Extract Image Dimensions
+## 📐 getDimensions(): Extract Image Dimensions
 `getDimensions()` extracts the **spatial dimensions** of a neuroimaging file, returning the number of **voxels in the x, y, and z axes**.  
 This ensures proper alignment of neuroimaging data before further processing.
 
@@ -231,7 +217,7 @@ dims <- getDimensions("path/to/file.nii")
 
 ---
 
-### 📊 matrixCreator(): Convert PET Data into a Functional Matrix
+## 📊 matrixCreator(): Convert PET Data into a Functional Matrix
 `matrixCreator()` transforms **PET imaging data into a matrix format** for functional data analysis.  
 Each row represents a subject's PET data, formatted to align with FDA methodologies.
 
@@ -247,7 +233,7 @@ matrix_data <- matrixCreator(database, pattern = ".*nii", paramZ = 35)
 
 ---
 
-### 📉 meanNormalization(): Normalize Data
+## 📉 meanNormalization(): Normalize Data
 `meanNormalization()` performs **row-wise mean normalization**, adjusting intensity values across subjects.  
 This removes global intensity differences, making datasets comparable in **Functional Data Analysis (FDA)**.
 
@@ -263,7 +249,7 @@ normalized_matrix <- meanNormalization(matrix_data)
 
 ---
 
-### 📈 neuroContour(): Extract Contours
+## 📈 neuroContour(): Extract Contours
 `neuroContour()` extracts **region boundaries (contours) from neuroimaging data**.  
 It is particularly useful for defining **masks or Regions of Interest (ROIs)** before SCC computation.
 
@@ -279,7 +265,7 @@ contours <- neuroContour("path/to/file.nii")
 
 ---
 
-### 🔺 getPoints(): Identify Significant SCC Differences
+## 🔺 getPoints(): Identify Significant SCC Differences
 `getPoints()` identifies **regions with significant differences** from an SCC computation.  
 After `ImageSCC::scc.image()` computes SCCs, `getPoints()` extracts **coordinates where group differences exceed confidence boundaries**.
 
@@ -295,7 +281,7 @@ points <- getPoints(SCC_result)
 
 ---
 
-### 🏷️ processROIs(): Process ROI Data
+## 🏷️ processROIs(): Process ROI Data
 `processROIs()` processes **Regions of Interest (ROIs)** from neuroimaging files.  
 It extracts voxel coordinates for **predefined hypoactive regions**, structuring them for SCC analysis.
 
@@ -333,7 +319,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
-# 📢 **Contributing & Feedback**  
+# 📢 Contributing & Feedback  
 
 We welcome **contributions, feedback, and issue reports** from the community! If you would like to help improve `neuroSCC`, here’s how you can get involved:  
 

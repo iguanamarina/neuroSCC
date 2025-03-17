@@ -10,7 +10,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-9-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-9959KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-9987KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -40,31 +40,13 @@ Santiago de Compostela (Spain)**.
 
 # 📖 Table of Contents
 
-<details open="open">
-<summary>
-📖 Click to expand
-</summary>
-<ol>
-<li>
-<a href="#about-the-project"> ➤ About The Project</a>
-</li>
-<li>
-<a href="#installation"> ➤ Installation</a>
-</li>
-<li>
-<a href="#basic-usage"> ➤ Basic Usage</a>
-</li>
-<li>
-<a href="#functions-overview"> ➤ Functions Overview</a>
-</li>
-<li>
-<a href="#vignette"> ➤ Vignette & Full Workflow</a>
-</li>
-<li>
-<a href="#references"> ➤ References</a>
-</li>
-</ol>
-</details>
+- [About the Project](#about-the-project)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+- [Functions Overview](#functions-overview)
+- [Vignette & Full Workflow](#vignette-full-workflow)
+- [References](#references)
+- [Contributing & Feedback](#contributing-feedback)
 
 ------------------------------------------------------------------------
 
@@ -100,7 +82,7 @@ approaches**.
 
 # 3️⃣ Basic Usage
 
-### **Minimal Working Example**
+## **Minimal Working Example**
 
 ``` r
 # Load package
@@ -128,7 +110,7 @@ processing:
 
 ------------------------------------------------------------------------
 
-### 🧼 neuroCleaner(): Load & Clean PET Data
+## 🧼 neuroCleaner(): Load & Clean PET Data
 
 `neuroCleaner()` reads **NIFTI neuroimaging files**, extracts
 **voxel-wise data**, and structures it into a **tidy data frame**.  
@@ -152,7 +134,7 @@ head(clean_data)
 
 ------------------------------------------------------------------------
 
-### 📊 databaseCreator(): Convert Multiple Files into a Database
+## 📊 databaseCreator(): Convert Multiple Files into a Database
 
 `databaseCreator()` scans a directory for **PET image files**, processes
 each with `neuroCleaner()`, and compiles them into a **structured data
@@ -175,7 +157,7 @@ database <- databaseCreator(pattern = ".*nii")
 
 ------------------------------------------------------------------------
 
-### 📐 getDimensions(): Extract Image Dimensions
+## 📐 getDimensions(): Extract Image Dimensions
 
 `getDimensions()` extracts the **spatial dimensions** of a neuroimaging
 file, returning the number of **voxels in the x, y, and z axes**.  
@@ -197,7 +179,7 @@ dims <- getDimensions("path/to/file.nii")
 
 ------------------------------------------------------------------------
 
-### 📊 matrixCreator(): Convert PET Data into a Functional Matrix
+## 📊 matrixCreator(): Convert PET Data into a Functional Matrix
 
 `matrixCreator()` transforms **PET imaging data into a matrix format**
 for functional data analysis.  
@@ -219,7 +201,7 @@ matrix_data <- matrixCreator(database, pattern = ".*nii", paramZ = 35)
 
 ------------------------------------------------------------------------
 
-### 📉 meanNormalization(): Normalize Data
+## 📉 meanNormalization(): Normalize Data
 
 `meanNormalization()` performs **row-wise mean normalization**,
 adjusting intensity values across subjects.  
@@ -241,7 +223,7 @@ normalized_matrix <- meanNormalization(matrix_data)
 
 ------------------------------------------------------------------------
 
-### 📈 neuroContour(): Extract Contours
+## 📈 neuroContour(): Extract Contours
 
 `neuroContour()` extracts **region boundaries (contours) from
 neuroimaging data**.  
@@ -263,7 +245,7 @@ contours <- neuroContour("path/to/file.nii")
 
 ------------------------------------------------------------------------
 
-### 🔺 getPoints(): Identify Significant SCC Differences
+## 🔺 getPoints(): Identify Significant SCC Differences
 
 `getPoints()` identifies **regions with significant differences** from
 an SCC computation.  
@@ -285,7 +267,7 @@ points <- getPoints(SCC_result)
 
 ------------------------------------------------------------------------
 
-### 🏷️ processROIs(): Process ROI Data
+## 🏷️ processROIs(): Process ROI Data
 
 `processROIs()` processes **Regions of Interest (ROIs)** from
 neuroimaging files.  
@@ -328,7 +310,7 @@ vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
 
 ------------------------------------------------------------------------
 
-# 📢 **Contributing & Feedback**
+# 📢 Contributing & Feedback
 
 We welcome **contributions, feedback, and issue reports** from the
 community! If you would like to help improve `neuroSCC`, here’s how you
@@ -436,9 +418,5 @@ By contributing to `neuroSCC`, you:
 ✔ Become part of a growing **scientific community**.
 
 Every contribution—big or small—**is greatly appreciated**! 🚀
-
-------------------------------------------------------------------------
-
-------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
