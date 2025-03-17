@@ -1,0 +1,19 @@
+---
+title: "two_group_comparison"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{two_group_comparison}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(neuroSCC)
+```

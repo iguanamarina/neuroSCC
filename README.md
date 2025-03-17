@@ -427,13 +427,43 @@ processROIs(roiDir = "path/to/rois", regions = c("region1", "region2"), numbers 
 
 ------------------------------------------------------------------------
 
-# 5️⃣ Vignette & Full Workflow <a id="vignette-full-workflow"></a>
+# 5️⃣ Vignettes & Visual Workflow <a id="vignette-full-workflow"></a>
 
 A full walkthrough of using `neuroSCC` from start to finish is available
-in the vignette.
+in the vignettes:
 
-[📄 **Click here to view the full
-vignette**](https://github.com/iguanamarina/neuroSCC/vignettes/workflow.html)
+- 📌 **[Landing
+  Vignette](https://github.com/iguanamarina/neuroSCC/blob/main/vignettes/landing_vignette.Rmd)**  
+  *Covers data loading, matrix creation, and triangulations.*
+
+- 📌 **[One-group SCC
+  Estimation](https://github.com/iguanamarina/neuroSCC/blob/main/vignettes/one_group_scc.Rmd)**  
+  *Estimates the mean function and SCCs for a single group.*
+
+- 📌 **[Two-group SCC Estimation &
+  Comparison](https://github.com/iguanamarina/neuroSCC/blob/main/vignettes/two_group_comparison.Rmd)**  
+  *Computes SCCs for the differences between two groups and identifies
+  voxels outside of estimated confidence intervals.*
+
+- 📌 **[1vsGroup SCC Estimation &
+  Comparison](https://github.com/iguanamarina/neuroSCC/blob/main/vignettes/one_vs_group.Rmd)**  
+  *Compares an individual patient to a control group using SCCs and
+  identifies voxels outside of estimated confidence intervals.*
+
+## 🔄 Visual Workflow
+
+A complete visual overview of how `neuroSCC` functions interact with
+data, the objects they return, and more, can be found in the Visual
+Workflow:
+
+<details>
+<summary>
+Click to expand
+</summary>
+<p align="center">
+<img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="80%">
+</p>
+</details>
 
 ------------------------------------------------------------------------
 
@@ -463,7 +493,7 @@ We welcome **contributions, feedback, and issue reports** from the
 community! If you would like to help improve `neuroSCC`, here’s how you
 can get involved:
 
-## **🐛 Found a Bug? Report an Issue**
+## 🐛 Found a Bug? Report an Issue
 
 If you encounter a bug, incorrect result, or any unexpected behavior,
 please:
@@ -478,7 +508,7 @@ please:
     - Steps to **reproduce** the issue.  
     - Any **error messages** or screenshots (if applicable).
 
-## **💡 Have an Idea? Suggest a Feature**
+## 💡 Have an Idea? Suggest a Feature
 
 We are always looking to improve `neuroSCC`. If you have a **suggestion
 for a new feature** or an enhancement, please:
@@ -491,7 +521,7 @@ for a new feature** or an enhancement, please:
     - Why it would **improve** the package.  
     - Any **relevant references** or examples from similar projects.
 
-## **🔧 Want to Contribute Code?**
+## 🔧 Want to Contribute Code?
 
 We love contributions! To submit **a pull request (PR)**:
 
@@ -531,14 +561,14 @@ Before submitting, please:
 ✔ Add **documentation** for any new functions or features.  
 ✔ Run **`devtools::check()`** to verify that all package tests pass.
 
-## **📜 Code of Conduct**
+## 📜 Code of Conduct
 
 We aim to **foster a welcoming and inclusive** open-source community.
 Please read our **[Code of
 Conduct](https://github.com/iguanamarina/neuroSCC/blob/main/CODE_OF_CONDUCT.md)**
 before contributing.
 
-## **📧 Contact & Support**
+## 📧 Contact & Support
 
 For questions not related to bugs or feature requests, feel free to:  
 📬 Email the maintainer: <juanantonio.arias.lopez@usc.es>  
