@@ -101,9 +101,7 @@ install.packages("neuroSCC")
 
 # 3️⃣ Basic Usage <a id="basic-usage"></a>
 
-------------------------------------------------------------------------
-
-### **🧩 One-group SCC Estimation**
+### 🧩 One-group SCC Estimation
 
 This example computes **Simultaneous Confidence Corridors (SCCs)** for a
 **single group** (e.g., control subjects).
@@ -154,9 +152,7 @@ plot(SCC_control)
 
 </details>
 
-------------------------------------------------------------------------
-
-### **⚖️ Two-group SCC Estimation and Comparison**
+### ⚖️ Two-group SCC Estimation and Comparison
 
 This example computes SCCs for two groups (e.g., **Control vs
 Pathological**) and detects regions where activity levels
@@ -206,9 +202,7 @@ plot(SCC_diff)
 
 </details>
 
-------------------------------------------------------------------------
-
-### **🎯 1vsGroup SCC Estimation and Comparison**
+### 🎯 1vsGroup SCC Estimation and Comparison
 
 This example compares **a single patient** against a **control group**,
 detecting regions where the patient’s activity differs significantly.
@@ -271,8 +265,6 @@ plot(SCC_1vsG)
 This package contains **several core functions** for neuroimaging data
 processing:
 
-------------------------------------------------------------------------
-
 ## 🧼 neuroCleaner(): Load & Clean PET Data
 
 `neuroCleaner()` reads **NIFTI neuroimaging files**, extracts
@@ -295,8 +287,6 @@ head(clean_data)
 
 </details>
 
-------------------------------------------------------------------------
-
 ## 📊 databaseCreator(): Convert Multiple Files into a Database
 
 `databaseCreator()` scans a directory for **PET image files**, processes
@@ -318,8 +308,6 @@ database <- databaseCreator(pattern = ".*nii")
 
 </details>
 
-------------------------------------------------------------------------
-
 ## 📐 getDimensions(): Extract Image Dimensions
 
 `getDimensions()` extracts the **spatial dimensions** of a neuroimaging
@@ -339,8 +327,6 @@ dims <- getDimensions("path/to/file.nii")
 ```
 
 </details>
-
-------------------------------------------------------------------------
 
 ## 📊 matrixCreator(): Convert PET Data into a Functional Matrix
 
@@ -362,8 +348,6 @@ matrix_data <- matrixCreator(database, pattern = ".*nii", paramZ = 35)
 
 </details>
 
-------------------------------------------------------------------------
-
 ## 📉 meanNormalization(): Normalize Data
 
 `meanNormalization()` performs **row-wise mean normalization**,
@@ -383,8 +367,6 @@ normalized_matrix <- meanNormalization(matrix_data)
 ```
 
 </details>
-
-------------------------------------------------------------------------
 
 ## 📈 neuroContour(): Extract Contours
 
@@ -406,8 +388,6 @@ contours <- neuroContour("path/to/file.nii")
 
 </details>
 
-------------------------------------------------------------------------
-
 ## 🔺 getPoints(): Identify Significant SCC Differences
 
 `getPoints()` identifies **regions with significant differences** from
@@ -427,8 +407,6 @@ points <- getPoints(SCC_result)
 ```
 
 </details>
-
-------------------------------------------------------------------------
 
 ## 🏷️ processROIs(): Process ROI Data
 
@@ -479,8 +457,6 @@ We welcome **contributions, feedback, and issue reports** from the
 community! If you would like to help improve `neuroSCC`, here’s how you
 can get involved:
 
-------------------------------------------------------------------------
-
 ## **🐛 Found a Bug? Report an Issue**
 
 If you encounter a bug, incorrect result, or any unexpected behavior,
@@ -496,8 +472,6 @@ please:
     - Steps to **reproduce** the issue.  
     - Any **error messages** or screenshots (if applicable).
 
-------------------------------------------------------------------------
-
 ## **💡 Have an Idea? Suggest a Feature**
 
 We are always looking to improve `neuroSCC`. If you have a **suggestion
@@ -510,8 +484,6 @@ for a new feature** or an enhancement, please:
     - A **detailed explanation** of your idea.  
     - Why it would **improve** the package.  
     - Any **relevant references** or examples from similar projects.
-
-------------------------------------------------------------------------
 
 ## **🔧 Want to Contribute Code?**
 
@@ -553,8 +525,6 @@ Before submitting, please:
 ✔ Add **documentation** for any new functions or features.  
 ✔ Run **`devtools::check()`** to verify that all package tests pass.
 
-------------------------------------------------------------------------
-
 ## **📜 Code of Conduct**
 
 We aim to **foster a welcoming and inclusive** open-source community.
@@ -562,16 +532,12 @@ Please read our **[Code of
 Conduct](https://github.com/iguanamarina/neuroSCC/blob/main/CODE_OF_CONDUCT.md)**
 before contributing.
 
-------------------------------------------------------------------------
-
 ## **📧 Contact & Support**
 
 For questions not related to bugs or feature requests, feel free to:  
 📬 Email the maintainer: <juanantonio.arias.lopez@usc.es>  
 💬 Join the discussion on **[GitHub
 Discussions](https://github.com/iguanamarina/neuroSCC/discussions)**
-
-------------------------------------------------------------------------
 
 ## **Why Contribute?**
 
