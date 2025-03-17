@@ -9,7 +9,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-11-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Issues](https://img.shields.io/badge/Issues-12-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-11346KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
@@ -461,7 +461,7 @@ Workflow:
 Click to expand
 </summary>
 <p align="center">
-<img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="80%">
+<img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="100%">
 </p>
 </details>
 
