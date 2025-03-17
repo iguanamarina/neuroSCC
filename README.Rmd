@@ -298,8 +298,6 @@ plot(SCC_1vsG)
 
 # 4️⃣ Functions Overview<a id="functions-overview"></a>
 
-This package contains **several core functions** for neuroimaging data processing:
-
 ## 🧼 neuroCleaner(): Load & Clean PET Data
 `neuroCleaner()` reads **NIFTI neuroimaging files**, extracts **voxel-wise data**, and structures it into a **tidy data frame**.  
 It is the **first preprocessing step**, ensuring that PET images are cleaned and formatted for further analysis. It also integrates demographic data when available.
