@@ -44,9 +44,9 @@ Santiago de Compostela (Spain)**.
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [Functions Overview](#functions-overview)
-- [Vignette & Full Workflow](#vignette-full-workflow)
+- [Vignette & Full Workflow](#vignette--full-workflow)
 - [References](#references)
-- [Contributing & Feedback](#contributing-feedback)
+- [Contributing & Feedback](#contributing--feedback)
 
 ------------------------------------------------------------------------
 
