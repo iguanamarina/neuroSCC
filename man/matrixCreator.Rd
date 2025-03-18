@@ -46,7 +46,7 @@ Typically follows \code{\link{databaseCreator}} and precedes
 \code{\link{meanNormalization}} in the neuroSCC pipeline.
 }
 \examples{
-# Generate a database using neuroCleaner and databaseCreator
+# Generate a database using databaseCreator
 dataDir <- system.file("extdata", package = "neuroSCC")
 controlPattern <- "^syntheticControl.*\\\\.nii.gz$"
 databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)

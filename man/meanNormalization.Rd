@@ -25,21 +25,10 @@ that needs to be normalized, typically the output from \code{\link{matrixCreator
 matrix and additional diagnostic information. If \code{FALSE} (default), returns
 only the normalized matrix.}
 
-\item{quiet}{\code{logical}, if \code{TRUE}, suppresses console messages. Default is \code{FALSE}.
--}
+\item{quiet}{\code{logical}, if \code{TRUE}, suppresses console messages. Default is \code{FALSE}.}
 }
 \value{
-If \code{returnDetails=FALSE} (default), returns a \code{matrix} where each row has
-        been normalized by its mean value. If \code{returnDetails=TRUE}, returns a \code{list}
-        containing:
-        \itemize{
-          \item \code{normalizedMatrix}: The normalized matrix
-          \item \code{rowMeans}: Vector of all calculated row means
-          \item \code{problemRows}: Indices of rows with invalid means
-          \item \code{outlierRows}: Indices of statistical outliers (based on 1.5*IQR)
-          \item \code{extremeOutlierRows}: Indices of extreme outliers (based on 3*IQR)
-          \item \code{summary}: Count of normal vs. problematic rows and thresholds used
-        }
+A matrix where each row has been normalized by its mean value.
 }
 \description{
 This function normalizes each row of the given matrix by its mean value.
@@ -51,36 +40,24 @@ from multiple sources to account for global intensity differences.
 The function iterates over each row of the input matrix, calculates the mean of the row,
 and then divides each element of the row by the calculated mean. This process adjusts
 for global intensity differences between rows in the matrix.
-
-In addition to normalization, the function performs statistical analysis on row means
-to identify potential outliers that might indicate data quality issues. Outlier detection
-uses the Interquartile Range (IQR) method with thresholds at 1.5xIQR and 3xIQR.
-
-This function is typically used after \code{\link{matrixCreator}} in the neuroSCC workflow.
 }
 \examples{
-\dontrun{
-# In a typical workflow:
-# Assuming data matrices already created with matrixCreator
-matrixCN <- matrixCreator(database_CN, pattern, paramZ = 35)
-matrixAD <- matrixCreator(database_AD, pattern, paramZ = 35)
+# Generate a database and create a matrix
+dataDir <- system.file("extdata", package = "neuroSCC")
+controlPattern <- "^syntheticControl.*\\\\.nii.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
 
-# Basic usage - just normalize the matrices
-matrixCN <- meanNormalization(matrixCN)
-matrixAD <- meanNormalization(matrixAD)
-
-# Advanced usage - get detailed diagnostics
-results <- meanNormalization(matrixCN, returnDetails = TRUE)
-normalizedMatrix <- results$normalizedMatrix
-
-# Remove problematic rows automatically
-cleanMatrix <- meanNormalization(matrixCN, handleInvalidRows = "omit")
+# Normalize the matrix with detailed output
+normalizationResult <- meanNormalization(matrixControls, returnDetails = TRUE, quiet = FALSE)
+# Show problematic rows if any
+if (length(normalizationResult$problemRows) == 0) {
+  cat("No problematic rows detected.\n")
+} else {
+  print(normalizationResult$problemRows)
 }
 
 }
 \seealso{
 \code{\link{matrixCreator}} for creating the data matrix to be normalized.
-
-\code{ImageSCC::scc2g.image} for computing Simultaneous Confidence Corridors
-for the difference between groups using the normalized matrices of each group.
 }
