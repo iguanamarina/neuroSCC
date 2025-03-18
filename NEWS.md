@@ -1,5 +1,7 @@
 # neuroSCC 0.13.0
 
+- **First Complete Release** with basic functioning achieved.
+
 # neuroSCC 0.12.0
 
 ### Major Changes
