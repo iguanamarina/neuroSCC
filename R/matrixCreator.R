@@ -3,17 +3,11 @@
 #' @description
 #' This function transforms a database created by \code{\link{databaseCreator}} into
 #' a matrix format suitable for functional data analysis. Each row of the matrix
-#' represents a subject's (patient or control) PET data, formatted as a continuous
-#' line of data points to simulate a functional representation.
+#' represents a subject's PET data, formatted as a continuous line of data points.
 #'
 #' @param database A data frame created by \code{\link{databaseCreator}} containing
-#'        PET image data with columns for group number, z, x, y, and pet values.
-#' @param pattern The regular expression pattern used to match filenames in the
-#'        database. This should correspond to the naming conventions of the PET
-#'        image files processed by \code{databaseCreator}.
+#'        PET image data with columns for subject number, z, x, y, and pet values.
 #' @param paramZ The specific z-coordinate slice to analyze. Default is 35.
-#' @param extractPattern Optional custom regular expression to extract subject
-#'        numbers from filenames. Should contain a capture group for numerical ID.
 #' @param useSequentialNumbering If \code{TRUE}, assigns sequential numbers
 #'        instead of extracting from filenames.
 #' @param quiet If \code{TRUE}, suppresses progress messages.
@@ -22,46 +16,36 @@
 #'         formatted as a continuous line of data points.
 #'
 #' @details
-#' This function is a critical step in the neuroSCC workflow for preparing data
-#' for Simultaneous Confidence Corridors (SCC) analysis. It performs several
-#' key operations:
+#' The function performs several operations:
 #'
-#' 1. Verifies the existence of the specified z-slice in the input database
-#' 2. Automatically calculates matrix dimensions based on the x and y coordinates
-#'    of the specified z-slice
-#' 3. Extracts PET intensity values for each subject at the specified z-slice
-#' 4. Handles different group types (control or pathological) by recognizing
-#'    appropriate identification columns
-#' 5. Provides flexible subject number extraction:
-#'    - Uses a provided custom pattern
-#'    - Falls back to sequential numbering
-#'    - Supports default filename-based number extraction
-#' 6. Replaces any NaN values with zero to ensure matrix compatibility
-#'
-#' The resulting matrix transforms multidimensional PET image data into a
-#' format suitable for functional data analysis techniques, particularly
-#' Simultaneous Confidence Corridors computation.
+#' \enumerate{
+#'   \item Verifies that the specified z-slice exists in the database.
+#'   \item Automatically calculates matrix dimensions based on x and y coordinates.
+#'   \item Extracts PET intensity values for each subject at the specified z-slice.
+#'   \item Handles both control and pathological groups by recognizing subject identifiers.
+#'   \item Replaces any NaN values with zero to ensure matrix compatibility.
+#' }
 #'
 #' Typically follows \code{\link{databaseCreator}} and precedes
-#' \code{\link{meanNormalization}} in the neuroSCC analysis pipeline.
+#' \code{\link{meanNormalization}} in the neuroSCC pipeline.
 #'
 #' @examples
-#' # Assuming 'database_CN', 'pattern', and 'paramZ' are defined
-#' SCC_CN <- matrixCreator(database_CN, pattern, paramZ = 35)
+#' # Generate a database using databaseCreator
+#' dataDir <- system.file("extdata", package = "neuroSCC")
+#' controlPattern <- "^syntheticControl.*\\.nii.gz$"
+#' databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)
+#'
+#' # Convert the database into a matrix format
+#' matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
+#' dim(matrixControls)  # Show matrix dimensions
 #'
 #' @seealso
-#' \code{\link{databaseCreator}} for creating the input database
-#' \code{\link{meanNormalization}} for subsequent data normalization
+#' \code{\link{databaseCreator}} for creating the input database.
+#' \code{\link{meanNormalization}} for normalizing PET intensity values.
 #'
 #' @export
-matrixCreator <- function(database,
-                          pattern = NULL,
-                          paramZ = 35,
-                          extractPattern = NULL,
-                          useSequentialNumbering = FALSE,
-                          quiet = FALSE) {
+matrixCreator <- function(database, paramZ = 35, useSequentialNumbering = FALSE, quiet = FALSE) {
   # 1. Input validation
-  # ---------------------------
   if (!is.data.frame(database)) {
     stop("'database' must be a data frame created by databaseCreator")
   }
@@ -74,68 +58,42 @@ matrixCreator <- function(database,
   }
 
   # 2. Determine group identification
-  # ---------------------------
   if ("CN_number" %in% colnames(database)) {
     groupCol <- "CN_number"
-    groupLabel <- "Control"
   } else if ("AD_number" %in% colnames(database)) {
     groupCol <- "AD_number"
-    groupLabel <- "Pathological"
   } else {
     stop("Database must contain either 'CN_number' or 'AD_number' column")
   }
 
   # 3. Calculate matrix dimensions
-  # ---------------------------
   zSliceData <- subset(database, z == paramZ)
   xMax <- max(zSliceData$x)
   yMax <- max(zSliceData$y)
   matrixDim <- xMax * yMax
 
-  # 4. Prepare for file processing
-  # ---------------------------
-  # Get the list of files matching the pattern
-  if (!is.null(pattern)) {
-    files <- list.files(pattern = pattern, full.names = TRUE)
-  } else {
-    files <- unique(database$file)  # Assuming a 'file' column exists
-  }
+  # 4. Get unique subject numbers
+  subjectNumbers <- unique(database[[groupCol]])
 
   # 5. Preallocate the matrix
-  # ---------------------------
-  matrixResult <- matrix(nrow = length(files), ncol = matrixDim)
+  matrixResult <- matrix(nrow = length(subjectNumbers), ncol = matrixDim)
 
-  # 6. Process each file
-  # ---------------------------
-  for (i in seq_along(files)) {
-    # Extract the number from the filename
-    if (useSequentialNumbering) {
-      number <- as.character(i)
-    } else if (!is.null(extractPattern)) {
-      number <- sub(extractPattern, "\\1", basename(files[i]))
-    } else {
-      # Default extraction pattern
-      number <- sub("masked_swwwC(\\d+)_.*", "\\1", basename(files[i]))
-    }
+  # 6. Process each subject
+  for (i in seq_along(subjectNumbers)) {
+    subjectID <- subjectNumbers[i]
 
-    # Print progress message if not quiet
+    # Print progress if not quiet
     if (!quiet) {
-      message(sprintf("Converting %s Number %s", groupLabel, number))
+      message(sprintf("Processing Subject %s", subjectID))
     }
 
-    # Subset the database for the current number and z coordinate
-    subsetData <- database[database[[groupCol]] == number & database$z == paramZ, ]
-
-    # Extract the 'pet' values
-    Y <- subsetData[1:matrixDim, "pet"]
-
-    # Replace NaN values with 0
-    Y[is.nan(Y)] <- 0
+    # Extract PET values for the subject at the specified z-slice
+    subsetData <- database[database[[groupCol]] == subjectID & database$z == paramZ, ]
+    Y <- ifelse(is.nan(subsetData$pet), 0, subsetData$pet)
 
     # Assign to matrix row
     matrixResult[i, ] <- as.numeric(Y)
   }
 
-  # Return the matrix
   return(matrixResult)
 }

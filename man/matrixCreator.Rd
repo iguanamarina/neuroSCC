@@ -6,25 +6,16 @@
 \usage{
 matrixCreator(
   database,
-  pattern = NULL,
   paramZ = 35,
-  extractPattern = NULL,
   useSequentialNumbering = FALSE,
   quiet = FALSE
 )
 }
 \arguments{
 \item{database}{A data frame created by \code{\link{databaseCreator}} containing
-PET image data with columns for group number, z, x, y, and pet values.}
-
-\item{pattern}{The regular expression pattern used to match filenames in the
-database. This should correspond to the naming conventions of the PET
-image files processed by \code{databaseCreator}.}
+PET image data with columns for subject number, z, x, y, and pet values.}
 
 \item{paramZ}{The specific z-coordinate slice to analyze. Default is 35.}
-
-\item{extractPattern}{Optional custom regular expression to extract subject
-numbers from filenames. Should contain a capture group for numerical ID.}
 
 \item{useSequentialNumbering}{If \code{TRUE}, assigns sequential numbers
 instead of extracting from filenames.}
@@ -38,39 +29,34 @@ A matrix where each row represents the PET data from one subject,
 \description{
 This function transforms a database created by \code{\link{databaseCreator}} into
 a matrix format suitable for functional data analysis. Each row of the matrix
-represents a subject's (patient or control) PET data, formatted as a continuous
-line of data points to simulate a functional representation.
+represents a subject's PET data, formatted as a continuous line of data points.
 }
 \details{
-This function is a critical step in the neuroSCC workflow for preparing data
-for Simultaneous Confidence Corridors (SCC) analysis. It performs several
-key operations:
+The function performs several operations:
 
-1. Verifies the existence of the specified z-slice in the input database
-2. Automatically calculates matrix dimensions based on the x and y coordinates
-   of the specified z-slice
-3. Extracts PET intensity values for each subject at the specified z-slice
-4. Handles different group types (control or pathological) by recognizing
-   appropriate identification columns
-5. Provides flexible subject number extraction:
-   - Uses a provided custom pattern
-   - Falls back to sequential numbering
-   - Supports default filename-based number extraction
-6. Replaces any NaN values with zero to ensure matrix compatibility
-
-The resulting matrix transforms multidimensional PET image data into a
-format suitable for functional data analysis techniques, particularly
-Simultaneous Confidence Corridors computation.
+\enumerate{
+  \item Verifies that the specified z-slice exists in the database.
+  \item Automatically calculates matrix dimensions based on x and y coordinates.
+  \item Extracts PET intensity values for each subject at the specified z-slice.
+  \item Handles both control and pathological groups by recognizing subject identifiers.
+  \item Replaces any NaN values with zero to ensure matrix compatibility.
+}
 
 Typically follows \code{\link{databaseCreator}} and precedes
-\code{\link{meanNormalization}} in the neuroSCC analysis pipeline.
+\code{\link{meanNormalization}} in the neuroSCC pipeline.
 }
 \examples{
-# Assuming 'database_CN', 'pattern', and 'paramZ' are defined
-SCC_CN <- matrixCreator(database_CN, pattern, paramZ = 35)
+# Generate a database using neuroCleaner and databaseCreator
+dataDir <- system.file("extdata", package = "neuroSCC")
+controlPattern <- "^syntheticControl.*\\\\.nii.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)
+
+# Convert the database into a matrix format
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
+dim(matrixControls)  # Show matrix dimensions
 
 }
 \seealso{
-\code{\link{databaseCreator}} for creating the input database
-\code{\link{meanNormalization}} for subsequent data normalization
+\code{\link{databaseCreator}} for creating the input database.
+\code{\link{meanNormalization}} for normalizing PET intensity values.
 }

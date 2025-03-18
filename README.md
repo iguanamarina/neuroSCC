@@ -9,8 +9,8 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-10-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-12301KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Issues](https://img.shields.io/badge/Issues-9-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-13086KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -78,7 +78,7 @@ approaches**.
 
 ``` r
 # Install the latest stable release (Future)
-remotes::install_github("iguanamarina/neuroSCC@releases")
+remotes::install_github("iguanamarina/neuroSCC@94f4f65")
 library(neuroSCC)
 ```
 

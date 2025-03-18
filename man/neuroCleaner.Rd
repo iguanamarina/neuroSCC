@@ -38,100 +38,35 @@ functions from the ImageSCC package such as \code{ImageSCC::scc1g.image} or \cod
 \details{
 The function performs several key operations:
 
-1. Reads the NIFTI file using \code{oro.nifti} package functions
-2. Converts the 3D image data to a structured data frame
-3. Extracts the dimensional information (\code{z}, \code{x}, \code{y} coordinates)
-4. Organizes the PET intensity values
-5. If demographic data is provided, merges it with the image data
+\enumerate{
+  \item Reads the NIFTI file using \code{oro.nifti} package functions.
+  \item Converts the 3D image data to a structured data frame.
+  \item Extracts the dimensional information (\code{z}, \code{x}, \code{y} coordinates).
+  \item Organizes the PET intensity values.
+  \item If demographic data is provided, merges it with the image data.
+}
 
 The resulting data frame serves as input for subsequent analysis functions in the
-neuroSCC pipeline, such as \code{databaseCreator} and \code{matrixCreator}, which prepare
-the data for eventual analysis with the ImageSCC package functions.
+\code{neuroSCC} pipeline, such as \code{databaseCreator} and \code{matrixCreator}, which prepare
+the data for eventual analysis with the \code{ImageSCC} package functions.
 }
 \examples{
-# Example 1: Using package sample data
-\dontrun{
-# Access sample files included with the package
-data_dir <- system.file("extdata", package = "neuroSCC")
-nifti_file <- file.path(data_dir, "sampleFile1.nii")
+# Get the file path for sample Control NIfTI file
+niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 
-# Basic usage with just a NIFTI file
-pet_data <- neuroCleaner(nifti_file)
-
-# Display the first few rows of the result
-head(pet_data)
-#>   z x  y      pet
-#>   1 1  1  0.00000
-#>   1 1  2  0.00000
-#>   1 1  3  0.78526
-#>   ...
+# Example 1: Without demographic data
+petData <- neuroCleaner(niftiFile)
+petData[sample(nrow(petData), 10), ] # Show 10 random voxels
 
 # Example 2: With demographic data
-# Load demographic data
-demo_file <- file.path(data_dir, "Demographics.csv")
-demo_data <- read.csv(demo_file)
-
-# Display the demographic data
-print(demo_data)
-#>         PPT Group Sex Age
-#> 1 041_S_1391    AD   M  85
-#> 2 036_S_1001    AD   M  69
-#> 3 037_S_0627    AD   F  59
-
-# Process the first NIFTI file with demographic data
-# This will attempt to match based on filename
-pet_with_demo <- neuroCleaner(nifti_file, demo = demo_data)
-
-# Display the first few rows with demographic information
-head(pet_with_demo)
-#>         PPT Group Sex Age z x  y      pet
-#>  041_S_1391    AD   M  85 1 1  1  0.00000
-#>  041_S_1391    AD   M  85 1 1  2  0.00000
-#>  041_S_1391    AD   M  85 1 1  3  0.78526
-#>  ...
-
-# Example 3: Using a specific row from demographic data
-# Process another NIFTI file and specify which demographic row to use
-nifti_file2 <- file.path(data_dir, "sampleFile2.nii")
-pet_with_specific_demo <- neuroCleaner(nifti_file2, demo = demo_data, demoRow = 3)
-
-# Display the first few rows (now with demographic info from row 3)
-head(pet_with_specific_demo)
-#>         PPT Group Sex Age z x  y      pet
-#>  037_S_0627    AD   F  59 1 1  1  0.00000
-#>  037_S_0627    AD   F  59 1 1  2  0.00000
-#>  037_S_0627    AD   F  59 1 1  3  0.78526
-#>  ...
-}
-
-# Example 4: Creating synthetic data (fully reproducible)
-# Create a simple 3D array as a synthetic NIFTI image
-if (requireNamespace("oro.nifti", quietly = TRUE)) {
-  # Temporary file path
-  temp_nii <- tempfile(fileext = ".nii")
-
-  # Create a small synthetic NIFTI file (3x3x3)
-  img_data <- array(1:27, dim = c(3, 3, 3))
-  nii_obj <- oro.nifti::nifti(img_data)
-  oro.nifti::writeNIfTI(nii_obj, filename = temp_nii, verbose = FALSE)
-
-  # Sample demographic data
-  demo_data <- data.frame(
-    PPT = c("sample001", "sample002", "sample003"),
-    Group = c("Control", "Patient", "Patient"),
-    Sex = c("M", "F", "M"),
-    Age = c(65, 70, 75)
-  )
-
-  # Process the synthetic NIFTI with demographic data (use row 2)
-  # This will not run if oro.nifti is not installed
-  pet_data <- neuroCleaner(temp_nii, demo = demo_data, demoRow = 2)
-  head(pet_data)
-}
+demoFile <- system.file("extdata", "Demographics.csv", package = "neuroSCC")
+demoData <- read.csv(demoFile, stringsAsFactors = FALSE, sep = ";")
+petDataWithDemo <- neuroCleaner(niftiFile, demo = demoData)
+petDataWithDemo[sample(nrow(petDataWithDemo), 10), ] # Show 10 random voxels
 
 }
 \seealso{
 \code{\link{databaseCreator}} for creating databases from multiple NIFTI files.
 
-\code{oro.nifti::readNIfTI} for the underlying function used to read NIFTI files.
+\code{\link[oro.nifti]{readNIfTI}} for the underlying function used to read NIFTI files.
 }

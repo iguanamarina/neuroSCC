@@ -7,168 +7,78 @@
 databaseCreator(
   pattern,
   control = TRUE,
-  extractPattern = NULL,
   useSequentialNumbering = FALSE,
   demo = NULL,
   quiet = FALSE
 )
 }
 \arguments{
-\item{pattern}{\code{character}, a regular expression pattern that specifies which files to process.
-By default, the function is designed to work with filenames structured like:
-"masked_swwwC1_tripleNormEsp_roiAD_0_1_rrec_OSEM3D_32_it1.nii", where "C1" indicates
-the subject identifier.}
+\item{pattern}{\code{character}, a regular expression pattern specifying which files to process.
+The function extracts the subject number directly from the filename based on this pattern.}
 
-\item{control}{\code{logical}, if \code{TRUE}, the function processes control group images
-and if \code{FALSE}, it processes pathological group images. Default is \code{TRUE}.}
-
-\item{extractPattern}{\code{character}, optional custom regular expression to extract the subject
-number from filenames. Should contain a capture group \code{(\\d+)} to extract the numerical ID.
-Default is \code{NULL}, which uses the built-in pattern "masked_swwwC(\\d+)_.*".}
+\item{control}{\code{logical}, if \code{TRUE}, the function processes control group images;
+if \code{FALSE}, it processes pathological group images. Default is \code{TRUE}.}
 
 \item{useSequentialNumbering}{\code{logical}, if \code{TRUE}, assigns sequential numbers (1,2,3,...)
-to files instead of attempting to extract numbers from filenames. Default is \code{FALSE}.}
+to files instead of extracting from filenames. Default is \code{FALSE}.}
 
-\item{demo}{\code{data.frame}, optional demographic data.
-If provided, this demographic information will be included in the output database for each file.
-Default is \code{NULL}.}
+\item{demo}{\code{data.frame}, optional demographic data. If provided, this information will be
+included in the output database for each file. Default is \code{NULL}.}
 
 \item{quiet}{\code{logical}, if \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.}
 }
 \value{
-A \code{data.frame} that aggregates processed data from each image. Each row represents
-        data from one voxel (3D pixel), including:
+A \code{data.frame} that aggregates processed data from all matched images.
+        Each row represents data from one voxel (3D pixel), including:
         \itemize{
           \item For control group (\code{control=TRUE}): \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
           \item For pathological group (\code{control=FALSE}): \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
-          \item If demographic data is provided: Additional columns like \code{PPT}, \code{Group}, \code{Sex}, \code{Age} will be included
+          \item If demographic data is provided: Additional columns like \code{PPT}, \code{Group}, \code{Sex}, \code{Age}
         }
         The \code{CN_number} or \code{AD_number} column contains the subject identifier extracted from
-        the filename or assigned sequentially. The \code{pet} column contains the intensity values.
+        the filename or assigned sequentially. The \code{pet} column contains intensity values.
 }
 \description{
-This function automates the processing of PET images based on a specified file name pattern
-within a working directory. It reads each file matching the pattern, processes it using
-\code{\link{neuroCleaner}}, and compiles the results into a comprehensive data frame.
-The function serves as a key step in the neuroSCC workflow, bridging between individual
-image processing and preparation for functional data analysis with Simultaneous Confidence
-Corridors.
+This function processes PET images based on a specified file name pattern.
+It reads each file matching the pattern, processes it using \code{\link{neuroCleaner}},
+and compiles the results into a structured data frame.
+The function is a key step in the neuroSCC workflow, bridging individual
+image processing and preparation for functional data analysis with Simultaneous Confidence Corridors (SCCs).
 }
 \details{
-The function performs several key operations:
+The function performs the following operations:
 
-1. Identifies files in the working directory that match the specified pattern
-2. For each matching file:
-   a. Extracts the subject number from the filename or assigns a sequential number
-   b. Processes the file using \code{\link{neuroCleaner}}, including demographic data if provided
-   c. Adds subject identifier information to each row
-   d. Appends the data to a growing database
-
-The subject number extraction uses either:
-\itemize{
-  \item The custom pattern provided in \code{extractPattern}
-  \item Sequential numbering (1,2,3,...) if \code{useSequentialNumbering=TRUE}
-  \item The default pattern "masked_swwwC(\\d+)_.*" which extracts numbers after "C" in filenames
+\enumerate{
+  \item Identifies files in the working directory that match the specified pattern.
+  \item For each file:
+  \itemize{
+    \item Extracts the subject number from the filename (or assigns a sequential number if \code{useSequentialNumbering=TRUE}).
+    \item Processes the file using \code{\link{neuroCleaner}}, integrating demographic data if provided.
+    \item Adds subject identifier information to each row.
+    \item Merges all processed data into a structured database.
+  }
 }
 
 This function is typically followed by \code{\link{matrixCreator}} in the analysis pipeline,
 which transforms the database into a format suitable for SCC computation.
 }
 \examples{
-# Example 1: Basic usage with default settings for control group
-\dontrun{
-# Set the working directory where your PET images are stored
-setwd("~/PET_Images")
+# Get the file path for sample data
+dataDir <- system.file("extdata", package = "neuroSCC")
 
-# Define the pattern for file names to process
-pattern <- "^masked_swwwC\\\\d+_tripleNormEsp_w00_rrec_OSEM3D_32_it1.nii"
+# Example 1: Create database for Controls
+controlPattern <- "^syntheticControl.*\\\\.nii.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+head(databaseControls); tail(databaseControls)
+nrow(databaseControls)  # Total number of rows
+unique(databaseControls$CN_number)  # Show unique subjects
 
-# Create the database for control group images
-database_CN <- databaseCreator(pattern, control = TRUE)
-
-# Example output (first few rows):
-# CN_number    z    x    y     pet
-# 1           35    1    1     0.0
-# 1           35    1    2     0.0
-# 1           35    1    3     2.3
-# ...
-}
-
-# Example 2: Using demographic data
-\dontrun{
-# Load demographic data
-demo_data <- read.csv("demographics.csv")
-
-# Create database with demographic information
-database_CN <- databaseCreator(pattern, control = TRUE, demo = demo_data)
-
-# Example output with demographic data:
-# PPT    Group  Sex  Age  CN_number    z    x    y     pet
-# P001   Control  M   65   1           35    1    1     0.0
-# P001   Control  M   65   1           35    1    2     0.0
-# P001   Control  M   65   1           35    1    3     2.3
-# ...
-}
-
-# Example 3: Processing pathological group images
-\dontrun{
-# Define the pattern for pathological images
-pattern <- "^masked_swwwC\\\\d+_tripleNormEsp_roiAD_0_8_rrec_OSEM3D_32_it1.nii"
-
-# Create the database for pathological group images
-database_AD <- databaseCreator(pattern, control = FALSE)
-
-# Example output (first few rows):
-# AD_number    z    x    y     pet
-# 1           35    1    1     0.0
-# 1           35    1    2     0.0
-# 1           35    1    3     1.8
-# ...
-}
-
-# Example 4: Using a custom extraction pattern
-\dontrun{
-# For files named like "subject_023_scan.nii"
-pattern <- "^subject_\\\\d+_scan.nii"
-extractPattern <- "subject_(\\\\d+)_scan"
-
-database <- databaseCreator(pattern, extractPattern = extractPattern)
-}
-
-# Example 5: Using sequential numbering instead of extracting from filenames
-\dontrun{
-# For files that don't contain subject numbers in their names
-pattern <- "^pet_scan_.*\\\\.nii"
-
-database <- databaseCreator(pattern, useSequentialNumbering = TRUE)
-}
-
-# Example 6: Reproducible example with synthetic data
-if (requireNamespace("oro.nifti", quietly = TRUE)) {
-  # Create temporary directory and files for demonstration
-  temp_dir <- tempdir()
-  old_dir <- getwd()
-  setwd(temp_dir)
-
-  # Create two simple synthetic NIFTI files
-  for (i in 1:2) {
-    # Create a small synthetic array (3x3x3)
-    img_data <- array(1:27, dim = c(3, 3, 3))
-    nii_obj <- oro.nifti::nifti(img_data)
-
-    # Save with names that match our expected pattern
-    filename <- paste0("masked_swwwC", i, "_tripleNormEsp_w00_rrec_OSEM3D_32_it1.nii")
-    oro.nifti::writeNIfTI(nii_obj, filename = file.path(temp_dir, filename), verbose = FALSE)
-  }
-
-  # Process these files
-  pattern <- "^masked_swwwC\\\\d+_tripleNormEsp_w00_rrec_OSEM3D_32_it1.nii"
-  # This will not run if oro.nifti is not installed
-  # database <- databaseCreator(pattern)
-
-  # Clean up and restore working directory
-  setwd(old_dir)
-}
+# Example 2: Create database for Pathological group
+pathologicalPattern <- "^syntheticPathological.*\\\\.nii.gz$"
+databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+head(databasePathological); tail(databasePathological)
+nrow(databasePathological)  # Total number of rows
+unique(databasePathological$AD_number)  # Show unique subjects
 
 }
 \seealso{
