@@ -28,8 +28,8 @@
 #'
 #' @return A named list:
 #' \itemize{
-#'   \item \code{positivePoints}: Data frame with coordinates where the **first group (Ya) had significantly lower activity than the second (Yb)**.
-#'   \item \code{negativePoints}: Data frame with coordinates where the **first group (Ya) had significantly higher activity than the second (Yb)**.
+#'   \item \code{positivePoints}: Data frame with coordinates where the \strong{first group (Ya) had significantly lower activity than the second (Yb)}.
+#'   \item \code{negativePoints}: Data frame with coordinates where the \strong{first group (Ya) had significantly higher activity than the second (Yb)}.
 #' }
 #'
 #' @examples
