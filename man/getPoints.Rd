@@ -47,9 +47,9 @@ data("SCCcomp", package = "neuroSCC")
 # Extract significant SCC points
 significantPoints <- getPoints(SCCcomp)
 
-# Show first extracted hypoactive (positive) and hyperactive (negative) points
-head(significantPoints$positivePoints)
-head(significantPoints$negativePoints)
+# Show first extracted points (interpretation depends on SCC computation, see description)
+head(significantPoints$positivePoints)  # Regions where Pathological is hypoactive vs. Control
+head(significantPoints$negativePoints)  # Regions where Pathological is hyperactive vs. Control
 
 }
 \seealso{
