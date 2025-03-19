@@ -33,23 +33,15 @@
 #' a triangular mesh of the region, which is then used for Simultaneous Confidence Corridors calculations.
 #'
 #' @examples
-#' \dontrun{
-#' # Load a sample NIFTI file from the neuroSCC package
-#' library(neuroSCC)
-#' maskPath <- system.file("extdata", "new_mask.nii", package = "neuroSCC")
+#' # Get the file path for a sample NIfTI file
+#' niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 #'
-#' # Extract contours from z-slice 35 and automatically show plot
-#' contours <- neuroContour(maskPath, paramZ = 35, levels = c(0), plotResult = TRUE)
+#' # Extract contours at level 0
+#' contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
 #'
-#' # Show the first few extracted points of the external contour
-#' head(contours[[1]])
-#'
-#' # If internal contours exist, show them as well
-#' if (length(contours) > 1) {
-#'   for (j in 2:length(contours)) {
-#'     print(head(contours[[j]]))  # Show points of internal contours
-#'   }
-#' }
+#' # Display the extracted contour coordinates
+#' if (length(contours) > 0) {
+#'   head(contours[[1]])  # Show first few points of the main contour
 #' }
 #'
 #' @seealso

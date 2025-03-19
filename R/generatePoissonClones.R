@@ -21,18 +21,25 @@
 #'   validity when a single observation is not sufficient.
 #'
 #' @examples
-#' \dontrun{
-#'   # Simulated PET matrix (3 subjects, 4 pixels each)
-#'   petMatrix <- matrix(c(5, 10, 15, 0,
-#'                         3, 8, 12, 0,
-#'                         7, 14, 21, 0), nrow = 3, byrow = TRUE)
+#' # Get a single patient's PET data matrix
+#' dataDir <- system.file("extdata", package = "neuroSCC")
+#' pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
+#' databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+#' matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
+#' patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
 #'
-#'   # Generate 5 synthetic clones
-#'   clones <- generatePoissonClones(petMatrix, numClones = 5, lambdaFactor = 0.01)
+#' # Select 10 random columns for visualization
+#' set.seed(123)
+#' sampledCols <- sample(ncol(patientMatrix), 10)
 #'
-#'   # Check the cloned dataset
-#'   print(clones)
-#' }
+#' # Show voxel intensity values before cloning
+#' patientMatrix[, sampledCols]
+#'
+#' # Generate 5 synthetic clones with Poisson noise
+#' clones <- generatePoissonClones(patientMatrix, numClones = 5, lambdaFactor = 0.25)
+#'
+#' # Show voxel intensity values after cloning
+#' clones[, sampledCols]
 #'
 #' @export
 generatePoissonClones <- function(originalMatrix, numClones, lambdaFactor) {

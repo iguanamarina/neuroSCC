@@ -28,13 +28,13 @@ The function can handle both NIFTI file paths and pre-loaded oro.nifti file obje
 It provides a consistent way to extract dimensional information across the package.
 }
 \examples{
-\dontrun{
-# Using a file path
-dims <- neuroSCC::getDimensions("path/to/your/image.nii")
+# Get the file path for a sample NIfTI file
+niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 
-# If used within neuroCleaner
-file <- oro.nifti::readNIfTI("path/to/your/image.nii")
-dims <- neuroSCC::getDimensions(file)
-}
+# Extract dimensions from the NIfTI file
+dimensions <- getDimensions(niftiFile)
+
+# Display the extracted dimensions
+print(dimensions)
 
 }

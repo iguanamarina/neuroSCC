@@ -3,10 +3,22 @@
 #' @description
 #' This function identifies and extracts coordinates where significant differences
 #' fall outside the simultaneous confidence corridors (SCCs).
-#' It processes the results from \code{ImageSCC::scc.image}, returning the extracted coordinates
+#' It processes the results from \code{ImageSCC::scc.image()}, returning the extracted coordinates
 #' where the differences are statistically significant.
 #'
-#' @param sccResult A list containing SCC computation results from \code{ImageSCC::scc.image}.
+#' The interpretation of the results depends on how the SCC was computed.
+#' If SCC was computed as \code{scc.image(Ya = Y_AD, Yb = Y_CN, ...)}, meaning the
+#' \strong{Control group (CN) is the second argument}, the function extracts:
+#' \itemize{
+#'   \item \strong{positivePoints}: Regions where \strong{Control - Pathological} is significantly above SCC.
+#'     These represent \emph{areas where the Pathological group (AD) is hypoactive compared to the Control group}.
+#'   \item \strong{negativePoints}: Regions where \strong{Control - Pathological} is significantly below SCC.
+#'     These represent \emph{areas where the Pathological group (AD) is hyperactive compared to the Control group}.
+#' }
+#'
+#' \strong{Make sure to check the order of Ya and Yb in the SCC computation} before interpreting the results.
+#'
+#' @param sccResult A list containing SCC computation results from \code{\link[ImageSCC]{scc.image}}.
 #'        The list should include at least:
 #' \itemize{
 #'   \item \code{Z.band}: Matrix specifying grid positions.
@@ -16,32 +28,23 @@
 #'
 #' @return A named list:
 #' \itemize{
-#'   \item \code{positivePoints}: Data frame with coordinates where the first group
-#'         shows significantly higher values than the second.
-#'   \item \code{negativePoints}: Data frame with coordinates where the second group
-#'         shows significantly higher values than the first.
+#'   \item \code{positivePoints}: Data frame with coordinates where the **first group (Ya) had significantly lower activity than the second (Yb)**.
+#'   \item \code{negativePoints}: Data frame with coordinates where the **first group (Ya) had significantly higher activity than the second (Yb)**.
 #' }
-#'
-#' @details
-#' - Positive points indicate where the first group (e.g., Control) is significantly stronger.
-#' - Negative points indicate where the second group (e.g., Pathological) is significantly stronger.
-#' - This function must be used **after** running \code{ImageSCC::scc.image}.
 #'
 #' @examples
-#' \dontrun{
-#' # Load SCC results (previously computed)
-#' load("SCC_COMP.RData")
+#' # Load precomputed SCC example
+#' data("SCCcomp", package = "neuroSCC")
 #'
 #' # Extract significant SCC points
-#' significantPoints <- getPoints(SCC_COMP)
+#' significantPoints <- getPoints(SCCcomp)
 #'
-#' # Display extracted coordinates
-#' head(significantPoints$positivePoints)  # External significant points
-#' head(significantPoints$negativePoints)  # Internal significant points (if any)
-#' }
+#' # Show first extracted hypoactive (positive) and hyperactive (negative) points
+#' head(significantPoints$positivePoints)
+#' head(significantPoints$negativePoints)
 #'
 #' @seealso
-#' \code{ImageSCC::scc.image} for SCC computation.
+#' \code{\link[ImageSCC]{scc.image}} for SCC computation.
 #'
 #' @export
 getPoints <- function(sccResult) {
@@ -89,12 +92,18 @@ getPoints <- function(sccResult) {
   scc[insideCover, ] <- sccValues[, , 2]  # Assign SCC confidence band values
 
   # Define SCC thresholds
-  sccLower <- matrix(scc[, 1], nrow = n2, ncol = n1)  # Lower bound
-  sccUpper <- matrix(scc[, 2], nrow = n2, ncol = n1)  # Upper bound
+  sccLower <- matrix(scc[, 1], nrow = n2, ncol = n1)  # Lower bound (negative SCC threshold)
+  sccUpper <- matrix(scc[, 2], nrow = n2, ncol = n1)  # Upper bound (positive SCC threshold)
 
-  # Remove invalid values
-  sccLower[sccLower < 0] <- NA  # Negative lower bound values are not significant
-  sccUpper[sccUpper > 0] <- NA  # Positive upper bound values are not significant
+  # Keep only values that fall outside the SCC region:
+
+  # If the lower bound is negative, it means the difference is too high (Control > AD),
+  # so we keep only positive values.
+  sccLower[sccLower < 0] <- NA  # Retain only significant positive deviations (Control > AD)
+
+  # If the upper bound is positive, it means the difference is too low (AD > Control),
+  #so we keep only negative values.
+  sccUpper[sccUpper > 0] <- NA  # Retain only significant negative deviations (AD > Control)
 
   # 4. Identify Significant SCC Points
   # ---------------------------
