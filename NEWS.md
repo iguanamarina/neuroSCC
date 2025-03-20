@@ -1,5 +1,10 @@
 # neuroSCC 0.14.0
 
+- **Function Completion**:
+  - `generatePoissonClones()` already working.
+  - `calculateMetrics()` already working.
+  - `getSPMbinary()` included for SPM processing.
+  
 # neuroSCC 0.13.0
 
 - **First Complete Release** with basic functioning achieved.
