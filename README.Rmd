@@ -517,6 +517,7 @@ usethis::use_version()
 devtools::check() 
 devtools::build_manual(pkg = ".", path = getwd())
 devtools::build()
+pkgdown::build_site()
 ```
 
 
