@@ -10,7 +10,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-11-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-94092KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-94229KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -42,9 +42,9 @@ Santiago de Compostela (Spain)**.
 
 - [About the Project](#about-the-project)
 - [Installation](#installation)
-- [Basic Usage](#basic-usage)
 - [Functions Overview](#functions-overview)
-- [Vignette & Full Workflow](#vignette-full-workflow)
+- [Vignette](#vignette)
+- [Visual Workflow](#visual-workflow)
 - [References](#references)
 - [Contributing & Feedback](#contributing-feedback)
 
@@ -95,172 +95,12 @@ library(neuroSCC)
 ``` r
 # Once available on CRAN
 install.packages("neuroSCC")
+library(neuroSCC)
 ```
 
 ------------------------------------------------------------------------
 
-# 3️⃣ Basic Usage <a id="basic-usage"></a>
-
-### 🧩 One-group SCC Estimation
-
-This example computes **Simultaneous Confidence Corridors (SCCs)** for a
-**single group** (e.g., control subjects).
-
-*Example with Code:*
-<details>
-<summary>
-Click to expand
-</summary>
-
-``` r
-# Load required packages
-library(neuroSCC)
-library(ImageSCC)
-
-# Load sample PET data for a single group (e.g., control group)
-control_data <- neuroCleaner(system.file("extdata", "control_1.nii", package = "neuroSCC"))
-
-# Convert to matrix format for functional data analysis
-control_matrix <- matrixCreator(control_data, paramZ = 35)
-
-# Normalize intensity values across subjects
-control_matrix <- meanNormalization(control_matrix)
-
-# Load predefined contour (assuming already available in package data)
-contourCoordinates <- neuroContour(system.file("extdata", "brain_mask.nii", package = "neuroSCC"))
-
-# Generate triangulation mesh from contours
-Brain.V <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$V
-Brain.Tr <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$Tr
-
-# Define SCC parameters
-d.est <- 5  # Spline degree for mean function
-d.band <- 2  # Spline degree for SCCs
-lambda <- 10^{seq(-6, 3, 0.5)}  # Regularization parameters
-alpha.grid <- c(0.10, 0.05, 0.01)  # Confidence levels
-
-# Compute SCCs for the group
-SCC_control <- ImageSCC::scc.image(Ya = control_matrix, Z = 35,
-                                   d.est = d.est, d.band = d.band,
-                                   V.est.a = Brain.V, Tr.est.a = Brain.Tr,
-                                   penalty = TRUE, lambda = lambda, alpha.grid = alpha.grid,
-                                   adjust.sigma = TRUE)
-
-# Plot SCC results
-plot(SCC_control)
-```
-
-</details>
-
-### ⚖️ Two-group SCC Estimation and Comparison
-
-This example computes SCCs for two groups (e.g., **Control vs
-Pathological**) and detects regions where activity levels
-**significantly differ**.
-
-*Example with Code:*
-<details>
-<summary>
-Click to expand
-</summary>
-
-``` r
-# Load required packages
-library(neuroSCC)
-library(ImageSCC)
-
-# Load PET images for both groups
-control_data <- neuroCleaner(system.file("extdata", "control_1.nii", package = "neuroSCC"))
-pathological_data <- neuroCleaner(system.file("extdata", "pathological_1.nii", package = "neuroSCC"))
-
-# Convert to functional matrix format
-control_matrix <- matrixCreator(control_data, paramZ = 35)
-pathological_matrix <- matrixCreator(pathological_data, paramZ = 35)
-
-# Normalize both groups
-control_matrix <- meanNormalization(control_matrix)
-pathological_matrix <- meanNormalization(pathological_matrix)
-
-# Load contour and create triangulation mesh
-contourCoordinates <- neuroContour(system.file("extdata", "brain_mask.nii", package = "neuroSCC"))
-Brain.V <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$V
-Brain.Tr <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$Tr
-
-# Compare SCC results between the two groups
-SCC_diff <- ImageSCC::scc.image(Ya = pathological_matrix, Yb = control_matrix, Z = 35,
-                                d.est = 5, d.band = 2,
-                                V.est.a = Brain.V, Tr.est.a = Brain.Tr,
-                                penalty = TRUE, lambda = 10^{seq(-6, 3, 0.5)},
-                                alpha.grid = c(0.10, 0.05, 0.01), adjust.sigma = TRUE)
-
-# Identify points where differences exceed confidence intervals
-significantPoints <- getPoints(SCC_diff)
-
-# Plot the results
-plot(SCC_diff)
-```
-
-</details>
-
-### 🎯 1vsGroup SCC Estimation and Comparison
-
-This example compares **a single patient** against a **control group**,
-detecting regions where the patient’s activity differs significantly.
-
-*Example with Code:*
-<details>
-<summary>
-Click to expand
-</summary>
-
-``` r
-# Load required packages
-library(neuroSCC)
-library(ImageSCC)
-
-# Load PET data for a single patient and the control group
-patient_data <- neuroCleaner(system.file("extdata", "patient_1.nii", package = "neuroSCC"))
-control_data <- neuroCleaner(system.file("extdata", "control_1.nii", package = "neuroSCC"))
-
-# Convert to matrix format
-control_matrix <- matrixCreator(control_data, paramZ = 35)
-patient_matrix <- matrixCreator(patient_data, paramZ = 35)
-
-# Normalize both datasets
-control_matrix <- meanNormalization(control_matrix)
-patient_matrix <- meanNormalization(patient_matrix)
-
-# Load predefined contours and triangulation mesh
-contourCoordinates <- neuroContour(system.file("extdata", "brain_mask.nii", package = "neuroSCC"))
-Brain.V <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$V
-Brain.Tr <- Triangulation::TriMesh(contourCoordinates[[1]], n = 10)$Tr
-
-# Expand patient data by generating synthetic "clones" to increase sample size
-numClones <- 5
-patient_clones <- do.call(rbind, replicate(numClones, patient_matrix, simplify = FALSE))
-
-# Combine original patient data with clones
-expanded_patient_data <- rbind(patient_matrix, patient_clones)
-
-# Compute SCC comparing single patient vs control group
-SCC_1vsG <- ImageSCC::scc.image(Ya = expanded_patient_data, Yb = control_matrix, Z = 35,
-                                d.est = 5, d.band = 2,
-                                V.est.a = Brain.V, Tr.est.a = Brain.Tr,
-                                penalty = TRUE, lambda = 10^{seq(-6, 3, 0.5)},
-                                alpha.grid = c(0.10, 0.05, 0.01), adjust.sigma = TRUE)
-
-# Identify significant points where patient differs from control
-significantPoints_1vsG <- getPoints(SCC_1vsG)
-
-# Plot SCC results
-plot(SCC_1vsG)
-```
-
-</details>
-
-------------------------------------------------------------------------
-
-# 4️⃣ Functions Overview<a id="functions-overview"></a>
+# 3️⃣ Functions Overview<a id="functions-overview"></a>
 
 ## 🧼 neuroCleaner(): Load & Clean PET Data
 
@@ -277,8 +117,11 @@ Click to expand
 </summary>
 
 ``` r
-# Load a NIFTI file and structure the data
-clean_data <- neuroCleaner("path/to/file.nii")
+# Load a sample NIFTI file included in the package
+niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+
+# Structure the data
+clean_data <- neuroCleaner(niftiFile)
 head(clean_data)
 ```
 
@@ -299,8 +142,22 @@ Click to expand
 </summary>
 
 ``` r
-# Process multiple PET images into a database
-database <- databaseCreator(pattern = ".*nii")
+# Get the file path for sample data
+dataDir <- system.file("extdata", package = "neuroSCC")
+
+# Example 1: Create database for Controls
+controlPattern <- "^syntheticControl.*\\.nii.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+head(databaseControls); tail(databaseControls)
+nrow(databaseControls)  # Total number of rows
+unique(databaseControls$CN_number)  # Show unique subjects
+
+# Example 2: Create database for Pathological group
+pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
+databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+head(databasePathological); tail(databasePathological)
+nrow(databasePathological)  # Total number of rows
+unique(databasePathological$AD_number)  # Show unique subjects
 ```
 
 </details>
@@ -320,7 +177,9 @@ Click to expand
 
 ``` r
 # Extract spatial dimensions of a PET scan
-dims <- getDimensions("path/to/file.nii")
+niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+dims <- getDimensions(niftiFile)
+print(dims)
 ```
 
 </details>
@@ -339,8 +198,14 @@ Click to expand
 </summary>
 
 ``` r
-# Convert database of PET images into a matrix format
-matrix_data <- matrixCreator(database, pattern = ".*nii", paramZ = 35)
+# Generate a database using databaseCreator
+dataDir <- system.file("extdata", package = "neuroSCC")
+controlPattern <- "^syntheticControl.*\\.nii.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)
+
+# Convert the database into a matrix format
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
+dim(matrixControls)  # Show matrix dimensions
 ```
 
 </details>
@@ -359,8 +224,21 @@ Click to expand
 </summary>
 
 ``` r
-# Apply mean normalization for functional data analysis
-normalized_matrix <- meanNormalization(matrix_data)
+# Generate a database and create a matrix
+dataDir <- system.file("extdata", package = "neuroSCC")
+controlPattern <- "^syntheticControl.*\\.nii.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
+
+# Normalize the matrix with detailed output
+normalizationResult <- meanNormalization(matrixControls, returnDetails = TRUE, quiet = FALSE)
+
+# Show problematic rows if any
+if (length(normalizationResult$problemRows) == 0) {
+  cat("No problematic rows detected.\n")
+} else {
+  print(normalizationResult$problemRows)
+}
 ```
 
 </details>
@@ -379,8 +257,16 @@ Click to expand
 </summary>
 
 ``` r
-# Extract region contours from neuroimaging data
-contours <- neuroContour("path/to/file.nii")
+# Get the file path for a sample NIfTI file
+niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+
+# Extract contours at level 0
+contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
+
+# Display the extracted contour coordinates
+if (length(contours) > 0) {
+  head(contours[[1]])  # Show first few points of the main contour
+}
 ```
 
 </details>
@@ -399,8 +285,39 @@ Click to expand
 </summary>
 
 ``` r
-# Extract significant points from SCC results
-points <- getPoints(SCC_result)
+# Load precomputed SCC example
+data("SCCcomp", package = "neuroSCC")
+
+# Extract significant SCC points
+significantPoints <- getPoints(SCCcomp)
+
+# Show first extracted points (interpretation depends on SCC computation, see description)
+head(significantPoints$positivePoints)  # Regions where Pathological is hypoactive vs. Control
+head(significantPoints$negativePoints)  # Regions where Pathological is hyperactive vs. Control
+```
+
+</details>
+
+## 🧩 getSPMbinary(): Extract SPM-Detected Significant Points
+
+`getSPMbinary()` extracts **significant points** from an **SPM-generated
+binary NIfTI file**.  
+It returns voxel coordinates where **SPM detected significant
+differences**, making it comparable to SCC results.
+
+*Example with Code:*
+<details>
+<summary>
+Click to expand
+</summary>
+
+``` r
+# Load a sample binary NIfTI file (SPM result)
+niftiFile <- system.file("extdata", "binary.nii", package = "neuroSCC")
+detectedSPM <- getSPMbinary(niftiFile, paramZ = 35)
+
+# Show detected points
+head(detectedSPM)
 ```
 
 </details>
@@ -419,8 +336,13 @@ Click to expand
 </summary>
 
 ``` r
-# Process ROIs from a set of files
-processROIs(roiDir = "path/to/rois", regions = c("region1", "region2"), numbers = 1:10)
+# Load example ROI data
+data("ROIsample", package = "neuroSCC")
+
+# Process an ROI NIfTI file (show results in console)
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
+processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+head(processedROI)  # Display first few rows
 ```
 
 </details>
@@ -439,16 +361,25 @@ Click to expand
 </summary>
 
 ``` r
-# Simulated PET matrix (3 subjects, 4 pixels each)
-petMatrix <- matrix(c(5, 10, 15, 0,
-                      3, 8, 12, 0,
-                      7, 14, 21, 0), nrow = 3, byrow = TRUE)
+# Get a single patient's PET data matrix
+dataDir <- system.file("extdata", package = "neuroSCC")
+pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
+databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
+patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
 
-# Generate 5 synthetic clones
-clones <- generatePoissonClones(petMatrix, numClones = 5, lambdaFactor = 0.01)
+# Select 10 random columns for visualization
+set.seed(123)
+sampledCols <- sample(ncol(patientMatrix), 10)
 
-# Check the cloned dataset
-print(clones)
+# Show voxel intensity values before cloning
+patientMatrix[, sampledCols]
+
+# Generate 5 synthetic clones with Poisson noise
+clones <- generatePoissonClones(patientMatrix, numClones = 5, lambdaFactor = 0.25)
+
+# Show voxel intensity values after cloning
+clones[, sampledCols]
 ```
 
 </details>
@@ -467,58 +398,36 @@ Click to expand
 </summary>
 
 ``` r
-# Example: Evaluate SCC detection performance
+# Extract detected SCC points
+detectedSCC <- getPoints(SCCcomp)$positivePoints
 
-# SCC-detected significant points
-detected <- data.frame(x = c(1, 2, 3), y = c(2, 3, 4))
+# Extract detected SPM points
+spmFile <- system.file("extdata", "binary.nii", package = "neuroSCC")
+detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
 
-# True ROI points (ground truth)
-trueROI <- data.frame(x = c(2, 3), y = c(3, 4))
+# Extract true ROI points
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
+trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
 
-# Full coordinate grid (all possible points in the image)
-totalGrid <- expand.grid(x = 1:5, y = 1:5)
+# Generate totalCoords from getDimensions()
+totalCoords <- getDimensions(roiFile)
 
-# Compute SCC performance metrics
-results <- calculateMetrics(detected, trueROI, totalGrid, "ExampleRegion")
+# Compute SCC detection performance
+metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
 
-# Display results
-print(results)
-```
+# Compute SPM detection performance
+metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
 
-</details>
-
-## 🖼️ plotSCC(): Visualize SCC Result
-
-`plotSCC()` generates a **heatmap visualization of SCC values**, with
-the option to **overlay significant detected points**. This function
-helps interpret SCC results by highlighting **regions where detected
-differences exceed confidence bands**.
-
-*Example with Code:*  
-<details>
-<summary>
-Click to expand
-</summary>
-
-``` r
-# Load SCC results
-load("SCC_COMP.RData")
-
-# Basic SCC visualization
-plotSCC(SCC_COMP)
-
-# SCC plot with a specific confidence threshold and custom color palette
-plotSCC(SCC_COMP, alphaLevel = 0.01, colorPalette = "magma", title = "SCC Analysis (α = 0.01)")
-
-# Disable significant point overlay
-plotSCC(SCC_COMP, showPoints = FALSE)
+# Print both results
+print(metricsSCC)
+print(metricsSPM)
 ```
 
 </details>
 
 ------------------------------------------------------------------------
 
-# 5️⃣ Vignettes & Visual Workflow <a id="vignette-full-workflow"></a>
+# 4️⃣ Vignette <a id="vignette"></a>
 
 A full walkthrough of using `neuroSCC` from start to finish is available
 in the vignettes:
@@ -541,20 +450,15 @@ in the vignettes:
   *Compares an individual patient to a control group using SCCs and
   identifies voxels outside of estimated confidence intervals.*
 
-## 🔄 Visual Workflow
+# 5️⃣ Visual Workflow <a id="visual-workflow"></a>
 
 A complete visual overview of how `neuroSCC` functions interact with
 data, the objects they return, and more, can be found in the Visual
 Workflow:
 
-<details>
-<summary>
-Click to expand
-</summary>
 <p align="center">
-<img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="100%">
+<img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="120%">
 </p>
-</details>
 
 ------------------------------------------------------------------------
 
@@ -651,13 +555,6 @@ Before submitting, please:
 ✔ Ensure your code **follows the package style guidelines**.  
 ✔ Add **documentation** for any new functions or features.  
 ✔ Run **`devtools::check()`** to verify that all package tests pass.
-
-## 📜 Code of Conduct
-
-We aim to **foster a welcoming and inclusive** open-source community.
-Please read our **[Code of
-Conduct](https://github.com/iguanamarina/neuroSCC/blob/main/CODE_OF_CONDUCT.md)**
-before contributing.
 
 ## 📧 Contact & Support
 

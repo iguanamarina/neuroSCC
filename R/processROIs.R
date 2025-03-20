@@ -28,9 +28,6 @@
 #' It keeps all voxels, indicating whether each belongs to a ROI (\code{pet = 1}) or not (\code{pet = 0}).
 #'
 #' @examples
-#' # Load example ROI data
-#' data("ROIsample", package = "neuroSCC")
-#'
 #' # Process an ROI NIfTI file (show results in console)
 #' roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
 #' processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
