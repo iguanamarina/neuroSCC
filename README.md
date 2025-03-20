@@ -9,8 +9,8 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-11-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-94229KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Issues](https://img.shields.io/badge/Issues-10-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-95034KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -336,9 +336,6 @@ Click to expand
 </summary>
 
 ``` r
-# Load example ROI data
-data("ROIsample", package = "neuroSCC")
-
 # Process an ROI NIfTI file (show results in console)
 roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
 processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
