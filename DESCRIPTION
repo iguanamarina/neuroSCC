@@ -1,7 +1,7 @@
 Package: neuroSCC
 Type: Package
 Title: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET Neuroimaging
-Version: 0.13.0
+Version: 0.14.0
 Authors@R: c(
     person("Juan A.", "Arias Lopez", email = "juanantonio.arias.lopez@usc.es", role = c("aut", "cre")),
     person("Virgilio", "Gomez Rubio", email = "Virgilio.Gomez@uclm.es", role = "rev"),
@@ -29,7 +29,9 @@ Depends: R (>= 4.2.0)
 Imports:
     oro.nifti,
     memisc,
-    contoureR
+    contoureR,
+    dplyr,
+    tidyr
 Suggests:
     roxygen2 (>= 7.1.0),
     knitr,
