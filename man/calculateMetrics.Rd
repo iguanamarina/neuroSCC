@@ -2,18 +2,24 @@
 % Please edit documentation in R/calculateMetrics.R
 \name{calculateMetrics}
 \alias{calculateMetrics}
-\title{Evaluate SCC Detection Performance}
+\title{Evaluate SCC or SPM Detection Performance}
 \usage{
 calculateMetrics(detectedPoints, truePoints, totalCoords, regionName)
 }
 \arguments{
-\item{detectedPoints}{A data frame of SCC-detected significant points with columns \code{x} and \code{y}.}
+\item{detectedPoints}{A data frame containing SCC- or SPM-detected points (\code{x}, \code{y}).
+\itemize{
+  \item SCC-detected points should come from \code{\link{getPoints}}.
+  \item SPM-detected points should come from \code{\link{getSPMbinary}}.
+}}
 
-\item{truePoints}{A data frame of true region-of-interest (ROI) points with columns \code{x} and \code{y}.}
+\item{truePoints}{A data frame containing ground truth ROI points (\code{x}, \code{y}),
+obtained using \code{\link{processROIs}}.}
 
-\item{totalCoords}{A data frame containing the full set of image coordinates (\code{x}, \code{y}).}
+\item{totalCoords}{A data frame containing all possible voxel coordinates (\code{x}, \code{y}),
+obtained using \code{\link{getDimensions}}.}
 
-\item{regionName}{A character string specifying the name of the region being evaluated.}
+\item{regionName}{A character string used for labeling the results.}
 }
 \value{
 A data frame with the following evaluation metrics:
@@ -27,24 +33,46 @@ A data frame with the following evaluation metrics:
 }
 \description{
 Computes Sensitivity, Specificity, Positive Predictive Value (PPV), and Negative Predictive Value (NPV)
-for SCC-detected points compared to ground truth ROI points. This function is essential for evaluating
-the accuracy of SCC methods in detecting true regions of difference in neuroimaging analysis.
+for detected points compared to ground truth ROI points. This function is used to evaluate
+SCC-based and SPM-based detection accuracy in neuroimaging analysis.
 }
 \details{
-- **True Positives (TP):** SCC-detected points that match true ROI points.
-- **False Positives (FP):** SCC-detected points that are not in the true ROI.
-- **False Negatives (FN):** True ROI points that SCC failed to detect.
-- **True Negatives (TN):** Points in \code{totalCoords} that were neither detected nor part of the ROI.
-- Handles **division by zero** cases to prevent errors in metric calculations.
+The user must precompute the following objects before calling this function:
+\itemize{
+  \item \code{detectedPoints}: Extracted using \code{\link{getPoints}} (for SCC) or \code{\link{getSPMbinary}} (for SPM).
+  \item \code{truePoints}: Extracted using \code{\link{processROIs}}, representing ground truth ROIs.
+  \item \code{totalCoords}: Generated using \code{\link{getDimensions}}, providing the full voxel grid.
+}
 }
 \examples{
-\dontrun{
-detected <- data.frame(x = c(1, 2, 3), y = c(2, 3, 4))  # SCC-detected points
-trueROI <- data.frame(x = c(2, 3), y = c(3, 4))  # True positive regions
-totalGrid <- expand.grid(x = 1:5, y = 1:5)  # Full coordinate grid
+# Extract detected SCC points
+detectedSCC <- getPoints(SCCcomp)$positivePoints
 
-results <- calculateMetrics(detected, trueROI, totalGrid, "ExampleRegion")
-print(results)
+# Extract detected SPM points
+spmFile <- system.file("extdata", "binary.nii", package = "neuroSCC")
+detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
+
+# Extract true ROI points
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
+trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+
+# Generate totalCoords from getDimensions()
+totalCoords <- getDimensions(roiFile)
+
+# Compute SCC detection performance
+metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
+
+# Compute SPM detection performance
+metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
+
+# Print both results
+print(metricsSCC)
+print(metricsSPM)
+
 }
-
+\seealso{
+\code{\link{getPoints}} for SCC-based detection points.
+\code{\link{getSPMbinary}} for extracting SPM-detected points.
+\code{\link{processROIs}} for ground truth ROI extraction.
+\code{\link{getDimensions}} for obtaining the full coordinate grid.
 }
