@@ -1,0 +1,45 @@
+url: https://iguanamarina.github.io/neuroSCC/
+template:
+  bootstrap: 5
+  bootswatch: flatly  # Alternatives: "yeti", "cosmo", "minty"
+  includes:
+    in_header: pkgdown/custom-header.html
+
+authors:
+  Juan A. Arias:
+    href: https://juan-arias.xyz
+
+navbar:
+  structure:
+    left:  [home, reference, articles, news]
+    right: [search, twitter, github]
+  components:
+    home:
+      text: "Home"
+      href: index.html
+    reference:
+      text: "Reference"
+      href: reference/index.html
+    articles:
+      text: "Vignettes"
+      menu:
+        - text: "Introduction to SCCs"
+          href: articles/landing_vignette.html
+        - text: "One-group SCC analysis"
+          href: articles/one_group_scc.html
+        - text: "Two-group SCC comparison"
+          href: articles/two_group_comparison.html
+        - text: "One vs. Group SCC analysis"
+          href: articles/one_vs_group.html
+    news:
+      text: "News"
+      href: news/index.html
+    twitter:
+      icon: "fa-twitter"
+      href: "https://twitter.com/DatasetMessy"  # Replace with your Twitter
+    github:
+      icon: "fa-github"
+      href: "https://github.com/iguanamarina/neuroSCC"
+
+search:
+  exclude: ["LICENSE", "LICENSE.md"]
