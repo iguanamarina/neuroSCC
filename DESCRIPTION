@@ -35,7 +35,10 @@ Imports:
 Suggests:
     roxygen2 (>= 7.1.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    remotes,
+    ImageSCC,
+    Triangulation
 VignetteBuilder: knitr
 Funding: This work was supported by an internship grant awarded at the 6th Conference 
     of the Spanish National Biostatistics Network (BIOSTATNET) in 2025 as a prize for 
