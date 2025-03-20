@@ -16,6 +16,7 @@ Useful links:
   \item \url{https://github.com/iguanamarina/neuroSCC}
   \item \url{https://github.com/iguanamarina/PhD-2023-SCC-vs-SPM-Group-vs-Group}
   \item \url{https://github.com/iguanamarina/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group}
+  \item \url{https://iguanamarina.github.io/neuroSCC/}
   \item Report bugs at \url{https://github.com/iguanamarina/neuroSCC/issues}
 }
 
