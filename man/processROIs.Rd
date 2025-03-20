@@ -2,68 +2,62 @@
 % Please edit documentation in R/processROIs.R
 \name{processROIs}
 \alias{processROIs}
-\title{Process ROIs and Save Data Tables}
+\title{Process ROIs from a NIfTI file}
 \usage{
 processROIs(
-  roiDir = "~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas",
-  outputDir =
-    "~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables",
-  regions,
-  numbers,
-  filePattern = "wwwx{region}_redim_crop_squ_flipLR_newDim_C{number}.nii",
-  verbose = FALSE
-)
-}
-\arguments{
-\item{roiDir}{\code{character}, the base directory where the ROI NIfTI files are stored.
-Default: `"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas"`.}
-
-\item{outputDir}{\code{character}, the directory where processed `ROItable_*` files will be saved.
-Default: `"~/GitHub/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group/roisNormalizadas/tables"`.}
-
-\item{regions}{\code{character} vector, specifying the ROI region names (e.g., `c("w32", "w79")`).}
-
-\item{numbers}{\code{integer} vector, specifying the patient/control numbers (e.g., `1:16`).}
-
-\item{filePattern}{\code{character}, a template for the expected NIfTI filenames.
-Should include \verb{{region}} and \verb{{number}} placeholders.
-Default: \code{"wwwx\{region\}_redim_crop_squ_flipLR_newDim_C\{number\}.nii"}.}
-
-\item{verbose}{\code{logical}, if \code{TRUE}, prints progress messages. Default: \code{FALSE}.}
-}
-\value{
-This function does not return a value. It **processes and saves `.RDS` files** in `outputDir`.
-}
-\description{
-This function processes **Regions of Interest (ROIs)** from binary NIfTI files containing
-manually defined hypoactive regions. It extracts voxel coordinates where `pet = 1` (indicating
-hypoactivity) and formats them into structured `.RDS` tables.
-
-The function is originally designed for the **Ph.D. thesis**:
-*"Development of statistical methods for the analysis of neuroimage data towards early diagnosis of neurodegenerative diseases"*
-conducted at the **University of Santiago de Compostela** by *Juan A. Arias Lopez, Prof. Pablo Aguiar-Fernández,
-Prof. Andrew H. Kemp, & Prof. Carmen Cadarso-Suárez*.
-However, options are provided for **other users and setups**.
-}
-\details{
-- This function **extracts voxel coordinates** (`x, y, z`) where `pet = 1` (indicating hypoactivity).
-- The **default filename structure** is based on the research thesis setup but can be adjusted.
-- Processed tables are saved as **`ROItable_*`** `.RDS` files for later use in **SCC vs. SPM comparisons**.
-}
-\examples{
-\dontrun{
-# Process ROIs using the thesis default setup
-processROIs()
-
-# Custom example for a different dataset
-processROIs(
-  roiDir = "/custom/path/rois",
-  outputDir = "/custom/path/tables",
-  regions = c("region1", "region2"),
-  numbers = 1:10,
-  filePattern = "custom_prefix_{region}_sub_{number}.nii",
+  roiFile,
+  region,
+  number,
+  save = TRUE,
+  outputDir = "results/ROIs",
   verbose = TRUE
 )
 }
+\arguments{
+\item{roiFile}{\code{character}, the path to the NIfTI file containing the ROI data.}
 
+\item{region}{\code{character}, the name of the ROI region (e.g., \code{"roi4"}).}
+
+\item{number}{\code{character}, the subject or group identifier (e.g., \code{"18"}).}
+
+\item{save}{\code{logical}, if \code{TRUE}, saves the processed ROIs as `.RDS` files.
+If \code{FALSE}, prints a preview in the console. Default is \code{TRUE}.}
+
+\item{outputDir}{\code{character}, directory where processed ROI tables will be saved.}
+
+\item{verbose}{\code{logical}, if \code{TRUE}, prints progress messages. Default is \code{TRUE}.}
+}
+\value{
+A data frame containing voxel-level ROI information, with columns:
+\itemize{
+  \item \code{group}: ROI identifier, composed of \code{region + number}.
+  \item \code{z}, \code{x}, \code{y}: Voxel coordinates.
+  \item \code{pet}: Binary indicator (\code{1} for ROI, \code{0} for non-ROI).
+}
+}
+\description{
+This function processes Regions of Interest (ROIs) from a binary NIfTI file.
+It extracts voxel coordinates from the image and preserves the original structure,
+marking which voxels are part of the ROI.
+
+This function is typically used in SCC evaluation, where detected SCC regions
+are compared with predefined ROIs in \code{\link{calculateMetrics}}.
+}
+\details{
+The function reads the provided NIfTI file and extracts voxel data.
+It keeps all voxels, indicating whether each belongs to a ROI (\code{pet = 1}) or not (\code{pet = 0}).
+}
+\examples{
+# Load example ROI data
+data("ROIsample", package = "neuroSCC")
+
+# Process an ROI NIfTI file (show results in console)
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
+processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+head(processedROI)  # Display first few rows
+
+}
+\seealso{
+\code{\link{calculateMetrics}} for evaluating SCC detection performance.
+ROIs must be processed first to compare detected SCC voxels with predefined regions.
 }
