@@ -49,6 +49,7 @@
 #' \code{Triangulation::TriMesh} for the next step in the SCC calculation process.
 #'
 #' @export
+#' @importFrom graphics points
 neuroContour <- function(niftiFile, paramZ = 35, levels = c(0), plotResult = FALSE) {
   # 1. Input validation
   # ---------------------------

@@ -7,3 +7,7 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^README\.Rmd$
+^README_cache$
+^README_files$
+^neuroSCC_.*\.pdf$

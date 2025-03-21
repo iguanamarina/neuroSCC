@@ -44,6 +44,7 @@
 #' clones[, sampledCols]
 #'
 #' @export
+#' @importFrom stats rpois
 generatePoissonClones <- function(originalMatrix, numClones, lambdaFactor) {
 
   # 1. Input validation

@@ -34,6 +34,7 @@
 #' \code{\link{calculateMetrics}} for evaluating SCC vs. SPM detection performance.
 #'
 #' @export
+#' @importFrom utils globalVariables
 getSPMbinary <- function(niftiFile, paramZ = 35) {
 
   # 1. Validate Inputs

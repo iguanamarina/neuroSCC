@@ -65,6 +65,7 @@
 #' \code{\link{getDimensions}} for obtaining the full coordinate grid.
 #'
 #' @export
+#' @importFrom stats rpois
 calculateMetrics <- function(detectedPoints, truePoints, totalCoords, regionName) {
 
   # 1. Validate Inputs
