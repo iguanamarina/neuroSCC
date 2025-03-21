@@ -60,7 +60,6 @@ badge_url_size <- paste0("https://img.shields.io/badge/Size-", repo_info$size, "
 package_version <- as.character(packageVersion("neuroSCC"))
 ```
 
-<!-- pkgdown:hide -->
 
 # neuroSCC 
 
@@ -68,7 +67,6 @@ package_version <- as.character(packageVersion("neuroSCC"))
   <img src="man/figures/logo.png" align="right" width="150" />
 </a>
 
-<!-- pkgdown:hide -->
 
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
