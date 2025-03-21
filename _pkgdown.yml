@@ -7,6 +7,11 @@ template:
   params:
     bootswatch: sketchy  # Change this to other themes like "flatly", "lux", etc.
 
+home:
+  title: "neuroSCC"
+  strip_header: true  # Hides README.md's title if used
+  sidebar: false      # Hides extra links in sidebar
+
 navbar:
   title: "neuroSCC"
   left:
