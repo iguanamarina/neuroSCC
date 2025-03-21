@@ -63,8 +63,12 @@ package_version <- as.character(packageVersion("neuroSCC"))
 
 # neuroSCC 
 
+<!-- <a href="https://github.com/iguanamarina/neuroSCC"> -->
+<!--   <img src="man/figures/logo.png" align="right" width="150" /> -->
+<!-- </a> -->
+
 <a href="https://github.com/iguanamarina/neuroSCC">
-  <img src="man/figures/logo.png" align="right" width="150" />
+  <img src="man/figures/logo.png" alt="neuroSCC Package Logo" align="right" width="150" />
 </a>
 
 
