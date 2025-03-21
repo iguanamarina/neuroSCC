@@ -1,5 +1,15 @@
 url: https://iguanamarina.github.io/neuroSCC/
+
 template:
   bootstrap: 5
   bslib:
-    bootswatch: sketchy
+    bootswatch: lux
+    primary: "#a788b0"   # pastel violet from logo
+    bg: "#fafafa"        # soft background
+    fg: "#3a3a3a"        # soft black for body text
+    base_font: ["Inter", "Helvetica", "Arial", "sans-serif"]
+    heading_font: ["DM Serif Display", "Georgia", "serif"]
+    code_font: "Courier New"
+    pkgdown-nav-height: 80px
+  includes:
+    in_header: pkgdown/custom-header.html

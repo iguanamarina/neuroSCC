@@ -57,7 +57,9 @@
 #'
 #' # Example 2: Create database for Pathological group
 #' pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
-#' databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+#' databasePathological <- databaseCreator(pattern = pathologicalPattern,
+#'                                         control = FALSE,
+#'                                         quiet = TRUE)
 #' head(databasePathological); tail(databasePathological)
 #' nrow(databasePathological)  # Total number of rows
 #' unique(databasePathological$AD_number)  # Show unique subjects

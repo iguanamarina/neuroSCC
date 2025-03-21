@@ -24,7 +24,9 @@
 #' # Get a single patient's PET data matrix
 #' dataDir <- system.file("extdata", package = "neuroSCC")
 #' pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
-#' databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+#' databasePathological <- databaseCreator(pattern = pathologicalPattern,
+#'                                         control = FALSE,
+#'                                         quiet = TRUE)
 #' matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
 #' patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
 #'
