@@ -11,7 +11,7 @@
 #'
 #' @format A list of class \code{"image"} containing:
 #' \describe{
-#'   \item{scc}{3D array of SCC confidence bands, shape \code{[n, 2, α]}}
+#'   \item{scc}{3D array of SCC confidence bands, shape \code{[n, 2, alfa]}}
 #'   \item{Z.band}{Matrix of grid coordinates corresponding to evaluation points}
 #'   \item{ind.inside.cover}{Integer vector of indices identifying the SCC band region}
 #'   \item{V.est.a, V.est.b}{Vertex matrices for the domain triangulation (control and pathological)}

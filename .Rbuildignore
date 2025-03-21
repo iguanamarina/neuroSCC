@@ -9,5 +9,6 @@
 ^\.github$
 ^README\.Rmd$
 ^README_cache$
-^README_files$
-^neuroSCC_.*\.pdf$
+^README_files$^\.github$
+^\.gitignore$
+^cran-comments\.md$
