@@ -38,11 +38,11 @@
 #' detectedSCC <- getPoints(SCCcomp)$positivePoints
 #'
 #' # Extract detected SPM points
-#' spmFile <- system.file("extdata", "binary.nii", package = "neuroSCC")
+#' spmFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
 #' detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
 #'
 #' # Extract true ROI points
-#' roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
+#' roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
 #' trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
 #'
 #' # Generate totalCoords from getDimensions()

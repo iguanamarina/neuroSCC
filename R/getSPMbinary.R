@@ -22,7 +22,7 @@
 #'
 #' @examples
 #' # Load a sample binary NIfTI file (SPM result)
-#' niftiFile <- system.file("extdata", "binary.nii", package = "neuroSCC")
+#' niftiFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
 #' detectedSPM <- getSPMbinary(niftiFile, paramZ = 35)
 #'
 #' # Show detected points
