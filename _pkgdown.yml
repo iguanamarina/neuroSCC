@@ -5,7 +5,7 @@ destination: "docs"
 template:
   bootstrap: 5  # Change this to 4 if needed
   params:
-    bootswatch: darkly  # Change this to other themes like "sketchy", "lux", etc.
+    bootswatch: sketchy  # Change this to other themes like "sketchy", "lux", etc.
 
 home:
   title: "neuroSCC"
@@ -17,10 +17,10 @@ home:
 navbar:
   title: "neuroSCC"
   left:
-    - text: "Vignettes"
-      href: articles/index.html
     - text: "Functions"
       href: reference/index.html
+    - text: "Vignettes"
+      href: articles/index.html
     - text: "News"
       href: news/index.html
   right:
@@ -30,11 +30,14 @@ navbar:
 
 articles:
   - title: "Vignettes"
+    desc: >
+      These vignettes provide an introduction to processing PET neuroimaging data
+      and evaluating Simultaneous Confidence Corridors (SCCs) using **neuroSCC**.
     contents:
       - landing_vignette
       - one_group_scc
-      - one_vs_group
       - two_group_comparison
+      - one_vs_group
 
 reference:
   - title: "Core Functions"
@@ -43,14 +46,14 @@ reference:
       - databaseCreator
       - matrixCreator
       - meanNormalization
-  - title: "SCC Computation"
+  - title: "SCC Evaluation"
     contents:
       - getPoints
       - getSPMbinary
       - processROIs
       - calculateMetrics
       - SCCcomp
-  - title: "Utilities"
+  - title: "Secondary Functions"
     contents:
       - neuroContour
       - getDimensions
