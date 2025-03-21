@@ -3,11 +3,9 @@ url: https://iguanamarina.github.io/neuroSCC/
 destination: "docs"
 
 template:
-  bootstrap: 5
+  bootstrap: 5  # Change this to 4 if needed
   params:
-    bootswatch: cosmo
-  includes:
-    in_header: pkgdown/custom-header.html
+    bootswatch: lux  # Change this to other themes like "flatly", "lux", etc.
 
 navbar:
   title: "neuroSCC"
@@ -23,7 +21,7 @@ navbar:
       href: https://github.com/iguanamarina/neuroSCC
 
 articles:
-  - title: "Getting Started"
+  - title: "Vignettes"
     contents:
       - landing_vignette
       - one_group_scc
@@ -51,4 +49,4 @@ reference:
       - generatePoissonClones
 
 news:
-  one_page: true
+  one_page: true  # Change to false if you want paginated news
