@@ -1,14 +1,13 @@
 url: https://iguanamarina.github.io/neuroSCC/
 
-destination: "."
+destination: "docs"
 
 template:
+  bootstrap: 5
   params:
-    bootswatch: cosmo  # Matches bayesplot's clean layout
-    # ↓ Search bar support (if desired, otherwise remove this section)
-    docsearch:
-      api_key: ""
-      index_name: neuroSCC
+    bootswatch: cosmo
+  includes:
+    in_header: pkgdown/custom-header.html
 
 navbar:
   title: "neuroSCC"
@@ -22,20 +21,9 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/iguanamarina/neuroSCC
-    - icon: fa-users
-      href: https://discourse.mc-stan.org/  # Replace or remove if unnecessary
-
-home:
-  links:
-    - text: Browse source code
-      href: https://github.com/iguanamarina/neuroSCC
-    - text: Report a bug
-      href: https://github.com/iguanamarina/neuroSCC/issues
 
 articles:
   - title: "Getting Started"
-    desc: >
-      Vignettes introducing the **neuroSCC** package and its core workflows.
     contents:
       - landing_vignette
       - one_group_scc
@@ -44,24 +32,19 @@ articles:
 
 reference:
   - title: "Core Functions"
-    desc: >
-      Essential functions for processing neuroimaging data and computing SCCs.
     contents:
       - neuroCleaner
       - databaseCreator
       - matrixCreator
       - meanNormalization
   - title: "SCC Computation"
-    desc: >
-      Functions for SCC analysis, extracting significant regions, and comparisons.
     contents:
       - getPoints
       - getSPMbinary
       - processROIs
       - calculateMetrics
-  - title: "Preprocessing & Utilities"
-    desc: >
-      Supporting functions for handling neuroimaging files and data structures.
+      - SCCcomp
+  - title: "Utilities"
     contents:
       - neuroContour
       - getDimensions
@@ -69,4 +52,3 @@ reference:
 
 news:
   one_page: true
-  cran_dates: false
