@@ -6,6 +6,7 @@ template:
   bootstrap: 5  # Change this to 4 if needed
   params:
     bootswatch: sketchy  # Change this to other themes like "sketchy", "lux", etc.
+  favicon: "man/figures/favicon.png"
 
 home:
   title: "neuroSCC"
