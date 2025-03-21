@@ -1,20 +1,51 @@
+# URL del sitio (muy importante para evitar warnings)
+url: https://iguanamarina.github.io/neuroSCC/
+
+# Información del paquete
 template:
   bootstrap: 5
   bslib:
-    bootswatch: flatly  # or default, since you're customizing heavily
-    primary: "#a788b0"
+    bootswatch: flatly       # Alternativas: lux, flatly, spacelab, minty...
+    primary: "#a788b0"        # Tu violeta pastel
     bg: "#ffffff"
     fg: "#2c2c2c"
-    base_font: ["Inter", "Helvetica", "Arial", "sans-serif"]
+    base_font: ["Inter", "Arial", "sans-serif"]
     heading_font: ["DM Serif Display", "Georgia", "serif"]
     code_font: "Courier New"
-    font_scale: 1.05
-    pkgdown-nav-height: 80px
-  includes:
-    in_header: pkgdown/custom-header.html
-    after_body: pkgdown/footer.html
-  opengraph:
-    image: "logo.png"  # if you have one
-    twitter:
-      creator: "@juanantonio"  # optional
-      card: summary
+
+# Navbar (puedes personalizar más adelante)
+navbar:
+  structure:
+    left:  [home, reference, articles]
+    right: [search, github]
+  components:
+    home:
+      text: Home
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+        - text: Landing Vignette
+          href: articles/landing_vignette.html
+        - text: One Group SCC
+          href: articles/one_group_scc.html
+        - text: One vs Group
+          href: articles/one_vs_group.html
+        - text: Two Group Comparison
+          href: articles/two_group_comparison.html
+    github:
+      icon: fa-github
+      href: https://github.com/iguanamarina/neuroSCC
+
+# Artículos
+articles:
+  landing_vignette: landing_vignette.html
+  one_group_scc: one_group_scc.html
+  one_vs_group: one_vs_group.html
+  two_group_comparison: two_group_comparison.html
+
+# Favicon (si tienes uno en inst/)
+favicon: "logo.png"
