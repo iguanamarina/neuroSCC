@@ -5,7 +5,7 @@ destination: "docs"
 template:
   bootstrap: 5  # Change this to 4 if needed
   params:
-    bootswatch: lux  # Change this to other themes like "flatly", "lux", etc.
+    bootswatch: sketchy  # Change this to other themes like "flatly", "lux", etc.
 
 navbar:
   title: "neuroSCC"
