@@ -1,4 +1,4 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# GitHub Actions workflow for pkgdown
 on:
   push:
     branches: [main, master]
@@ -29,27 +29,23 @@ jobs:
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::pkgdown, local::.
-          needs: website
-
-      # ✅ Install missing GitHub dependencies before building the site
       - name: Install ImageSCC and Triangulation
         run: |
           Rscript -e 'install.packages("remotes")'
           Rscript -e 'remotes::install_github(c("funstatpackages/ImageSCC", "funstatpackages/Triangulation"))'
         shell: Rscript {0}
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::pkgdown, local::.
+          needs: website
+
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Deploy to GitHub pages 🚀
+      - name: Deploy to GitHub pages 
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           clean: false
-
-          branch: gh-pages
-          folder: docs
