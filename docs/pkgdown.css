@@ -382,3 +382,17 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }
+
+
+/* Fix dropdown background and text contrast */
+.navbar-dark .dropdown-menu {
+  background-color: #f8f9fa !important;  /* Light background */
+}
+
+.navbar-dark .dropdown-menu a {
+  color: #333 !important;  /* Dark text for readability */
+}
+
+.navbar-dark .dropdown-menu a:hover {
+  background-color: #e9ecef !important;  /* Light hover effect */
+}

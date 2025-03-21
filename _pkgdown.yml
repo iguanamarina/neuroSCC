@@ -1,51 +1,72 @@
-# URL del sitio (muy importante para evitar warnings)
 url: https://iguanamarina.github.io/neuroSCC/
 
-# Información del paquete
+destination: "."
+
 template:
-  bootstrap: 5
-  bslib:
-    bootswatch: flatly       # Alternativas: lux, flatly, spacelab, minty...
-    primary: "#a788b0"        # Tu violeta pastel
-    bg: "#ffffff"
-    fg: "#2c2c2c"
-    base_font: ["Inter", "Arial", "sans-serif"]
-    heading_font: ["DM Serif Display", "Georgia", "serif"]
-    code_font: "Courier New"
+  params:
+    bootswatch: cosmo  # Matches bayesplot's clean layout
+    # ↓ Search bar support (if desired, otherwise remove this section)
+    docsearch:
+      api_key: ""
+      index_name: neuroSCC
 
-# Navbar (puedes personalizar más adelante)
 navbar:
-  structure:
-    left:  [home, reference, articles]
-    right: [search, github]
-  components:
-    home:
-      text: Home
-      href: index.html
-    reference:
-      text: Reference
+  title: "neuroSCC"
+  left:
+    - text: "Vignettes"
+      href: articles/index.html
+    - text: "Functions"
       href: reference/index.html
-    articles:
-      text: Articles
-      menu:
-        - text: Landing Vignette
-          href: articles/landing_vignette.html
-        - text: One Group SCC
-          href: articles/one_group_scc.html
-        - text: One vs Group
-          href: articles/one_vs_group.html
-        - text: Two Group Comparison
-          href: articles/two_group_comparison.html
-    github:
-      icon: fa-github
+    - text: "News"
+      href: news/index.html
+  right:
+    - icon: fa-github
       href: https://github.com/iguanamarina/neuroSCC
+    - icon: fa-users
+      href: https://discourse.mc-stan.org/  # Replace or remove if unnecessary
 
-# Artículos
+home:
+  links:
+    - text: Browse source code
+      href: https://github.com/iguanamarina/neuroSCC
+    - text: Report a bug
+      href: https://github.com/iguanamarina/neuroSCC/issues
+
 articles:
-  landing_vignette: landing_vignette.html
-  one_group_scc: one_group_scc.html
-  one_vs_group: one_vs_group.html
-  two_group_comparison: two_group_comparison.html
+  - title: "Getting Started"
+    desc: >
+      Vignettes introducing the **neuroSCC** package and its core workflows.
+    contents:
+      - landing_vignette
+      - one_group_scc
+      - one_vs_group
+      - two_group_comparison
 
-# Favicon (si tienes uno en inst/)
-favicon: "logo.png"
+reference:
+  - title: "Core Functions"
+    desc: >
+      Essential functions for processing neuroimaging data and computing SCCs.
+    contents:
+      - neuroCleaner
+      - databaseCreator
+      - matrixCreator
+      - meanNormalization
+  - title: "SCC Computation"
+    desc: >
+      Functions for SCC analysis, extracting significant regions, and comparisons.
+    contents:
+      - getPoints
+      - getSPMbinary
+      - processROIs
+      - calculateMetrics
+  - title: "Preprocessing & Utilities"
+    desc: >
+      Supporting functions for handling neuroimaging files and data structures.
+    contents:
+      - neuroContour
+      - getDimensions
+      - generatePoissonClones
+
+news:
+  one_page: true
+  cran_dates: false
