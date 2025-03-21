@@ -7,7 +7,21 @@ image processing and preparation for functional data analysis with Simultaneous 
 It reads each file matching the pattern, processes it using neuroCleaner,
 and compiles the results into a structured data frame.
 The function is a key step in the neuroSCC workflow, bridging individual
-image processing and preparation for functional data analysis with Simultaneous Confidence Corridors (SCCs)."><meta property="og:image" content="https://iguanamarina.github.io/neuroSCC/logo.png"></head><body>
+image processing and preparation for functional data analysis with Simultaneous Confidence Corridors (SCCs)."><meta property="og:image" content="https://iguanamarina.github.io/neuroSCC/logo.png"></head><body><p>
+
+
+
+
+
+
+
+
+
+  pkgdown/custom-header.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -152,7 +166,9 @@ the database to a matrix format for SCC analysis.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Create database for Pathological group</span></span></span>
 <span class="r-in"><span><span class="va">pathologicalPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticPathological.*\\.nii.gz$"</span></span></span>
-<span class="r-in"><span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu">databaseCreator</span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>, control <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu">databaseCreator</span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>,</span></span>
+<span class="r-in"><span>                                        control <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                                        quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   AD_number z x y pet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         1 1 1 1   0</span>
@@ -193,5 +209,6 @@ the database to a matrix format for SCC analysis.</p></div>
 
 
 
-  </body></html>
+  
+</body></html>
 

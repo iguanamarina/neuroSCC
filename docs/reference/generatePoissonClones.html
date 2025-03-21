@@ -5,7 +5,21 @@ data analysis (FDA) in **single patient vs. group (1 vs. Group) setups**, where 
 does not provide enough variability to estimate Simultaneous Confidence Corridors (SCCs) reliably."><meta property="og:description" content="This function generates synthetic clones of a PET data matrix by adding Poisson-distributed
 noise to each non-zero voxel. This is necessary to circumvent the limitations of functional
 data analysis (FDA) in **single patient vs. group (1 vs. Group) setups**, where a single subject
-does not provide enough variability to estimate Simultaneous Confidence Corridors (SCCs) reliably."><meta property="og:image" content="https://iguanamarina.github.io/neuroSCC/logo.png"></head><body>
+does not provide enough variability to estimate Simultaneous Confidence Corridors (SCCs) reliably."><meta property="og:image" content="https://iguanamarina.github.io/neuroSCC/logo.png"></head><body><p>
+
+
+
+
+
+
+
+
+
+  pkgdown/custom-header.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -92,7 +106,9 @@ does not provide enough variability to estimate Simultaneous Confidence Corridor
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get a single patient's PET data matrix</span></span></span>
 <span class="r-in"><span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pathologicalPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticPathological.*\\.nii.gz$"</span></span></span>
-<span class="r-in"><span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>, control <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>,</span></span>
+<span class="r-in"><span>                                        control <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                                        quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">matrixPathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databasePathological</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">patientMatrix</span> <span class="op">&lt;-</span> <span class="va">matrixPathological</span><span class="op">[</span><span class="fl">1</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>  <span class="co"># Select a single patient</span></span></span>
 <span class="r-in"><span></span></span>
@@ -136,5 +152,6 @@ does not provide enough variability to estimate Simultaneous Confidence Corridor
 
 
 
-  </body></html>
+  
+</body></html>
 

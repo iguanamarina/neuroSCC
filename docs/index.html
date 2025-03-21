@@ -22,6 +22,21 @@
 <meta property="og:image" content="https://iguanamarina.github.io/neuroSCC/logo.png">
 </head>
 <body>
+<p>
+
+
+
+
+
+
+
+
+
+  pkgdown/custom-header.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -68,7 +83,7 @@
 </h1>
 </div>
 <p><a href="https://github.com/iguanamarina/neuroSCC" class="external-link"> <img src="reference/figures/logo.png" align="right" width="150"></a></p>
-<p><a href="https://www.repostatus.org/" class="external-link"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status"></a> <a href="https://www.tidyverse.org/lifecycle/" class="external-link"><img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle"></a> <a href="https://github.com/iguanamarina/neuroSCC/graphs/contributors" class="external-link"><img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"></a> <a href="https://github.com/iguanamarina/neuroSCC/commits/main" class="external-link"><img src="https://img.shields.io/badge/Commits-30-brightgreen" alt="Commits"></a> <a href="https://github.com/iguanamarina/neuroSCC/issues" class="external-link"><img src="https://img.shields.io/badge/Issues-11-brightgreen" alt="Issues"></a> <a href="https://github.com/iguanamarina/neuroSCC" class="external-link"><img src="https://img.shields.io/badge/Size-94229KB-brightgreen" alt="Size"></a></p>
+<p><a href="https://www.repostatus.org/" class="external-link"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status"></a> <a href="https://www.tidyverse.org/lifecycle/" class="external-link"><img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle"></a> <a href="https://github.com/iguanamarina/neuroSCC/graphs/contributors" class="external-link"><img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"></a> <a href="https://github.com/iguanamarina/neuroSCC/commits/main" class="external-link"><img src="https://img.shields.io/badge/Commits-30-brightgreen" alt="Commits"></a> <a href="https://github.com/iguanamarina/neuroSCC/issues" class="external-link"><img src="https://img.shields.io/badge/Issues-10-brightgreen" alt="Issues"></a> <a href="https://github.com/iguanamarina/neuroSCC" class="external-link"><img src="https://img.shields.io/badge/Size-95034KB-brightgreen" alt="Size"></a></p>
 <p>🚀 <strong><code>neuroSCC</code> facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs).</strong> It integrates neuroimaging and statistical methodologies to:</p>
 <ul>
 <li>📥 <strong>Load and preprocess</strong> PET neuroimaging files.<br>
@@ -318,10 +333,7 @@ It extracts voxel coordinates for <strong>predefined hypoactive regions</strong>
 <details><summary>
 Click to expand
 </summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load example ROI data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ROIsample"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Process an ROI NIfTI file (show results in console)</span></span>
+<code class="sourceCode R"><span><span class="co"># Process an ROI NIfTI file (show results in console)</span></span>
 <span><span class="va">roiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ROIsample_Region2_18.nii"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
 <span><span class="va">processedROI</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processROIs.html">processROIs</a></span><span class="op">(</span><span class="va">roiFile</span>, region <span class="op">=</span> <span class="st">"Region2"</span>, number <span class="op">=</span> <span class="st">"18"</span>, save <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">processedROI</span><span class="op">)</span>  <span class="co"># Display first few rows</span></span></code></pre></div>
@@ -560,5 +572,6 @@ Click to expand
 
 
 
-  </body>
+  
+</body>
 </html>
