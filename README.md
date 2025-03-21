@@ -1,8 +1,12 @@
 
+<!-- pkgdown:hide -->
+
 # neuroSCC
 
 <a href="https://github.com/iguanamarina/neuroSCC">
 <img src="man/figures/logo.png" align="right" width="150" /> </a>
+
+<!-- pkgdown:hide -->
 
 [![Project
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
@@ -10,7 +14,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-10-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-95034KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-95912KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
