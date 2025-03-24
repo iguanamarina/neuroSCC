@@ -1,17 +1,17 @@
 
-# neuroSCC
+# neuroSCC <img src="man/figures/logo.png" align="right" width="150"/>
 
-<a href="https://github.com/iguanamarina/neuroSCC">
-<img src="man/figures/logo.png" alt="neuroSCC Package Logo" align="right" width="150" />
-</a>
+<!-- <a href="https://github.com/iguanamarina/neuroSCC"> -->
+<!--   <img src="man/figures/logo.png" alt="neuroSCC Package Logo" align="right" width="150" /> -->
+<!-- </a> -->
 
 [![Project
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-9-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-100383KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Issues](https://img.shields.io/badge/Issues-8-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-100401KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -451,7 +451,7 @@ data, the objects they return, and more, can be found in the Visual
 Workflow:
 
 <p align="center">
-<img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="120%">
+<img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="100%">
 </p>
 
 ------------------------------------------------------------------------

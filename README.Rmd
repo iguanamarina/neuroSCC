@@ -61,11 +61,11 @@ package_version <- as.character(packageVersion("neuroSCC"))
 ```
 
 
-# neuroSCC 
+# neuroSCC <img src="man/figures/logo.png" align="right" width="150"/>
 
-<a href="https://github.com/iguanamarina/neuroSCC">
-  <img src="man/figures/logo.png" alt="neuroSCC Package Logo" align="right" width="150" />
-</a>
+<!-- <a href="https://github.com/iguanamarina/neuroSCC"> -->
+<!--   <img src="man/figures/logo.png" alt="neuroSCC Package Logo" align="right" width="150" /> -->
+<!-- </a> -->
 
 
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
@@ -423,7 +423,7 @@ A full walkthrough of using `neuroSCC` from start to finish is available in the 
 A complete visual overview of how `neuroSCC` functions interact with data, the objects they return, and more, can be found in the Visual Workflow:
 
 <p align="center">
-  <img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="120%">
+  <img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="100%">
 </p>
 
 ------------------------------------------------------------------------
