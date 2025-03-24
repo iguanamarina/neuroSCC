@@ -1,11 +1,11 @@
 pandoc: '3.2'
-pkgdown: 2.1.1
-pkgdown_sha: ~
+pkgdown: 2.1.1.9000
+pkgdown_sha: 66477c0dbb4f4925ec872cf64d5eaa316cc70bac
 articles:
   landing_vignette: landing_vignette.html
   one_vs_group: one_vs_group.html
   two_group_comparison: two_group_comparison.html
-last_built: 2025-03-24T12:25Z
+last_built: 2025-03-24T13:02Z
 urls:
   reference: https://iguanamarina.github.io/neuroSCC/reference
   article: https://iguanamarina.github.io/neuroSCC/articles
