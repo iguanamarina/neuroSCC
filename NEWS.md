@@ -1,4 +1,6 @@
-# neuroSCC 0.16.0
+# neuroSCC 0.16.0 (24-03-25)
+
+- **Webpage** and **Vignettes** are already working.
 
 # neuroSCC 0.15.0 (21-03-25)
 

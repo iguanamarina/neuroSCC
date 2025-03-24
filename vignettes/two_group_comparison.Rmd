@@ -31,30 +31,28 @@ It is recommended that you first complete the ["Getting Started"](landing_vignet
 First, let's conditionally prepare the required data (control and pathological matrices). We use sample data included in the package.
 
 ```{r}
-# Check and conditionally prepare necessary data
-if (!exists("normalizedControls") || !exists("normalizedPathological") || !exists("contours")) {
-  cat("Necessary objects not found. Creating data from provided samples...\n")
 
-  # Create databases from provided sample files (2 controls and 2 pathological subjects)
-  databaseControls <- databaseCreator(pattern = "^syntheticControl[12]\\.nii\\.gz$", control = TRUE, quiet = TRUE)
-  databasePathological <- databaseCreator(pattern = "^syntheticPathological[12]\\.nii\\.gz$", control = FALSE, quiet = TRUE)
+# Recreate necessary data from sample files
+cat("Creating sample data for 2-group comparison...\n")
 
-  # Create matrices suitable for SCC
-  matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
-  matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
+# Create databases for Control and Pathological groups
+databaseControls <- databaseCreator(pattern = "^syntheticControl[12]\\.nii\\.gz$", control = TRUE, quiet = TRUE)
+databasePathological <- databaseCreator(pattern = "^syntheticPathological[12]\\.nii\\.gz$", control = FALSE, quiet = TRUE)
 
-  # Normalize matrices
-  normalizedControls <- meanNormalization(matrixControls)
-  normalizedPathological <- meanNormalization(matrixPathological)
+# Create matrices suitable for SCC
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
+matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
 
-  # Extract contours from one control subject (required for SCC analysis)
-  niftiPath <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
-  contours <- neuroContour(niftiPath, paramZ = 35, levels = c(0), plotResult = FALSE)
+# Normalize matrices
+normalizedControls <- meanNormalization(matrixControls)
+normalizedPathological <- meanNormalization(matrixPathological)
 
-  cat("Data preparation completed successfully.\n")
-} else {
-  cat("All required data objects already exist. Proceeding...\n")
-}
+# Extract contours from a control subject for SCC triangulation
+niftiPath <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+contours <- neuroContour(niftiPath, paramZ = 35, levels = c(0), plotResult = FALSE)
+
+cat("Data preparation completed successfully.\n")
+
 ```
 
 ---

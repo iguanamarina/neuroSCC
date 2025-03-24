@@ -31,30 +31,21 @@ Ensure you have executed the steps from the ["Getting Started"](landing_vignette
 If you haven't executed the previous vignette, let's conditionally recreate necessary matrices.
 
 ```{r}
-# Check and conditionally load/create necessary data
-if (!exists("normalizedMatrix") || !exists("contours")) {
-  cat("Required objects not found. Creating them from provided sample files...\n")
-  
-  # Create control and pathological databases
-  databaseControls <- databaseCreator(pattern = "^syntheticControl.*\\.nii\\.gz$", control = TRUE, quiet = TRUE)
-  databasePathological <- databaseCreator(pattern = "^syntheticPathological1\\.nii\\.gz$", control = FALSE, quiet = TRUE)
-  
-  # Create matrices
-  matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
-  matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
-  
-  # Normalize matrices
-  normalizedMatrix <- meanNormalization(matrixControls)
-  normalizedPathological <- meanNormalization(matrixPathological)
-  
-  # Extract contours for SCC analysis
-  niftiPath <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
-  contours <- neuroContour(niftiPath, paramZ = 35, levels = c(0), plotResult = FALSE)
-  
-  cat("Data prepared successfully.\n")
-} else {
-  cat("Required data found. Proceeding with existing data.\n")
-}
+cat("Creating required matrices from sample data...\n")
+
+databaseControls <- databaseCreator(pattern = "^syntheticControl.*\\.nii\\.gz$", control = TRUE, quiet = TRUE)
+databasePathological <- databaseCreator(pattern = "^syntheticPathological1\\.nii\\.gz$", control = FALSE, quiet = TRUE)
+
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
+matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
+
+normalizedMatrix <- meanNormalization(matrixControls)
+normalizedPathological <- meanNormalization(matrixPathological)
+
+niftiPath <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+contours <- neuroContour(niftiPath, paramZ = 35, levels = c(0), plotResult = FALSE)
+
+cat("Data prepared successfully.\n")
 ```
 
 ---
