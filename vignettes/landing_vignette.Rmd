@@ -104,22 +104,24 @@ str(contours[[1]])
 The triangulation step requires the external `Triangulation` package, currently not on CRAN. Ensure you have this package installed. If not, install it using:
 
 ```r
-remotes::install_github("Triangulation_package_link_here")
+remotes::install_github("FIRST-Data-Lab/Triangulation")
 ```
 
 Conditional example for triangulation:
 
-```{r, fig.alt="Delaunay triangulations for brain imaging data"}
+```{r, fig.alt="Delaunay triangulations for brain imaging data", eval = requireNamespace("ImageSCC", quietly = TRUE)}
+
 if (!requireNamespace("Triangulation", quietly = TRUE)) {
-  message("Triangulation package is not installed. Install it from the provided link to continue.")
+  cat("Triangulation package is not installed.\nInstall it using: remotes::install_github('FIRST-Data-Lab/Triangulation')\n")
 } else {
   # Perform triangulation with the first contour
-  mesh <- mesh <- Triangulation::TriMesh(n = 15, contours[[1]])
+  mesh <- Triangulation::TriMesh(n = 15, contours[[1]])
   
   # Inspect mesh
   print(mesh[["V"]][1:10, ])
   print(mesh[["Tr"]][1:10, ])
 }
+
 ```
 
 ---
