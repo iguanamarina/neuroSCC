@@ -88,7 +88,7 @@ normalizedMatrix <- meanNormalization(matrixControls, returnDetails = FALSE)
 
 Contours from the neuroimage are used to set boundaries for SCC computations.
 
-```{r}
+```{r, fig.alt="Contours for brain imaging data"}
 # Extract contours from sample data
 contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
 
@@ -109,7 +109,7 @@ remotes::install_github("Triangulation_package_link_here")
 
 Conditional example for triangulation:
 
-```{r, eval = requireNamespace("Triangulation", quietly = TRUE)}
+```{r, fig.alt="Delaunay triangulations for brain imaging data"}
 if (!requireNamespace("Triangulation", quietly = TRUE)) {
   message("Triangulation package is not installed. Install it from the provided link to continue.")
 } else {

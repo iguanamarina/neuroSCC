@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">neuroSCC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.16.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,9 +62,158 @@
 
     
     
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>This vignette illustrates a minimal example of a <strong>single
+patient vs. group</strong> (1 vs Group) SCC analysis with the
+<code>neuroSCC</code> package.</p>
+<p>Ensure you have executed the steps from the <a href="landing_vignette.html">“Getting Started”</a> vignette, or follow
+the conditional steps below to create required data.</p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="data-preparation-conditional">Data Preparation (Conditional)<a class="anchor" aria-label="anchor" href="#data-preparation-conditional"></a>
+</h2>
+<p>If you haven’t executed the previous vignette, let’s conditionally
+recreate necessary matrices.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iguanamarina/neuroSCC" class="external-link">neuroSCC</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Creating required matrices from sample data...\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Creating required matrices from sample data...</span></span>
+<span></span>
+<span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"^syntheticControl.*\\.nii\\.gz$"</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"^syntheticPathological1\\.nii\\.gz$"</span>, control <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrixControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databaseControls</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">matrixPathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databasePathological</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">normalizedMatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">matrixControls</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Mean before normalization: 4.345851</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Normalization completed.</span></span>
+<span><span class="va">normalizedPathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">matrixPathological</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Mean before normalization: 4.243371</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Normalization completed.</span></span>
+<span></span>
+<span><span class="va">niftiPath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"syntheticControl1.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span><span class="va">contours</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/neuroContour.html">neuroContour</a></span><span class="op">(</span><span class="va">niftiPath</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, plotResult <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Data prepared successfully.\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Data prepared successfully.</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="single-patient-data-and-cloning">Single Patient Data and Cloning<a class="anchor" aria-label="anchor" href="#single-patient-data-and-cloning"></a>
+</h2>
+<p>Prepare data for a single patient and generate synthetic Poisson
+clones to enable SCC computation:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select the single pathological patient</span></span>
+<span><span class="va">SCC_AD</span> <span class="op">&lt;-</span> <span class="va">normalizedPathological</span><span class="op">[</span><span class="fl">1</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span><span class="va">SCC_CN</span> <span class="op">&lt;-</span> <span class="va">normalizedMatrix</span></span>
+<span></span>
+<span><span class="co"># Toy parameters for Poisson clone generation (modifiable by user)</span></span>
+<span><span class="va">numClones</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span><span class="va">factorLambda</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span>
+<span></span>
+<span><span class="co"># Generate synthetic clones</span></span>
+<span><span class="va">SCC_AD_clones</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generatePoissonClones.html">generatePoissonClones</a></span><span class="op">(</span><span class="va">SCC_AD</span>, <span class="va">numClones</span>, <span class="va">factorLambda</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine the patient with generated clones</span></span>
+<span><span class="va">SCC_AD_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">SCC_AD</span>, <span class="va">SCC_AD_clones</span><span class="op">)</span></span>
+<span><span class="va">SCC_AD_expanded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">SCC_AD_expanded</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Mean before normalization: 1.067077</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Normalization completed.</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="scc-estimation-conditional-execution">SCC Estimation (Conditional Execution)<a class="anchor" aria-label="anchor" href="#scc-estimation-conditional-execution"></a>
+</h2>
+<p>The SCC computation is typically computationally intensive. Here, we
+skip actual computation and load a precomputed result from the package
+(<code>SCCcomp.RData</code>):</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result_file</span> <span class="op">&lt;-</span> <span class="st">"SCCcomp.RData"</span></span>
+<span><span class="va">scccomp_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">result_file</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">scccomp_path</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Precomputed SCC comparison found. Loading it...\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="va">scccomp_path</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Precomputed SCC data not found. Skipping due to computational complexity.\n"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Intensive SCC estimation (code provided for reference)</span></span>
+<span>  <span class="va">SCCcomp</span> <span class="op">&lt;-</span> <span class="fu">ImageSCC</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ImageSCC/man/scc.image.html" class="external-link">scc.image</a></span><span class="op">(</span></span>
+<span>    Ya <span class="op">=</span> <span class="va">SCC_AD_expanded</span>,</span>
+<span>    Yb <span class="op">=</span> <span class="va">SCC_CN</span>,</span>
+<span>    Z <span class="op">=</span> <span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>    d.est <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    d.band <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    r <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    V.est.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    Tr.est.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    V.band.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    Tr.band.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    penalty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    lambda <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">}</span>,</span>
+<span>    alpha.grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span><span class="op">)</span>,</span>
+<span>    adjust.sigma <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">SCCcomp</span>, file <span class="op">=</span> <span class="va">result_file</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="extracting-significant-points-and-evaluating-metrics">Extracting Significant Points and Evaluating Metrics<a class="anchor" aria-label="anchor" href="#extracting-significant-points-and-evaluating-metrics"></a>
+</h2>
+<p>Once the SCC computation results (<code>SCCcomp</code>) are
+available, we can extract significant points and compute relevant
+performance metrics:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract significant points</span></span>
+<span><span class="va">significantPoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getPoints.html">getPoints</a></span><span class="op">(</span><span class="va">SCCcomp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load example true ROI data from the package</span></span>
+<span><span class="va">roi_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ROIsample_Region2_18.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span><span class="va">trueROI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/processROIs.html">processROIs</a></span><span class="op">(</span><span class="va">roi_path</span>, region <span class="op">=</span> <span class="st">"Region2"</span>, number <span class="op">=</span> <span class="st">"18"</span>, save <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading NIfTI file...</span></span>
+<span></span>
+<span><span class="co"># Get dimensions for total coordinates</span></span>
+<span><span class="va">dimensions</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDimensions.html">getDimensions</a></span><span class="op">(</span><span class="va">roi_path</span><span class="op">)</span></span>
+<span><span class="va">totalCoords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">dimensions</span><span class="op">$</span><span class="va">xDim</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">dimensions</span><span class="op">$</span><span class="va">yDim</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate performance metrics</span></span>
+<span><span class="va">metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculateMetrics.html">calculateMetrics</a></span><span class="op">(</span></span>
+<span>  detectedPoints <span class="op">=</span> <span class="va">significantPoints</span><span class="op">$</span><span class="va">positivePoints</span>,</span>
+<span>  truePoints <span class="op">=</span> <span class="va">trueROI</span>,</span>
+<span>  totalCoords <span class="op">=</span> <span class="va">dimensions</span>,</span>
+<span>  regionName <span class="op">=</span> <span class="st">"SinglePatient_vs_Group"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display metrics</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">metrics</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                   region sensitivity specificity      PPV      NPV</span></span>
+<span><span class="co">#&gt; 1 SinglePatient_vs_Group    85.12872    95.62596 97.22839 78.10603</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h2>
+<p>This vignette provides a reproducible example of conducting a
+<strong>single patient vs group SCC analysis</strong> using
+<code>neuroSCC</code>. Due to computational constraints, actual SCC
+computations are skipped and precomputed data is loaded instead. Users
+are encouraged to adapt parameters and explore further on their
+datasets.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

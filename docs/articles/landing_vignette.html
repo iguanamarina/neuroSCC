@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">neuroSCC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.16.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iguanamarina/neuroSCC" class="external-link">neuroSCC</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://iguanamarina.github.io/neuroSCC/">neuroSCC</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -167,7 +167,7 @@ computations.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract contours from sample data</span></span>
 <span><span class="va">contours</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/neuroContour.html">neuroContour</a></span><span class="op">(</span><span class="va">niftiFile</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, levels <span class="op">=</span> <span class="fl">0</span>, plotResult <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="landing_vignette_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="landing_vignette_files/figure-html/unnamed-chunk-6-1.png" alt="Contours for brain imaging data" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Check contours structure</span></span>
@@ -202,7 +202,7 @@ have this package installed. If not, install it using:</p>
 <span><span class="co">#&gt; Warning in tri.mesh(X, Y): success: collinearities reduced through jitter</span></span>
 <span><span class="co">#&gt; Warning in tri.mesh(X, Y): dataset started with 3 colinear points, jitter</span></span>
 <span><span class="co">#&gt; added!</span></span></code></pre></div>
-<p><img src="landing_vignette_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="landing_vignette_files/figure-html/unnamed-chunk-7-1.png" alt="Delaunay triangulations for brain imaging data" width="700"></p>
 <pre><code><span><span class="co">#&gt;              X        Y</span></span>
 <span><span class="co">#&gt;  [1,] 13.06667 38.40000</span></span>
 <span><span class="co">#&gt;  [2,] 13.06667 43.46667</span></span>
