@@ -13,10 +13,9 @@ Provides functions for the structured processing of PET neuroimaging data in pre
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/iguanamarina/neuroSCC}
+  \item \url{https://iguanamarina.github.io/neuroSCC/}
   \item \url{https://github.com/iguanamarina/PhD-2023-SCC-vs-SPM-Group-vs-Group}
   \item \url{https://github.com/iguanamarina/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group}
-  \item \url{https://iguanamarina.github.io/neuroSCC/}
   \item Report bugs at \url{https://github.com/iguanamarina/neuroSCC/issues}
 }
 

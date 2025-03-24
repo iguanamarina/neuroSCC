@@ -36,7 +36,6 @@ articles:
       and evaluating Simultaneous Confidence Corridors (SCCs) using **neuroSCC**.
     contents:
       - landing_vignette
-      - one_group_scc
       - two_group_comparison
       - one_vs_group
 

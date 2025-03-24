@@ -17,7 +17,7 @@ Description: Provides functions for the structured processing of PET neuroimagin
     with novel statistical methodologies (i.e., 'ImageSCC') and facilitates reproducible 
     analysis pipelines, enabling performance comparison of SCC-based analyses with 
     gold-standard methods such as Statistical Parametric Mapping (SPM).
-URL: https://github.com/iguanamarina/neuroSCC, https://github.com/iguanamarina/PhD-2023-SCC-vs-SPM-Group-vs-Group, https://github.com/iguanamarina/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group, https://iguanamarina.github.io/neuroSCC/
+URL: https://iguanamarina.github.io/neuroSCC/, https://github.com/iguanamarina/PhD-2023-SCC-vs-SPM-Group-vs-Group, https://github.com/iguanamarina/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group
 BugReports: https://github.com/iguanamarina/neuroSCC/issues
 Encoding: UTF-8
 LazyData: true
