@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">neuroSCC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,187 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iguanamarina/neuroSCC" class="external-link">neuroSCC</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>This vignette guides you through the initial data preparation steps
+necessary to use the <strong>neuroSCC</strong> package for analyzing
+neuroimaging data with Simultaneous Confidence Corridors (SCC).</p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="loading-and-inspecting-neuroimaging-data">1. Loading and Inspecting Neuroimaging Data<a class="anchor" aria-label="anchor" href="#loading-and-inspecting-neuroimaging-data"></a>
+</h2>
+<p>We’ll begin by loading a sample PET neuroimaging file included with
+the package and inspecting its structure.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">niftiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"syntheticControl1.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load and clean data using neuroCleaner</span></span>
+<span><span class="va">petData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/neuroCleaner.html">neuroCleaner</a></span><span class="op">(</span><span class="va">niftiFile</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Inspect the data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">petData</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   z x y pet</span></span>
+<span><span class="co">#&gt; 1 1 1 1   0</span></span>
+<span><span class="co">#&gt; 2 1 1 2   0</span></span>
+<span><span class="co">#&gt; 3 1 1 3   0</span></span>
+<span><span class="co">#&gt; 4 1 1 4   0</span></span>
+<span><span class="co">#&gt; 5 1 1 5   0</span></span>
+<span><span class="co">#&gt; 6 1 1 6   0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">petData</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    902629 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;  $ z  : int  1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ x  : int  1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ y  : int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span><span class="co">#&gt;  $ pet: int  0 0 0 0 0 0 0 0 0 0 ...</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="creating-a-database-from-multiple-pet-images">2. Creating a Database from Multiple PET Images<a class="anchor" aria-label="anchor" href="#creating-a-database-from-multiple-pet-images"></a>
+</h2>
+<p>Now, let’s demonstrate how to create a structured database using
+multiple PET files available in the package.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create database for control subjects</span></span>
+<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii.gz$"</span></span>
+<span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Processing CN_number 1 - File 1 of 2</span></span>
+<span><span class="co">#&gt; Processing CN_number 2 - File 2 of 2</span></span>
+<span></span>
+<span><span class="co"># Inspect the created database</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   CN_number z x y pet</span></span>
+<span><span class="co">#&gt; 1         1 1 1 1   0</span></span>
+<span><span class="co">#&gt; 2         1 1 1 2   0</span></span>
+<span><span class="co">#&gt; 3         1 1 1 3   0</span></span>
+<span><span class="co">#&gt; 4         1 1 1 4   0</span></span>
+<span><span class="co">#&gt; 5         1 1 1 5   0</span></span>
+<span><span class="co">#&gt; 6         1 1 1 6   0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">$</span><span class="va">CN_number</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;      1      2 </span></span>
+<span><span class="co">#&gt; 902629 902629</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="creating-the-data-matrix">3. Creating the Data Matrix<a class="anchor" aria-label="anchor" href="#creating-the-data-matrix"></a>
+</h2>
+<p>We’ll transform the PET database into a matrix format suitable for
+SCC analysis.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create matrix for Z-slice 35</span></span>
+<span><span class="va">matrixControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databaseControls</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Processing Subject 1</span></span>
+<span><span class="co">#&gt; Processing Subject 2</span></span>
+<span></span>
+<span><span class="co"># Inspect matrix structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">matrixControls</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]    2 9919</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">matrixControls</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  num [1:2, 1:9919] 0 0 0 0 0 0 0 0 0 0 ...</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="normalizing-the-data-matrix">4. Normalizing the Data Matrix<a class="anchor" aria-label="anchor" href="#normalizing-the-data-matrix"></a>
+</h2>
+<p>Normalization adjusts for global intensity differences between
+subjects.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Perform mean normalization</span></span>
+<span><span class="va">normalizedMatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">matrixControls</span>, returnDetails <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Mean before normalization: 4.345851</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Normalization completed.</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="extracting-contours-for-triangulation">5. Extracting Contours for Triangulation<a class="anchor" aria-label="anchor" href="#extracting-contours-for-triangulation"></a>
+</h2>
+<p>Contours from the neuroimage are used to set boundaries for SCC
+computations.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract contours from sample data</span></span>
+<span><span class="va">contours</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/neuroContour.html">neuroContour</a></span><span class="op">(</span><span class="va">niftiFile</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, levels <span class="op">=</span> <span class="fl">0</span>, plotResult <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="landing_vignette_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Check contours structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">contours</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    600 obs. of  2 variables:</span></span>
+<span><span class="co">#&gt;  $ x: num  8 9 9 9 9 9 9 9 9 9 ...</span></span>
+<span><span class="co">#&gt;  $ y: num  44 43 43 42 42 41 41 40 40 39 ...</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="conditional-triangulation-setup-optional">6. Conditional Triangulation Setup (optional)<a class="anchor" aria-label="anchor" href="#conditional-triangulation-setup-optional"></a>
+</h2>
+<p>The triangulation step requires the external
+<code>Triangulation</code> package, currently not on CRAN. Ensure you
+have this package installed. If not, install it using:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Triangulation_package_link_here"</span><span class="op">)</span></span></code></pre></div>
+<p>Conditional example for triangulation:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"Triangulation"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Triangulation package is not installed. Install it from the provided link to continue."</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="co"># Perform triangulation with the first contour</span></span>
+<span>  <span class="va">mesh</span> <span class="op">&lt;-</span> <span class="va">mesh</span> <span class="op">&lt;-</span> <span class="fu">Triangulation</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Triangulation/man/TriMesh.html" class="external-link">TriMesh</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">15</span>, <span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Inspect mesh</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mesh</span><span class="op">[[</span><span class="st">"V"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mesh</span><span class="op">[[</span><span class="st">"Tr"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#&gt; Warning in tri.mesh(X, Y): success: collinearities reduced through jitter</span></span>
+<span><span class="co">#&gt; Warning in tri.mesh(X, Y): dataset started with 3 colinear points, jitter</span></span>
+<span><span class="co">#&gt; added!</span></span></code></pre></div>
+<p><img src="landing_vignette_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<pre><code><span><span class="co">#&gt;              X        Y</span></span>
+<span><span class="co">#&gt;  [1,] 13.06667 38.40000</span></span>
+<span><span class="co">#&gt;  [2,] 13.06667 43.46667</span></span>
+<span><span class="co">#&gt;  [3,] 13.06667 48.53333</span></span>
+<span><span class="co">#&gt;  [4,] 13.06667 53.60000</span></span>
+<span><span class="co">#&gt;  [5,] 13.06667 58.66667</span></span>
+<span><span class="co">#&gt;  [6,] 13.06667 63.73333</span></span>
+<span><span class="co">#&gt;  [7,] 18.13333 28.26667</span></span>
+<span><span class="co">#&gt;  [8,] 18.13333 33.33333</span></span>
+<span><span class="co">#&gt;  [9,] 18.13333 38.40000</span></span>
+<span><span class="co">#&gt; [10,] 18.13333 43.46667</span></span>
+<span><span class="co">#&gt;       node1 node2 node3</span></span>
+<span><span class="co">#&gt;  [1,]     1   205   206</span></span>
+<span><span class="co">#&gt;  [2,]     1   206   207</span></span>
+<span><span class="co">#&gt;  [3,]     1   207   209</span></span>
+<span><span class="co">#&gt;  [4,]     1   209   210</span></span>
+<span><span class="co">#&gt;  [5,]     1   210   213</span></span>
+<span><span class="co">#&gt;  [6,]     1   213   215</span></span>
+<span><span class="co">#&gt;  [7,]     1   215     8</span></span>
+<span><span class="co">#&gt;  [8,]     1     8     9</span></span>
+<span><span class="co">#&gt;  [9,]     1     9    10</span></span>
+<span><span class="co">#&gt; [10,]     1    10     2</span></span></code></pre>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="whats-next">What’s Next?<a class="anchor" aria-label="anchor" href="#whats-next"></a>
+</h2>
+<p>You’re now ready to perform Simultaneous Confidence Corridor
+analyses:</p>
+<ul>
+<li>Single-group SCC analysis (see <code>one_group_scc</code>
+vignette)</li>
+<li>Two-group comparison SCC (see <code>two_group_comparison</code>
+vignette)</li>
+<li>Single patient vs. group analysis (see <code>one_vs_group</code>
+vignette)</li>
+</ul>
+<p>Feel free to explore these vignettes to continue your analysis
+journey with neuroSCC.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

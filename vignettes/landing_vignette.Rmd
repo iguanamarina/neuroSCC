@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with neuroSCC: Data Preparation and Basic Setup"
+title: "landing_vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{landing_vignette}
