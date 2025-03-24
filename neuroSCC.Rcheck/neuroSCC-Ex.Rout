@@ -1,0 +1,367 @@
+
+R version 4.4.3 (2025-02-28 ucrt) -- "Trophy Case"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "neuroSCC"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> options(pager = "console")
+> base::assign(".ExTimings", "neuroSCC-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('neuroSCC')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("calculateMetrics")
+> ### * calculateMetrics
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: calculateMetrics
+> ### Title: Evaluate SCC or SPM Detection Performance
+> ### Aliases: calculateMetrics
+> 
+> ### ** Examples
+> 
+> # Extract detected SCC points
+> detectedSCC <- getPoints(SCCcomp)$positivePoints
+> 
+> # Extract detected SPM points
+> spmFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
+> detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
+> 
+> # Extract true ROI points
+> roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
+> trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+Loading NIfTI file...
+> 
+> # Generate totalCoords from getDimensions()
+> totalCoords <- getDimensions(roiFile)
+> 
+> # Compute SCC detection performance
+> metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
+> 
+> # Compute SPM detection performance
+> metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
+> 
+> # Print both results
+> print(metricsSCC)
+       region sensitivity specificity      PPV      NPV
+1 Region2_SCC    85.12872    95.62596 97.22839 78.10603
+> print(metricsSPM)
+       region sensitivity specificity      PPV      NPV
+1 Region2_SPM    75.14124    96.31291 96.33654 75.01638
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("calculateMetrics", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("databaseCreator")
+> ### * databaseCreator
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: databaseCreator
+> ### Title: Create a database of processed PET image data
+> ### Aliases: databaseCreator
+> 
+> ### ** Examples
+> 
+> # Get the file path for sample data
+> dataDir <- system.file("extdata", package = "neuroSCC")
+> 
+> # Example 1: Create database for Controls
+> controlPattern <- "^syntheticControl.*\\.nii.gz$"
+> databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+> head(databaseControls); tail(databaseControls)
+  CN_number z x y pet
+1         1 1 1 1   0
+2         1 1 1 2   0
+3         1 1 1 3   0
+4         1 1 1 4   0
+5         1 1 1 5   0
+6         1 1 1 6   0
+        CN_number  z  x   y pet
+1805253         2 91 91 104   0
+1805254         2 91 91 105   0
+1805255         2 91 91 106   0
+1805256         2 91 91 107   0
+1805257         2 91 91 108   0
+1805258         2 91 91 109   0
+> nrow(databaseControls)  # Total number of rows
+[1] 1805258
+> unique(databaseControls$CN_number)  # Show unique subjects
+[1] "1" "2"
+> 
+> # Example 2: Create database for Pathological group
+> pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
+> databasePathological <- databaseCreator(pattern = pathologicalPattern,
++                                         control = FALSE,
++                                         quiet = TRUE)
+> head(databasePathological); tail(databasePathological)
+  AD_number z x y pet
+1         1 1 1 1   0
+2         1 1 1 2   0
+3         1 1 1 3   0
+4         1 1 1 4   0
+5         1 1 1 5   0
+6         1 1 1 6   0
+        AD_number  z  x   y pet
+1805253         2 91 91 104   0
+1805254         2 91 91 105   0
+1805255         2 91 91 106   0
+1805256         2 91 91 107   0
+1805257         2 91 91 108   0
+1805258         2 91 91 109   0
+> nrow(databasePathological)  # Total number of rows
+[1] 1805258
+> unique(databasePathological$AD_number)  # Show unique subjects
+[1] "1" "2"
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("databaseCreator", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("generatePoissonClones")
+> ### * generatePoissonClones
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: generatePoissonClones
+> ### Title: Generate Synthetic Poisson Clones for PET Data
+> ### Aliases: generatePoissonClones
+> 
+> ### ** Examples
+> 
+> # Get a single patient's PET data matrix
+> dataDir <- system.file("extdata", package = "neuroSCC")
+> pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
+> databasePathological <- databaseCreator(pattern = pathologicalPattern,
++                                         control = FALSE,
++                                         quiet = TRUE)
+> matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
+> patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
+> 
+> # Select 10 random columns for visualization
+> set.seed(123)
+> sampledCols <- sample(ncol(patientMatrix), 10)
+> 
+> # Show voxel intensity values before cloning
+> patientMatrix[, sampledCols]
+ [1] 8 0 0 5 0 0 0 7 9 0
+> 
+> # Generate 5 synthetic clones with Poisson noise
+> clones <- generatePoissonClones(patientMatrix, numClones = 5, lambdaFactor = 0.25)
+> 
+> # Show voxel intensity values after cloning
+> clones[, sampledCols]
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+[1,]   12    0    0    5    0    0    0    7   10     0
+[2,]    8    0    0    6    0    0    0   11   12     0
+[3,]    8    0    0    6    0    0    0    9   12     0
+[4,]   14    0    0    5    0    0    0    8   13     0
+[5,]    9    0    0    7    0    0    0    8   10     0
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("generatePoissonClones", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getDimensions")
+> ### * getDimensions
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getDimensions
+> ### Title: Get Dimensions from a Neuroimaging File
+> ### Aliases: getDimensions
+> 
+> ### ** Examples
+> 
+> # Get the file path for a sample NIfTI file
+> niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+> 
+> # Extract dimensions from the NIfTI file
+> dimensions <- getDimensions(niftiFile)
+> 
+> # Display the extracted dimensions
+> print(dimensions)
+$xDim
+[1] 91
+
+$yDim
+[1] 109
+
+$zDim
+[1] 91
+
+$dim
+[1] 9919
+
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getDimensions", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getPoints")
+> ### * getPoints
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getPoints
+> ### Title: Extract significant SCC points from an SCC comparison object
+> ### Aliases: getPoints
+> 
+> ### ** Examples
+> 
+> # Load precomputed SCC example
+> data("SCCcomp", package = "neuroSCC")
+> 
+> # Extract significant SCC points
+> significantPoints <- getPoints(SCCcomp)
+> 
+> # Show first extracted points (interpretation depends on SCC computation, see description)
+> head(significantPoints$positivePoints)  # Regions where Pathological is hypoactive vs. Control
+   x  y
+1 11 52
+2 11 53
+3 11 54
+4 11 55
+5 11 56
+6 12 50
+> head(significantPoints$negativePoints)  # Regions where Pathological is hyperactive vs. Control
+   x  y
+1  9 44
+2  9 45
+3  9 46
+4  9 47
+5 10 38
+6 10 39
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getPoints", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getSPMbinary")
+> ### * getSPMbinary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getSPMbinary
+> ### Title: Extract SPM-detected significant points from a binary NIfTI file
+> ### Aliases: getSPMbinary
+> 
+> ### ** Examples
+> 
+> # Load a sample binary NIfTI file (SPM result)
+> niftiFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
+> detectedSPM <- getSPMbinary(niftiFile, paramZ = 35)
+> 
+> # Show detected points
+> head(detectedSPM)
+        x  y
+338496 12 51
+338497 12 52
+338498 12 53
+338499 12 54
+338500 12 55
+338501 12 56
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getSPMbinary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("matrixCreator")
+> ### * matrixCreator
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: matrixCreator
+> ### Title: Convert database from PET image data to a functional data matrix
+> ###   format
+> ### Aliases: matrixCreator
+> 
+> ### ** Examples
+> 
+> # Generate a database using databaseCreator
+> dataDir <- system.file("extdata", package = "neuroSCC")
+> controlPattern <- "^syntheticControl.*\\.nii.gz$"
+> databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)
+Processing CN_number 1 - File 1 of 2
+Processing CN_number 2 - File 2 of 2
+> 
+> # Convert the database into a matrix format
+> matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
+Processing Subject 1
+Processing Subject 2
+> dim(matrixControls)  # Show matrix dimensions
+[1]    2 9919
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("matrixCreator", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("meanNormalization")
+> ### * meanNormalization
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: meanNormalization
+> ### Title: Mean Average Normalization for Matrix Data
+> ### Aliases: meanNormalization
+> 
+> ### ** Examples
+> 
+> # Generate a database and create a matrix
+> dataDir <- system.file("extdata", package = "neuroSCC")
+> controlPattern <- "^syntheticControl.*\\.nii.gz$"
+> databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+
+Execution halted

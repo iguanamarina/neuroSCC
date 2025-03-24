@@ -3,16 +3,14 @@ url: https://iguanamarina.github.io/neuroSCC/
 destination: "docs"
 
 template:
-  bootstrap: 5  # Change this to 4 if needed
+  bootstrap: 5
   params:
-    bootswatch: sketchy  # Change this to other themes like "sketchy", "lux", etc.
+    bootswatch: sketchy
+    logo: "man/figures/logo.png"
 
 home:
   title: "neuroSCC"
-  strip_header: true  # Hides README.md's title if used
-  logo:
-    path: "reference/figures/logo.png"
-    alt: "neuroSCC package logo"
+  strip_header: true
 
 navbar:
   left:
