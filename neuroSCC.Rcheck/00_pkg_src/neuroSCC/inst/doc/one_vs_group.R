@@ -40,7 +40,7 @@ SCC_AD_clones <- generatePoissonClones(SCC_AD, numClones, factorLambda)
 SCC_AD_expanded <- rbind(SCC_AD, SCC_AD_clones)
 SCC_AD_expanded <- meanNormalization(SCC_AD_expanded)
 
-## ----eval=FALSE, echo=TRUE----------------------------------------------------
+## ----eval = requireNamespace("ImageSCC", quietly = TRUE), echo=TRUE-----------
 # result_file <- "SCCcomp.RData"
 # scccomp_path <- system.file("data", result_file, package = "neuroSCC")
 # 
@@ -70,6 +70,7 @@ SCC_AD_expanded <- meanNormalization(SCC_AD_expanded)
 # 
 #   save(SCCcomp, file = result_file)
 # }
+# 
 
 ## ----eval=TRUE----------------------------------------------------------------
 # Extract significant points

@@ -75,7 +75,13 @@ SCC_AD_expanded <- meanNormalization(SCC_AD_expanded)
 
 # SCC Estimation (Conditional Execution)
 
+This step requires the external `ImageSCC` package, currently not on CRAN. Ensure you have this package installed. If not, install it using:
+
+```r
+remotes::install_github("FIRST-Data-Lab/ImageSCC")
+```
 The SCC computation is typically computationally intensive. Here, we skip actual computation and load a precomputed result from the package (`SCCcomp.RData`):
+
 
 ```{r eval = requireNamespace("ImageSCC", quietly = TRUE), echo=TRUE}
 result_file <- "SCCcomp.RData"

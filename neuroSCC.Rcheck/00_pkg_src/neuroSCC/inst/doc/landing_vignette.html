@@ -449,44 +449,19 @@ computations.</p>
 <p>The triangulation step requires the external
 <code>Triangulation</code> package, currently not on CRAN. Ensure you
 have this package installed. If not, install it using:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;Triangulation_package_link_here&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;FIRST-Data-Lab/Triangulation&quot;</span>)</span></code></pre></div>
 <p>Conditional example for triangulation:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;Triangulation&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Triangulation package is not installed. Install it from the provided link to continue.&quot;</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="co"># Perform triangulation with the first contour</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  mesh <span class="ot">&lt;-</span> mesh <span class="ot">&lt;-</span> Triangulation<span class="sc">::</span><span class="fu">TriMesh</span>(<span class="at">n =</span> <span class="dv">15</span>, contours[[<span class="dv">1</span>]])</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  </span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="co"># Inspect mesh</span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="fu">print</span>(mesh[[<span class="st">&quot;V&quot;</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ])</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="fu">print</span>(mesh[[<span class="st">&quot;Tr&quot;</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ])</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>}</span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; Warning in tri.mesh(X, Y): success: collinearities reduced through jitter</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; Warning in tri.mesh(X, Y): dataset started with 3 colinear points, jitter</span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; added!</span></span></code></pre></div>
-<p><img role="img" aria-label="Delaunay triangulations for brain imaging data" src="data:image/png;base64,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OahyL/VXT4/6/DjCUGtHzsx3sZu9q/W4das4s3T5a3jU5QUxBlpzZkjOZ+NyrVJ3ZczSNk0/7vKiON3tVa8F1fsHPL7eKmIbDy7v1w4vijPQ4t687M+F9+8KCmsiG1RevJQ6Kq2mZXb8rwS5kDdCPqmcBDsPiqGUMvO62eP9bwSF37gPudUk3NqPrsr0L5nWDuk3go6mw6But3m6rEZT6c8/a3u5NNpY02FZxI++XYLKQ9BqOWfkX7Jq81p3MLz0cEPMwR6EcTr7MZbjl+y346vZ1WJP97ZEHSQZcmGhOGemRdQXHsdp47fNnNi3jbGHiJPAxd0oX0dpk3LJ5F45f/3aHH+Ma3Kx9f605F6YOKnpNxpZQy05v9DqO838u0gQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQIEGABAESBEgQ8B/aiSzOTYVm2gAAAABJRU5ErkJggg==" alt="Delaunay triangulations for brain imaging data" /></p>
-<pre><code>#&gt;              X        Y
-#&gt;  [1,] 13.06667 38.40000
-#&gt;  [2,] 13.06667 43.46667
-#&gt;  [3,] 13.06667 48.53333
-#&gt;  [4,] 13.06667 53.60000
-#&gt;  [5,] 13.06667 58.66667
-#&gt;  [6,] 13.06667 63.73333
-#&gt;  [7,] 18.13333 28.26667
-#&gt;  [8,] 18.13333 33.33333
-#&gt;  [9,] 18.13333 38.40000
-#&gt; [10,] 18.13333 43.46667
-#&gt;       node1 node2 node3
-#&gt;  [1,]     1   205   206
-#&gt;  [2,]     1   206   207
-#&gt;  [3,]     1   207   209
-#&gt;  [4,]     1   209   210
-#&gt;  [5,]     1   210   213
-#&gt;  [6,]     1   213   215
-#&gt;  [7,]     1   215     8
-#&gt;  [8,]     1     8     9
-#&gt;  [9,]     1     9    10
-#&gt; [10,]     1    10     2</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;Triangulation&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Triangulation package is not installed.</span><span class="sc">\n</span><span class="st">Install it using: remotes::install_github(&#39;FIRST-Data-Lab/Triangulation&#39;)</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="co"># Perform triangulation with the first contour</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  mesh <span class="ot">&lt;-</span> Triangulation<span class="sc">::</span><span class="fu">TriMesh</span>(<span class="at">n =</span> <span class="dv">15</span>, contours[[<span class="dv">1</span>]])</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  </span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="co"># Inspect mesh</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="fu">print</span>(mesh[[<span class="st">&quot;V&quot;</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ])</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  <span class="fu">print</span>(mesh[[<span class="st">&quot;Tr&quot;</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ])</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="whats-next" class="section level1">

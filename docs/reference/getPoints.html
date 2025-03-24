@@ -60,7 +60,7 @@ Make sure to check the order of Ya and Yb in the SCC computation before interpre
     <div class="ref-description section level2">
     <p>This function identifies and extracts coordinates where significant differences
 fall outside the simultaneous confidence corridors (SCCs).
-It processes the results from <code><a href="https://rdrr.io/pkg/ImageSCC/man/scc.image.html" class="external-link">ImageSCC::scc.image()</a></code>, returning the extracted coordinates
+It processes the results from <code>ImageSCC::scc.image()</code>, returning the extracted coordinates
 where the differences are statistically significant.</p>
 <p>The interpretation of the results depends on how the SCC was computed.
 If SCC was computed as <code>scc.image(Ya = Y_AD, Yb = Y_CN, ...)</code>, meaning the
@@ -81,7 +81,7 @@ If SCC was computed as <code>scc.image(Ya = Y_AD, Yb = Y_CN, ...)</code>, meanin
 
 
 <dl><dt id="arg-sccresult">sccResult<a class="anchor" aria-label="anchor" href="#arg-sccresult"></a></dt>
-<dd><p>A list containing SCC computation results from <code><a href="https://rdrr.io/pkg/ImageSCC/man/scc.image.html" class="external-link">scc.image</a></code>.
+<dd><p>A list containing SCC computation results from <code>scc.image</code>.
        The list should include at least:</p><ul><li><p><code>Z.band</code>: Matrix specifying grid positions.</p></li>
 <li><p><code>ind.inside.cover</code>: Indices of grid points inside the confidence band.</p></li>
 <li><p><code>scc</code>: 3D array containing computed SCC values.</p></li>
@@ -95,7 +95,7 @@ If SCC was computed as <code>scc.image(Ya = Y_AD, Yb = Y_CN, ...)</code>, meanin
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/ImageSCC/man/scc.image.html" class="external-link">scc.image</a></code> for SCC computation.</p></div>
+    <div class="dont-index"><p><code>scc.image</code> for SCC computation.</p></div>
     </div>
 
     <div class="section level2">

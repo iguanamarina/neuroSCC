@@ -185,45 +185,20 @@ computations.</p>
 <code>Triangulation</code> package, currently not on CRAN. Ensure you
 have this package installed. If not, install it using:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Triangulation_package_link_here"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"FIRST-Data-Lab/Triangulation"</span><span class="op">)</span></span></code></pre></div>
 <p>Conditional example for triangulation:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"Triangulation"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Triangulation package is not installed. Install it from the provided link to continue."</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"Triangulation"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Triangulation package is not installed.\nInstall it using: remotes::install_github('FIRST-Data-Lab/Triangulation')\n"</span><span class="op">)</span></span>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>  <span class="co"># Perform triangulation with the first contour</span></span>
-<span>  <span class="va">mesh</span> <span class="op">&lt;-</span> <span class="va">mesh</span> <span class="op">&lt;-</span> <span class="fu">Triangulation</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Triangulation/man/TriMesh.html" class="external-link">TriMesh</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">15</span>, <span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">mesh</span> <span class="op">&lt;-</span> <span class="fu">Triangulation</span><span class="fu">::</span><span class="fu">TriMesh</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">15</span>, <span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span>  </span>
 <span>  <span class="co"># Inspect mesh</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mesh</span><span class="op">[[</span><span class="st">"V"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mesh</span><span class="op">[[</span><span class="st">"Tr"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="co">#&gt; Warning in tri.mesh(X, Y): success: collinearities reduced through jitter</span></span>
-<span><span class="co">#&gt; Warning in tri.mesh(X, Y): dataset started with 3 colinear points, jitter</span></span>
-<span><span class="co">#&gt; added!</span></span></code></pre></div>
-<p><img src="landing_vignette_files/figure-html/unnamed-chunk-7-1.png" alt="Delaunay triangulations for brain imaging data" width="700"></p>
-<pre><code><span><span class="co">#&gt;              X        Y</span></span>
-<span><span class="co">#&gt;  [1,] 13.06667 38.40000</span></span>
-<span><span class="co">#&gt;  [2,] 13.06667 43.46667</span></span>
-<span><span class="co">#&gt;  [3,] 13.06667 48.53333</span></span>
-<span><span class="co">#&gt;  [4,] 13.06667 53.60000</span></span>
-<span><span class="co">#&gt;  [5,] 13.06667 58.66667</span></span>
-<span><span class="co">#&gt;  [6,] 13.06667 63.73333</span></span>
-<span><span class="co">#&gt;  [7,] 18.13333 28.26667</span></span>
-<span><span class="co">#&gt;  [8,] 18.13333 33.33333</span></span>
-<span><span class="co">#&gt;  [9,] 18.13333 38.40000</span></span>
-<span><span class="co">#&gt; [10,] 18.13333 43.46667</span></span>
-<span><span class="co">#&gt;       node1 node2 node3</span></span>
-<span><span class="co">#&gt;  [1,]     1   205   206</span></span>
-<span><span class="co">#&gt;  [2,]     1   206   207</span></span>
-<span><span class="co">#&gt;  [3,]     1   207   209</span></span>
-<span><span class="co">#&gt;  [4,]     1   209   210</span></span>
-<span><span class="co">#&gt;  [5,]     1   210   213</span></span>
-<span><span class="co">#&gt;  [6,]     1   213   215</span></span>
-<span><span class="co">#&gt;  [7,]     1   215     8</span></span>
-<span><span class="co">#&gt;  [8,]     1     8     9</span></span>
-<span><span class="co">#&gt;  [9,]     1     9    10</span></span>
-<span><span class="co">#&gt; [10,]     1    10     2</span></span></code></pre>
+<span><span class="op">}</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">

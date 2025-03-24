@@ -392,35 +392,39 @@ pathological matrices). We use sample data included in the package.</p>
 <p>The SCC estimation step is computationally intensive and thus
 typically skipped in vignette demonstrations. Below, we conditionally
 load a precomputed SCC result provided with the package.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>result_file <span class="ot">&lt;-</span> <span class="st">&quot;SCCcomp.RData&quot;</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>scccomp_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;data&quot;</span>, result_file, <span class="at">package =</span> <span class="st">&quot;neuroSCC&quot;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(scccomp_path)) {</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Precomputed SCC group comparison found. Loading data...</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">load</span>(scccomp_path)</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Precomputed SCC data not found. Actual computation is skipped due to computational complexity.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="co"># The following code shows how to perform the SCC computation (skipped by default)</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  SCCcomp <span class="ot">&lt;-</span> ImageSCC<span class="sc">::</span><span class="fu">scc.image</span>(</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    <span class="at">Ya =</span> normalizedPathological,</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="at">Yb =</span> normalizedControls,</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    <span class="at">Z =</span> contours[[<span class="dv">1</span>]],</span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    <span class="at">d.est =</span> <span class="dv">5</span>,</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="at">d.band =</span> <span class="dv">2</span>,</span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    <span class="at">r =</span> <span class="dv">1</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="at">V.est.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="at">Tr.est.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="at">V.band.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    <span class="at">Tr.band.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    <span class="at">penalty =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="dv">10</span><span class="sc">^</span>{<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="dv">3</span>, <span class="fl">0.5</span>)},</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    <span class="at">alpha.grid =</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span>),</span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>    <span class="at">adjust.sigma =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  )</span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="fu">save</span>(SCCcomp, <span class="at">file =</span> result_file)</span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;ImageSCC&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;ImageSCC package is not installed.</span><span class="sc">\n</span><span class="st">Install it using: remotes::install_github(&#39;funstatpackages/ImageSCC&#39;)</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  result_file <span class="ot">&lt;-</span> <span class="st">&quot;SCCcomp.RData&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  scccomp_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;data&quot;</span>, result_file, <span class="at">package =</span> <span class="st">&quot;neuroSCC&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(scccomp_path)) {</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Precomputed SCC group comparison found. Loading data...</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    <span class="fu">load</span>(scccomp_path)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Precomputed SCC data not found. Actual computation is skipped due to computational complexity.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="co"># The following code shows how to perform the SCC computation (skipped by default)</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    SCCcomp <span class="ot">&lt;-</span> ImageSCC<span class="sc">::</span><span class="fu">scc.image</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>      <span class="at">Ya =</span> normalizedPathological,</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>      <span class="at">Yb =</span> normalizedControls,</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>      <span class="at">Z =</span> contours[[<span class="dv">1</span>]],</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>      <span class="at">d.est =</span> <span class="dv">5</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>      <span class="at">d.band =</span> <span class="dv">2</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>      <span class="at">r =</span> <span class="dv">1</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>      <span class="at">V.est.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>      <span class="at">Tr.est.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>      <span class="at">V.band.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>      <span class="at">Tr.band.a =</span> <span class="fu">as.matrix</span>(contours[[<span class="dv">1</span>]]),</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>      <span class="at">penalty =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>      <span class="at">lambda =</span> <span class="dv">10</span><span class="sc">^</span>{<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="dv">3</span>, <span class="fl">0.5</span>)},</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>      <span class="at">alpha.grid =</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span>),</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>      <span class="at">adjust.sigma =</span> <span class="cn">TRUE</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>    )</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>    <span class="fu">save</span>(SCCcomp, <span class="at">file =</span> result_file)</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  }</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="extracting-significant-points-and-evaluating-metrics" class="section level1">

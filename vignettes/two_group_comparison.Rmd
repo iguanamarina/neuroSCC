@@ -59,6 +59,12 @@ cat("Data preparation completed successfully.\n")
 
 # SCC Estimation (Group vs Group)
 
+This step requires the external `ImageSCC` package, currently not on CRAN. Ensure you have this package installed. If not, install it using:
+
+```r
+remotes::install_github("FIRST-Data-Lab/ImageSCC")
+```
+
 The SCC estimation step is computationally intensive and thus typically skipped in vignette demonstrations. Below, we conditionally load a precomputed SCC result provided with the package.
 
 ```{r eval = requireNamespace("ImageSCC", quietly = TRUE), echo=TRUE}

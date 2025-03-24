@@ -11,7 +11,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-7-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-100401KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-104478KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -36,6 +36,11 @@ comparisons**.
 statistical methods for neuroimage data analysis towards early diagnosis
 of neurodegenerative diseases”*, by Juan A. Arias at **University of
 Santiago de Compostela (Spain)**.
+
+💡 This work was partially supported by an **internship grant awarded at
+the 6th Conference of the Spanish National Biostatistics Network
+(BIOSTATNET)** in 2025, as a prize for best poster presentation and
+young researcher trajectory.
 
 ------------------------------------------------------------------------
 
@@ -431,16 +436,16 @@ A full walkthrough of using `neuroSCC` from start to finish is available
 in the vignettes:
 
 - 📌 **[Landing
-  Vignette](https://github.com/iguanamarina/neuroSCC/blob/main/vignettes/landing_vignette.Rmd)**  
+  Vignette](https://iguanamarina.github.io/neuroSCC/articles/landing_vignette.html)**  
   *Covers data loading, matrix creation, and triangulations.*
 
 - 📌 **[Two-group SCC Estimation &
-  Comparison](https://github.com/iguanamarina/neuroSCC/blob/main/vignettes/two_group_comparison.Rmd)**  
+  Comparison](https://iguanamarina.github.io/neuroSCC/articles/two_group_comparison.html)**  
   *Computes SCCs for the differences between two groups and identifies
   voxels outside of estimated confidence intervals.*
 
 - 📌 **[1vsGroup SCC Estimation &
-  Comparison](https://github.com/iguanamarina/neuroSCC/blob/main/vignettes/one_vs_group.Rmd)**  
+  Comparison](https://iguanamarina.github.io/neuroSCC/articles/one_vs_group.html)**  
   *Compares an individual patient to a control group using SCCs and
   identifies voxels outside of estimated confidence intervals.*
 

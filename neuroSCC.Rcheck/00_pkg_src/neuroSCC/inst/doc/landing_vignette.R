@@ -47,15 +47,17 @@ contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
 length(contours)
 str(contours[[1]])
 
-## ----fig.alt="Delaunay triangulations for brain imaging data"-----------------
-if (!requireNamespace("Triangulation", quietly = TRUE)) {
-  message("Triangulation package is not installed. Install it from the provided link to continue.")
-} else {
-  # Perform triangulation with the first contour
-  mesh <- mesh <- Triangulation::TriMesh(n = 15, contours[[1]])
-  
-  # Inspect mesh
-  print(mesh[["V"]][1:10, ])
-  print(mesh[["Tr"]][1:10, ])
-}
+## ----fig.alt="Delaunay triangulations for brain imaging data", eval = requireNamespace("ImageSCC", quietly = TRUE)----
+# 
+# if (!requireNamespace("Triangulation", quietly = TRUE)) {
+#   cat("Triangulation package is not installed.\nInstall it using: remotes::install_github('FIRST-Data-Lab/Triangulation')\n")
+# } else {
+#   # Perform triangulation with the first contour
+#   mesh <- Triangulation::TriMesh(n = 15, contours[[1]])
+# 
+#   # Inspect mesh
+#   print(mesh[["V"]][1:10, ])
+#   print(mesh[["Tr"]][1:10, ])
+# }
+# 
 

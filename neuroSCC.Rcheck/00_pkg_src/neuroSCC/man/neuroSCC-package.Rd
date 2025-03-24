@@ -4,11 +4,11 @@
 \name{neuroSCC-package}
 \alias{neuroSCC}
 \alias{neuroSCC-package}
-\title{neuroSCC: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET Neuroimaging}
+\title{neuroSCC: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET 'Neuroimaging'}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides functions for the structured processing of PET neuroimaging data in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) for one-group, two-group, or single patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, post-SCC identification of significant results, and performance evaluation. It bridges established neuroimaging packages (e.g., 'oro.nifti') with novel statistical methodologies (i.e., 'ImageSCC') and facilitates reproducible analysis pipelines, enabling performance comparison of SCC-based analyses with gold-standard methods such as Statistical Parametric Mapping (SPM).
+Provides functions for the structured processing of PET 'Neuroimaging' data in preparation for the estimation of 'Simultaneous Confidence Corridors (SCCs)' for one-group, two-group, or single-patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, post-SCC identification of significant results, and performance evaluation. It bridges established neuroimaging packages (e.g., 'oro.nifti') with novel statistical methodologies (i.e., 'ImageSCC') and enables reproducible analysis pipelines, including comparison with Statistical Parametric Mapping ('SPM').
 }
 \seealso{
 Useful links:

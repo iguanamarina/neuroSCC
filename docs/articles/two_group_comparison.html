@@ -118,34 +118,38 @@ pathological matrices). We use sample data included in the package.</p>
 typically skipped in vignette demonstrations. Below, we conditionally
 load a precomputed SCC result provided with the package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result_file</span> <span class="op">&lt;-</span> <span class="st">"SCCcomp.RData"</span></span>
-<span><span class="va">scccomp_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">result_file</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">scccomp_path</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Precomputed SCC group comparison found. Loading data...\n"</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="va">scccomp_path</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ImageSCC"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ImageSCC package is not installed.\nInstall it using: remotes::install_github('funstatpackages/ImageSCC')\n"</span><span class="op">)</span></span>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Precomputed SCC data not found. Actual computation is skipped due to computational complexity.\n"</span><span class="op">)</span></span>
+<span>  <span class="va">result_file</span> <span class="op">&lt;-</span> <span class="st">"SCCcomp.RData"</span></span>
+<span>  <span class="va">scccomp_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">result_file</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="co"># The following code shows how to perform the SCC computation (skipped by default)</span></span>
-<span>  <span class="va">SCCcomp</span> <span class="op">&lt;-</span> <span class="fu">ImageSCC</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ImageSCC/man/scc.image.html" class="external-link">scc.image</a></span><span class="op">(</span></span>
-<span>    Ya <span class="op">=</span> <span class="va">normalizedPathological</span>,</span>
-<span>    Yb <span class="op">=</span> <span class="va">normalizedControls</span>,</span>
-<span>    Z <span class="op">=</span> <span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>    d.est <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>    d.band <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    r <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>    V.est.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    Tr.est.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    V.band.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    Tr.band.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    penalty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    lambda <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">}</span>,</span>
-<span>    alpha.grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span><span class="op">)</span>,</span>
-<span>    adjust.sigma <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">scccomp_path</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Precomputed SCC group comparison found. Loading data...\n"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="va">scccomp_path</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Precomputed SCC data not found. Actual computation is skipped due to computational complexity.\n"</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">SCCcomp</span>, file <span class="op">=</span> <span class="va">result_file</span><span class="op">)</span></span>
+<span>    <span class="co"># The following code shows how to perform the SCC computation (skipped by default)</span></span>
+<span>    <span class="va">SCCcomp</span> <span class="op">&lt;-</span> <span class="fu">ImageSCC</span><span class="fu">::</span><span class="fu">scc.image</span><span class="op">(</span></span>
+<span>      Ya <span class="op">=</span> <span class="va">normalizedPathological</span>,</span>
+<span>      Yb <span class="op">=</span> <span class="va">normalizedControls</span>,</span>
+<span>      Z <span class="op">=</span> <span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>      d.est <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>      d.band <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      r <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>      V.est.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>      Tr.est.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>      V.band.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>      Tr.band.a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>      penalty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      lambda <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">}</span>,</span>
+<span>      alpha.grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span><span class="op">)</span>,</span>
+<span>      adjust.sigma <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">SCCcomp</span>, file <span class="op">=</span> <span class="va">result_file</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <hr>
 </div>

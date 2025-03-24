@@ -61,36 +61,41 @@ cat("Data preparation completed successfully.\n")
 
 The SCC estimation step is computationally intensive and thus typically skipped in vignette demonstrations. Below, we conditionally load a precomputed SCC result provided with the package.
 
-```{r eval=FALSE, echo=TRUE}
-result_file <- "SCCcomp.RData"
-scccomp_path <- system.file("data", result_file, package = "neuroSCC")
-
-if (file.exists(scccomp_path)) {
-  cat("Precomputed SCC group comparison found. Loading data...\n")
-  load(scccomp_path)
+```{r eval = requireNamespace("ImageSCC", quietly = TRUE), echo=TRUE}
+if (!requireNamespace("ImageSCC", quietly = TRUE)) {
+  cat("ImageSCC package is not installed.\nInstall it using: remotes::install_github('funstatpackages/ImageSCC')\n")
 } else {
-  cat("Precomputed SCC data not found. Actual computation is skipped due to computational complexity.\n")
+  result_file <- "SCCcomp.RData"
+  scccomp_path <- system.file("data", result_file, package = "neuroSCC")
 
-  # The following code shows how to perform the SCC computation (skipped by default)
-  SCCcomp <- ImageSCC::scc.image(
-    Ya = normalizedPathological,
-    Yb = normalizedControls,
-    Z = contours[[1]],
-    d.est = 5,
-    d.band = 2,
-    r = 1,
-    V.est.a = as.matrix(contours[[1]]),
-    Tr.est.a = as.matrix(contours[[1]]),
-    V.band.a = as.matrix(contours[[1]]),
-    Tr.band.a = as.matrix(contours[[1]]),
-    penalty = TRUE,
-    lambda = 10^{seq(-6, 3, 0.5)},
-    alpha.grid = c(0.10, 0.05, 0.01),
-    adjust.sigma = TRUE
-  )
+  if (file.exists(scccomp_path)) {
+    cat("Precomputed SCC group comparison found. Loading data...\n")
+    load(scccomp_path)
+  } else {
+    cat("Precomputed SCC data not found. Actual computation is skipped due to computational complexity.\n")
 
-  save(SCCcomp, file = result_file)
+    # The following code shows how to perform the SCC computation (skipped by default)
+    SCCcomp <- ImageSCC::scc.image(
+      Ya = normalizedPathological,
+      Yb = normalizedControls,
+      Z = contours[[1]],
+      d.est = 5,
+      d.band = 2,
+      r = 1,
+      V.est.a = as.matrix(contours[[1]]),
+      Tr.est.a = as.matrix(contours[[1]]),
+      V.band.a = as.matrix(contours[[1]]),
+      Tr.band.a = as.matrix(contours[[1]]),
+      penalty = TRUE,
+      lambda = 10^{seq(-6, 3, 0.5)},
+      alpha.grid = c(0.10, 0.05, 0.01),
+      adjust.sigma = TRUE
+    )
+
+    save(SCCcomp, file = result_file)
+  }
 }
+
 ```
 
 ---

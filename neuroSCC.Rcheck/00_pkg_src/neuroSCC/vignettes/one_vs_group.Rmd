@@ -77,7 +77,7 @@ SCC_AD_expanded <- meanNormalization(SCC_AD_expanded)
 
 The SCC computation is typically computationally intensive. Here, we skip actual computation and load a precomputed result from the package (`SCCcomp.RData`):
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval = requireNamespace("ImageSCC", quietly = TRUE), echo=TRUE}
 result_file <- "SCCcomp.RData"
 scccomp_path <- system.file("data", result_file, package = "neuroSCC")
 
@@ -107,6 +107,7 @@ if (file.exists(scccomp_path)) {
   
   save(SCCcomp, file = result_file)
 }
+
 ```
 
 ---
