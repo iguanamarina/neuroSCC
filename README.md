@@ -10,7 +10,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-8-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Issues](https://img.shields.io/badge/Issues-7-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-100401KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging

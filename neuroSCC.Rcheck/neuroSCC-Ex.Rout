@@ -363,5 +363,158 @@ Processing Subject 2
 > dataDir <- system.file("extdata", package = "neuroSCC")
 > controlPattern <- "^syntheticControl.*\\.nii.gz$"
 > databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+> matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
+> 
+> # Normalize the matrix with detailed output
+> normalizationResult <- meanNormalization(matrixControls, returnDetails = TRUE, quiet = FALSE)
 
-Execution halted
+ Mean before normalization: 4.345851
+
+ Normalization completed.> # Show problematic rows if any
+> if (length(normalizationResult$problemRows) == 0) {
++   cat("No problematic rows detected.\n")
++ } else {
++   print(normalizationResult$problemRows)
++ }
+No problematic rows detected.
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("meanNormalization", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("neuroCleaner")
+> ### * neuroCleaner
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: neuroCleaner
+> ### Title: Clean and load data from NIFTI neuroimaging files
+> ### Aliases: neuroCleaner
+> 
+> ### ** Examples
+> 
+> # Get the file path for sample Control NIfTI file
+> niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+> 
+> # Example 1: Without demographic data
+> petData <- neuroCleaner(niftiFile)
+> petData[sample(nrow(petData), 10), ] # Show 10 random voxels
+        z  x   y pet
+548676 56 29  79  11
+452737 46 59  60   6
+124413 13 50  44   5
+436523 45  1  87   0
+856018 87 28  41   0
+666931 68 22  69   4
+25173   3 49 103   0
+294762 30 66  26  10
+392686 40 54  68   8
+640775 65 55  73   9
+> 
+> # Example 2: With demographic data
+> demoFile <- system.file("extdata", "Demographics.csv", package = "neuroSCC")
+> demoData <- read.csv(demoFile, stringsAsFactors = FALSE, sep = ";")
+> petDataWithDemo <- neuroCleaner(niftiFile, demo = demoData)
+> petDataWithDemo[sample(nrow(petDataWithDemo), 10), ] # Show 10 random voxels
+                     PPT Group Sex Age  z  x   y pet
+538191 syntheticControl1    CN   M  73 55 24  58   8
+270373 syntheticControl1    CN   M  73 28 24  53   7
+549593 syntheticControl1    CN   M  73 56 38  15   0
+877029 syntheticControl1    CN   M  73 89 39  15   0
+284450 syntheticControl1    CN   M  73 29 62  69   8
+629118 syntheticControl1    CN   M  73 64 39  79   9
+536492 syntheticControl1    CN   M  73 55  8 103   0
+203683 syntheticControl1    CN   M  73 21 49  71   3
+354634 syntheticControl1    CN   M  73 36 69  57   7
+632230 syntheticControl1    CN   M  73 64 68  30   5
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("neuroCleaner", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("neuroContour")
+> ### * neuroContour
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: neuroContour
+> ### Title: Obtain and save neuroimaging contours from a NIFTI file
+> ### Aliases: neuroContour
+> 
+> ### ** Examples
+> 
+> # Get the file path for a sample NIfTI file
+> niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
+> 
+> # Extract contours at level 0
+> contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
+> 
+> # Display the extracted contour coordinates
+> if (length(contours) > 0) {
++   head(contours[[1]])  # Show first few points of the main contour
++ }
+  x  y
+1 8 44
+2 9 43
+3 9 43
+4 9 42
+5 9 42
+6 9 41
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("neuroContour", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("processROIs")
+> ### * processROIs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: processROIs
+> ### Title: Process ROIs from a NIfTI file
+> ### Aliases: processROIs
+> 
+> ### ** Examples
+> 
+> # Process an ROI NIfTI file (show results in console)
+> roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
+> processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+Loading NIfTI file...
+> head(processedROI)  # Display first few rows
+             group z x y pet
+1 Region2_number18 1 1 1   0
+2 Region2_number18 1 1 2   0
+3 Region2_number18 1 1 3   0
+4 Region2_number18 1 1 4   0
+5 Region2_number18 1 1 5   0
+6 Region2_number18 1 1 6   0
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("processROIs", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  19.03 3.16 22.5 NA NA 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

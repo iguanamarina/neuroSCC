@@ -37,7 +37,7 @@ Suggests:
     ImageSCC,
     Triangulation
 VignetteBuilder: knitr
-Funding: This work was supported by an internship grant awarded at the 6th Conference 
+Funder: This work was supported by an internship grant awarded at the 6th Conference 
     of the Spanish National Biostatistics Network (BIOSTATNET) in 2025 as a prize for 
     the best poster presentation and young researcher career.
 License: MIT + file LICENSE

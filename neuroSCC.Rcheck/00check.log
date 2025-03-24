@@ -11,7 +11,7 @@
 * checking extension type ... Package
 * this is package 'neuroSCC' version '0.16.0'
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [21s] NOTE
+* checking CRAN incoming feasibility ... [15s] NOTE
 Maintainer: 'Juan A. Arias Lopez <juanantonio.arias.lopez@usc.es>'
 
 New submission
@@ -69,7 +69,13 @@ Files 'README.md' or 'NEWS.md' cannot be checked without 'pandoc' being installe
 * checking data for ASCII and uncompressed saves ... OK
 * checking installed files from 'inst/doc' ... OK
 * checking files in 'vignettes' ... OK
-* checking examples ... [17s] ERROR
-Running examples in 'neuroSCC-Ex.R' failed
-The error most likely occurred in:
-
+* checking examples ... [23s] OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... OK
+* checking re-building of vignette outputs ... [29s] OK
+* checking PDF version of manual ... OK
+* checking HTML version of manual ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 3 NOTEs
