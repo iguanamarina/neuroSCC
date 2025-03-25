@@ -241,8 +241,9 @@ Each row represents a subject's PET data, formatted to align with FDA methodolog
 # Generate a database using databaseCreator
 dataDir <- system.file("extdata", package = "neuroSCC")
 controlPattern <- "^syntheticControl.*\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)
-
+databaseControls <- databaseCreator(pattern = controlPattern,
+                                   control = TRUE,
+                                   quiet = FALSE)
 # Convert the database into a matrix format
 matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
 dim(matrixControls)  # Show matrix dimensions
@@ -391,29 +392,14 @@ clones[, sampledCols]
 <summary>Click to expand</summary>  
 
 ```r
-# Extract detected SCC points
-detectedSCC <- getPoints(SCCcomp)$positivePoints
-
-# Extract detected SPM points
-spmFile <- system.file("extdata", "binary.nii", package = "neuroSCC")
-detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
-
-# Extract true ROI points
-roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
-trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-
-# Generate totalCoords from getDimensions()
-totalCoords <- getDimensions(roiFile)
-
-# Compute SCC detection performance
-metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
-
-# Compute SPM detection performance
-metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
-
-# Print both results
-print(metricsSCC)
-print(metricsSPM)
+data("calculateMetricsExample", package = "neuroSCC")
+# Evaluate SCC and SPM detection performance
+with(calculateMetricsExample, {
+  metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
+  metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
+  print(metricsSCC)
+  print(metricsSPM)
+})
 ```
 </details>  
 

@@ -2,6 +2,7 @@
 
 - First **CRAN Release**.
 - **Additional_repositories** included using **drat**
+- Reduced computation times for most time-consuming examples
 
 # neuroSCC 0.17.0 (25-03-25)
 

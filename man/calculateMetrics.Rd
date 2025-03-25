@@ -45,28 +45,17 @@ This function requires three precomputed objects:
 }
 }
 \examples{
-# Extract SCC-detected points
-detectedSCC <- getPoints(SCCcomp)$positivePoints
+# Load precomputed inputs for the example
+data("calculateMetricsExample", package = "neuroSCC")
 
-# Extract SPM-detected points
-spmFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
-detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
+# Evaluate SCC and SPM detection performance
+with(calculateMetricsExample, {
+  metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
+  metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
 
-# Load true ROI points
-roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
-trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-
-# Get full coordinate grid
-totalCoords <- getDimensions(roiFile)
-
-# Evaluate SCC detection
-metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
-
-# Evaluate SPM detection
-metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
-
-print(metricsSCC)
-print(metricsSPM)
+  print(metricsSCC)
+  print(metricsSPM)
+})
 
 }
 \seealso{

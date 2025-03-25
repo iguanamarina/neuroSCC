@@ -38,11 +38,13 @@
 #' data("calculateMetricsExample", package = "neuroSCC")
 #'
 #' # Evaluate SCC and SPM detection performance
-#' metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
-#' metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
+#' with(calculateMetricsExample, {
+#'   metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
+#'   metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
 #'
-#' print(metricsSCC)
-#' print(metricsSPM)
+#'   print(metricsSCC)
+#'   print(metricsSPM)
+#' })
 #'
 #' @seealso
 #' \code{\link{getPoints}} for SCC-detected regions. \cr

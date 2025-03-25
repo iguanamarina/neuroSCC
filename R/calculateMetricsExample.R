@@ -1,5 +1,8 @@
 #' Precomputed Inputs for SCC vs. SPM Performance Evaluation
 #'
+#' @name calculateMetricsExample
+#' @docType data
+#'
 #' @description
 #' A dataset containing all necessary inputs for demonstrating \code{\link{calculateMetrics}}.
 #' It enables reproducible and fast example code that compares SCC-detected and SPM-detected
@@ -23,4 +26,4 @@
 #' @source Simulated PET neuroimaging study for testing SCC and SPM detection accuracy.
 #'
 #' @keywords datasets
-"calculateMetricsExample"
+NULL

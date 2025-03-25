@@ -5,9 +5,9 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-160-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-166-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-5-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-106523KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-106625KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -203,8 +203,9 @@ Click to expand
 # Generate a database using databaseCreator
 dataDir <- system.file("extdata", package = "neuroSCC")
 controlPattern <- "^syntheticControl.*\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)
-
+databaseControls <- databaseCreator(pattern = controlPattern,
+                                   control = TRUE,
+                                   quiet = FALSE)
 # Convert the database into a matrix format
 matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
 dim(matrixControls)  # Show matrix dimensions
@@ -397,29 +398,14 @@ Click to expand
 </summary>
 
 ``` r
-# Extract detected SCC points
-detectedSCC <- getPoints(SCCcomp)$positivePoints
-
-# Extract detected SPM points
-spmFile <- system.file("extdata", "binary.nii", package = "neuroSCC")
-detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
-
-# Extract true ROI points
-roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
-trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-
-# Generate totalCoords from getDimensions()
-totalCoords <- getDimensions(roiFile)
-
-# Compute SCC detection performance
-metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
-
-# Compute SPM detection performance
-metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
-
-# Print both results
-print(metricsSCC)
-print(metricsSPM)
+data("calculateMetricsExample", package = "neuroSCC")
+# Evaluate SCC and SPM detection performance
+with(calculateMetricsExample, {
+  metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
+  metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
+  print(metricsSCC)
+  print(metricsSPM)
+})
 ```
 
 </details>

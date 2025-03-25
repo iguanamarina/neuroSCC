@@ -60,21 +60,12 @@ into a matrix format for functional analysis.
 # Get the file path for sample data
 dataDir <- system.file("extdata", package = "neuroSCC")
 
-# Example 1: Create database for Controls
+# Example: Create database for Controls
 controlPattern <- "^syntheticControl.*\\\\.nii.gz$"
 databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
 head(databaseControls); tail(databaseControls)
 nrow(databaseControls)  # Total number of rows
 unique(databaseControls$CN_number)  # Show unique subjects
-
-# Example 2: Create database for Pathological group
-pathologicalPattern <- "^syntheticPathological.*\\\\.nii.gz$"
-databasePathological <- databaseCreator(pattern = pathologicalPattern,
-                                        control = FALSE,
-                                        quiet = TRUE)
-head(databasePathological); tail(databasePathological)
-nrow(databasePathological)  # Total number of rows
-unique(databasePathological$AD_number)  # Show unique subjects
 
 }
 \seealso{

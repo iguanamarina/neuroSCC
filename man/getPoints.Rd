@@ -7,7 +7,7 @@
 getPoints(sccResult)
 }
 \arguments{
-\item{sccResult}{A list of SCC computation results from \code{\link[ImageSCC]{scc.image}}.
+\item{sccResult}{A list of SCC computation results from \code{ImageSCC::scc.image}.
        The list must contain:
 \itemize{
   \item \code{Z.band}: A matrix specifying grid positions.
@@ -55,5 +55,5 @@ head(significantPoints$negativePoints)  # Pathological hyperactive vs. Control
 
 }
 \seealso{
-\code{\link[ImageSCC]{scc.image}} for SCC computation.
+\code{ImageSCC::scc.image} for SCC computation.
 }

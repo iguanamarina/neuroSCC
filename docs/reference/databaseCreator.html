@@ -112,7 +112,7 @@ the database to a matrix format for SCC analysis.</p></div>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get the file path for sample data</span></span></span>
 <span class="r-in"><span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 1: Create database for Controls</span></span></span>
+<span class="r-in"><span><span class="co"># Example: Create database for Controls</span></span></span>
 <span class="r-in"><span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii.gz$"</span></span></span>
 <span class="r-in"><span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu">databaseCreator</span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span></span></span>
@@ -133,31 +133,6 @@ the database to a matrix format for SCC analysis.</p></div>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span>  <span class="co"># Total number of rows</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1805258</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">$</span><span class="va">CN_number</span><span class="op">)</span>  <span class="co"># Show unique subjects</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2"</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 2: Create database for Pathological group</span></span></span>
-<span class="r-in"><span><span class="va">pathologicalPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticPathological.*\\.nii.gz$"</span></span></span>
-<span class="r-in"><span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu">databaseCreator</span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>,</span></span>
-<span class="r-in"><span>                                        control <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>                                        quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   AD_number z x y pet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         1 1 1 1   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         1 1 1 2   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         1 1 1 3   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         1 1 1 4   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         1 1 1 5   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         1 1 1 6   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         AD_number  z  x   y pet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805253         2 91 91 104   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805254         2 91 91 105   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805255         2 91 91 106   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805256         2 91 91 107   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805257         2 91 91 108   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805258         2 91 91 109   0</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span>  <span class="co"># Total number of rows</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1805258</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">$</span><span class="va">AD_number</span><span class="op">)</span>  <span class="co"># Show unique subjects</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
