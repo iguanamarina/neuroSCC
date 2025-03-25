@@ -1,3 +1,5 @@
+# neuroSCC 1.0.0
+
 # neuroSCC 0.17.0 (25-03-25)
 
 - Everything is working. **Check** and **Check --as--CRAN** also working with no errors or notes.

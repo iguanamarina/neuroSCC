@@ -1,8 +1,7 @@
 Type: Package
 Package: neuroSCC
-Title: Bridging Simultaneous Confidence Corridors With Applications and
-    Performance Evaluation in PET 'Neuroimaging'
-Version: 0.17.0
+Title: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET 'Neuroimaging'
+Version: 1.0.0
 Authors@R: c(
     person("Juan A.", "Arias Lopez", , "juanantonio.arias.lopez@usc.es", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-3355-6393")),
