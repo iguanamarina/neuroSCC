@@ -49,6 +49,7 @@ Suggests:
     rmarkdown,
     roxygen2 (>= 7.1.0),
     Triangulation
+Additional_repositories: https://iguanamarina.github.io/neuroSCC-drat
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
