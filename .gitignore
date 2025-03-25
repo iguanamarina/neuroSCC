@@ -1,10 +1,29 @@
+# RStudio and R session files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+.Rapp.history
+
+# R CMD check output
+.Rcheck/
+neuroSCC.Rcheck/
+
+# Build artifacts
+*.tar.gz
+*.Rout
+*.Rout.save
+
+# Temporary or system-specific files
+.RDataTmp
 desktop.ini
-inst/doc
-/doc/
-/Meta/
-.RDataTmp
-.RDataTmp
+
+# Documentation artifacts
+inst/doc/
+doc/
+Meta/
+
+# Ignored by default but often generated
+*.o
+*.so
+*.dll
