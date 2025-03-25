@@ -42,18 +42,24 @@ reference:
       - databaseCreator
       - matrixCreator
       - meanNormalization
+
   - title: "SCC Evaluation"
     contents:
       - getPoints
       - getSPMbinary
       - processROIs
       - calculateMetrics
-      - SCCcomp
+
   - title: "Secondary Functions"
     contents:
       - neuroContour
       - getDimensions
       - generatePoissonClones
+
+  - title: "Datasets"
+    contents:
+      - SCCcomp
+      - calculateMetricsExample
 
 news:
   one_page: true  # Change to false if you want paginated news

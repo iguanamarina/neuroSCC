@@ -18,7 +18,7 @@ Description: Provides functions for the structured processing of PET
     Confidence Corridors (SCCs)' for one-group, two-group, or
     single-patient vs group comparisons. The package facilitates PET image
     loading, data restructuring, integration into a Functional Data
-    Analysis framework, contour extraction, post-SCC identification of
+    Analysis framework, contour extraction, identification of
     significant results, and performance evaluation. It bridges
     established neuroimaging packages (e.g., 'oro.nifti') with novel
     statistical methodologies (i.e., 'ImageSCC') and enables reproducible

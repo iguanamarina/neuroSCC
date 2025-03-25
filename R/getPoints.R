@@ -18,7 +18,7 @@
 #' \strong{Always confirm the order of \code{Ya} and \code{Yb} in the SCC computation}
 #' to interpret the directionality correctly.
 #'
-#' @param sccResult A list of SCC computation results from \code{\link[ImageSCC]{scc.image}}.
+#' @param sccResult A list of SCC computation results from \code{ImageSCC::scc.image}.
 #'        The list must contain:
 #' \itemize{
 #'   \item \code{Z.band}: A matrix specifying grid positions.
@@ -46,7 +46,7 @@
 #' head(significantPoints$negativePoints)  # Pathological hyperactive vs. Control
 #'
 #' @seealso
-#' \code{\link[ImageSCC]{scc.image}} for SCC computation.
+#' \code{ImageSCC::scc.image} for SCC computation.
 #'
 #' @export
 getPoints <- function(sccResult) {

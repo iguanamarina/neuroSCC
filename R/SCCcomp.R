@@ -3,7 +3,7 @@
 #' @description
 #' A precomputed example of a Simultaneous Confidence Corridor (SCC) analysis
 #' comparing a group of pathological subjects against controls. This object was generated
-#' using the \code{\link[ImageSCC]{scc.image}} function and represents a realistic output
+#' using the \code{ImageSCC::scc.image} function and represents a realistic output
 #' from SCC-based neuroimaging group comparisons.
 #'
 #' This dataset is used in the examples of \code{\link{getPoints}} and \code{\link{calculateMetrics}},
@@ -23,7 +23,7 @@
 #'
 #' @usage data("SCCcomp")
 #'
-#' @seealso \code{\link{getPoints}}, \code{\link{calculateMetrics}}, \code{\link[ImageSCC]{scc.image}}
+#' @seealso \code{\link{getPoints}}, \code{\link{calculateMetrics}}, \code{ImageSCC::scc.image}
 #'
 #' @source Simulated PET neuroimaging study for evaluating SCC methodology.
 #'
