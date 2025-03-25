@@ -39,15 +39,13 @@
 #' into a matrix format for functional analysis.
 #'
 #' @examples
-#' # Get the file path for sample data
-#' dataDir <- system.file("extdata", package = "neuroSCC")
+#' # NOTE: To keep runtime below CRAN limits, this example processes only 1 subject.
+#' # You can expand the pattern to include all subjects for real use.
 #'
-#' # Example: Create database for Controls
-#' controlPattern <- "^syntheticControl.*\\.nii.gz$"
+#' # Example: Create a database from a single synthetic PET image (control group)
+#' controlPattern <- "^syntheticControl1\\.nii\\.gz$"
 #' databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
-#' head(databaseControls); tail(databaseControls)
-#' nrow(databaseControls)  # Total number of rows
-#' unique(databaseControls$CN_number)  # Show unique subjects
+#' head(databaseControls)
 #'
 #' @seealso
 #' \code{\link{neuroCleaner}} for the underlying image processing function.

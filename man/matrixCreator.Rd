@@ -49,16 +49,18 @@ This function typically follows \code{\link{databaseCreator}} and precedes
 \code{\link{meanNormalization}} in the neuroSCC workflow.
 }
 \examples{
-# Generate a database using databaseCreator
-dataDir <- system.file("extdata", package = "neuroSCC")
-controlPattern <- "^syntheticControl.*\\\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern,
-                                    control = TRUE,
-                                    quiet = FALSE)
+# NOTE: To keep example runtime short, only one synthetic PET file is used.
+# For full analysis, expand the filename pattern accordingly.
 
-# Convert the database into a matrix format
-matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
-dim(matrixControls)  # Show matrix dimensions
+# Step 1: Generate a database for a single subject
+controlPattern <- "^syntheticControl1\\\\.nii\\\\.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+
+# Step 2: Convert the database into a matrix format
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
+
+# Display dimensions of the matrix
+dim(matrixControls)
 
 }
 \seealso{

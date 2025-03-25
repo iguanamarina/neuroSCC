@@ -5,7 +5,7 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-166-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-168-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-5-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-106625KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
@@ -144,22 +144,15 @@ Click to expand
 </summary>
 
 ``` r
-# Get the file path for sample data
-dataDir <- system.file("extdata", package = "neuroSCC")
-
-# Example 1: Create database for Controls
-controlPattern <- "^syntheticControl.*\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
-head(databaseControls); tail(databaseControls)
-nrow(databaseControls)  # Total number of rows
-unique(databaseControls$CN_number)  # Show unique subjects
-
-# Example 2: Create database for Pathological group
-pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
-databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
-head(databasePathological); tail(databasePathological)
-nrow(databasePathological)  # Total number of rows
-unique(databasePathological$AD_number)  # Show unique subjects
+#' @examples
+#' # NOTE: To keep runtime below CRAN limits, this example processes only 1 subject.
+#' # You can expand the pattern to include all subjects for real use.
+#'
+#' # Example: Create a database from a single synthetic PET image (control group)
+#' controlPattern <- "^syntheticControl1\\.nii\\.gz$"
+#' databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+#'
+#' head(databaseControls)
 ```
 
 </details>
@@ -200,15 +193,15 @@ Click to expand
 </summary>
 
 ``` r
-# Generate a database using databaseCreator
-dataDir <- system.file("extdata", package = "neuroSCC")
-controlPattern <- "^syntheticControl.*\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern,
-                                   control = TRUE,
-                                   quiet = FALSE)
-# Convert the database into a matrix format
-matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
-dim(matrixControls)  # Show matrix dimensions
+# NOTE: To keep example runtime short, only one synthetic PET file is used.
+# For full analysis, expand the filename pattern accordingly.
+# Step 1: Generate a database for a single subject
+controlPattern <- "^syntheticControl1\\.nii\\.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+# Step 2: Convert the database into a matrix format
+matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
+# Display dimensions of the matrix
+dim(matrixControls)
 ```
 
 </details>
