@@ -4,7 +4,7 @@
 \name{neuroSCC-package}
 \alias{neuroSCC}
 \alias{neuroSCC-package}
-\title{neuroSCC: Bridging Simultaneous Confidence Corridors With Applications and Performance Evaluation in PET 'Neuroimaging'}
+\title{neuroSCC: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET 'Neuroimaging'}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

@@ -82,7 +82,7 @@ package_version <- as.character(packageVersion("neuroSCC"))
 # neuroSCC <img src="man/figures/logo.png" align="right" width="150"/>
 
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
-[![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
+[![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-`r length(contributors)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-`r total_commits`-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-`r length(issues)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
