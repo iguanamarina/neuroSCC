@@ -12,3 +12,4 @@
 ^README_files$^\.github$
 ^\.gitignore$
 ^cran-comments\.md$
+^dev$

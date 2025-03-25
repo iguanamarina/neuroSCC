@@ -2,7 +2,7 @@
 % Please edit documentation in R/processROIs.R
 \name{processROIs}
 \alias{processROIs}
-\title{Process ROIs from a NIfTI file}
+\title{Process ROI Voxel Data from a NIfTI File}
 \usage{
 processROIs(
   roiFile,
@@ -14,47 +14,49 @@ processROIs(
 )
 }
 \arguments{
-\item{roiFile}{\code{character}, the path to the NIfTI file containing the ROI data.}
+\item{roiFile}{\code{character}. Path to the binary NIfTI file containing ROI data.}
 
-\item{region}{\code{character}, the name of the ROI region (e.g., \code{"roi4"}).}
+\item{region}{\code{character}. Name of the ROI region (e.g., \code{"Region2"}).}
 
-\item{number}{\code{character}, the subject or group identifier (e.g., \code{"18"}).}
+\item{number}{\code{character}. Identifier for the subject or group (e.g., \code{"18"}).}
 
-\item{save}{\code{logical}, if \code{TRUE}, saves the processed ROIs as `.RDS` files.
-If \code{FALSE}, prints a preview in the console. Default is \code{TRUE}.}
+\item{save}{\code{logical}. If \code{TRUE}, saves the result as an \code{.RDS} file. If \code{FALSE},
+returns a data frame in the console. Default is \code{TRUE}.}
 
-\item{outputDir}{\code{character}, directory where processed ROI tables will be saved.}
+\item{outputDir}{\code{character}. Directory where the ROI table will be saved if \code{save = TRUE}.}
 
-\item{verbose}{\code{logical}, if \code{TRUE}, prints progress messages. Default is \code{TRUE}.}
+\item{verbose}{\code{logical}. If \code{TRUE}, displays progress messages. Default is \code{TRUE}.}
 }
 \value{
-A data frame containing voxel-level ROI information, with columns:
+A data frame with voxel-level ROI information:
 \itemize{
-  \item \code{group}: ROI identifier, composed of \code{region + number}.
+  \item \code{group}: Combined identifier built from \code{region + number}.
   \item \code{z}, \code{x}, \code{y}: Voxel coordinates.
-  \item \code{pet}: Binary indicator (\code{1} for ROI, \code{0} for non-ROI).
+  \item \code{pet}: Binary value indicating ROI membership (\code{1} = ROI, \code{0} = non-ROI).
 }
+If \code{save = TRUE}, the data frame is saved as an \code{.RDS} file and nothing is returned.
 }
 \description{
-This function processes Regions of Interest (ROIs) from a binary NIfTI file.
-It extracts voxel coordinates from the image and preserves the original structure,
-marking which voxels are part of the ROI.
-
-This function is typically used in SCC evaluation, where detected SCC regions
-are compared with predefined ROIs in \code{\link{calculateMetrics}}.
+Processes Regions of Interest (ROIs) from a binary NIfTI file by extracting voxel-level
+coordinates and labeling each voxel as part of the ROI or not. The function preserves the
+spatial structure and is typically used to prepare ground truth ROIs for comparison with
+SCC-detected regions via \code{\link{calculateMetrics}}.
 }
 \details{
-The function reads the provided NIfTI file and extracts voxel data.
-It keeps all voxels, indicating whether each belongs to a ROI (\code{pet = 1}) or not (\code{pet = 0}).
+The function uses \code{\link{neuroCleaner}} to load and flatten the NIfTI file into a structured
+data frame. All voxels are retained, with the \code{pet} column indicating which ones are part
+of the ROI (\code{1}) versus background (\code{0}). An ROI label is added in the \code{group} column.
+
+This output is used as ground truth for evaluating detection performance in SCC analyses.
 }
 \examples{
-# Process an ROI NIfTI file (show results in console)
+# Load and process a sample ROI NIfTI file (console output)
 roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
 processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-head(processedROI)  # Display first few rows
+head(processedROI)
 
 }
 \seealso{
-\code{\link{calculateMetrics}} for evaluating SCC detection performance.
-ROIs must be processed first to compare detected SCC voxels with predefined regions.
+\code{\link{calculateMetrics}} for evaluating SCC detection performance. \cr
+\code{\link{neuroCleaner}} for reading and structuring voxel data.
 }

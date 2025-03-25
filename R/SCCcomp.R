@@ -2,30 +2,30 @@
 #'
 #' @description
 #' A precomputed example of a Simultaneous Confidence Corridor (SCC) analysis
-#' comparing a group of Pathological subjects against Controls, using the
-#' \code{\link[ImageSCC]{scc.image}} function.
+#' comparing a group of pathological subjects against controls. This object was generated
+#' using the \code{\link[ImageSCC]{scc.image}} function and represents a realistic output
+#' from SCC-based neuroimaging group comparisons.
 #'
-#' This dataset serves as a compact and realistic representation of the kind of SCC
-#' object generated in neuroimaging comparisons, and is used internally in
-#' \code{\link{getPoints}} and \code{\link{calculateMetrics}} examples.
+#' This dataset is used in the examples of \code{\link{getPoints}} and \code{\link{calculateMetrics}},
+#' allowing users to explore SCC outputs without needing to recompute them.
 #'
-#' @format A list of class \code{"image"} containing:
+#' @format A named list of class \code{"image"} with the following elements:
 #' \describe{
-#'   \item{scc}{3D array of SCC confidence bands, shape \code{[n, 2, alfa]}}
-#'   \item{Z.band}{Matrix of grid coordinates corresponding to evaluation points}
-#'   \item{ind.inside.cover}{Integer vector of indices identifying the SCC band region}
-#'   \item{V.est.a, V.est.b}{Vertex matrices for the domain triangulation (control and pathological)}
-#'   \item{Tr.est.a, Tr.est.b}{Triangle index matrices for the domain triangulation}
-#'   \item{alpha}{Vector of confidence levels used (e.g. 0.1, 0.05, 0.01)}
-#'   \item{d.est}{Spline degree used for mean estimation}
-#'   \item{r}{Smoothing parameter}
+#'   \item{\code{scc}}{3D array of SCC confidence bands, dimensions \code{[n, 2, alpha]}.}
+#'   \item{\code{Z.band}}{Matrix of grid coordinates corresponding to evaluated locations.}
+#'   \item{\code{ind.inside.cover}}{Integer vector of indices for grid points inside the SCC band.}
+#'   \item{\code{V.est.a}, \code{V.est.b}}{Vertex matrices for triangulated domains (pathological and control groups).}
+#'   \item{\code{Tr.est.a}, \code{Tr.est.b}}{Triangle index matrices corresponding to the domain meshes.}
+#'   \item{\code{alpha}}{Vector of confidence levels used (e.g., 0.1, 0.05, 0.01).}
+#'   \item{\code{d.est}}{Spline degree used in mean function estimation.}
+#'   \item{\code{r}}{Smoothing parameter used during fitting.}
 #' }
 #'
 #' @usage data("SCCcomp")
 #'
 #' @seealso \code{\link{getPoints}}, \code{\link{calculateMetrics}}, \code{\link[ImageSCC]{scc.image}}
 #'
-#' @source Simulated PET neuroimaging analysis for SCC evaluation.
+#' @source Simulated PET neuroimaging study for evaluating SCC methodology.
 #'
 #' @keywords datasets
 "SCCcomp"

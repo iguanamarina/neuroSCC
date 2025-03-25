@@ -2,7 +2,7 @@
 % Please edit documentation in R/matrixCreator.R
 \name{matrixCreator}
 \alias{matrixCreator}
-\title{Convert database from PET image data to a functional data matrix format}
+\title{Convert Database to Functional Data Matrix Format}
 \usage{
 matrixCreator(
   database,
@@ -12,44 +12,49 @@ matrixCreator(
 )
 }
 \arguments{
-\item{database}{A data frame created by \code{\link{databaseCreator}} containing
-PET image data with columns for subject number, z, x, y, and pet values.}
+\item{database}{A data frame created by \code{\link{databaseCreator}}, containing
+voxel-level PET image data, including subject identifiers, coordinates, and intensity values.}
 
-\item{paramZ}{The specific z-coordinate slice to analyze. Default is 35.}
+\item{paramZ}{An integer specifying the z-coordinate (slice) to extract. Default is \code{35}.}
 
-\item{useSequentialNumbering}{If \code{TRUE}, assigns sequential numbers
-instead of extracting from filenames.}
+\item{useSequentialNumbering}{\code{logical}. If \code{TRUE}, assigns sequential subject IDs
+instead of extracting them from filenames. Not currently used inside this function. Default is \code{FALSE}.}
 
-\item{quiet}{If \code{TRUE}, suppresses progress messages.}
+\item{quiet}{\code{logical}. If \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.}
 }
 \value{
-A matrix where each row represents the PET data from one subject,
-        formatted as a continuous line of data points.
+A numeric matrix where:
+\itemize{
+  \item Each row represents one subject's PET values at the selected z-slice.
+  \item Each column corresponds to a voxel (flattened as a 1D row).
+}
 }
 \description{
-This function transforms a database created by \code{\link{databaseCreator}} into
-a matrix format suitable for functional data analysis. Each row of the matrix
-represents a subject's PET data, formatted as a continuous line of data points.
+Converts a PET image database (created via \code{\link{databaseCreator}}) into
+a matrix format suitable for functional data analysis.
+Each row of the resulting matrix corresponds to a subject, and each column to a voxel's PET intensity
+values at a specified brain slice.
 }
 \details{
-The function performs several operations:
-
+This function performs the following steps:
 \enumerate{
   \item Verifies that the specified z-slice exists in the database.
-  \item Automatically calculates matrix dimensions based on x and y coordinates.
-  \item Extracts PET intensity values for each subject at the specified z-slice.
-  \item Handles both control and pathological groups by recognizing subject identifiers.
-  \item Replaces any NaN values with zero to ensure matrix compatibility.
+  \item Identifies the correct subject grouping column (\code{CN_number} or \code{AD_number}).
+  \item Determines the matrix dimensions using \code{x} and \code{y} coordinates.
+  \item Extracts PET intensities per subject at the given slice.
+  \item Replaces any \code{NaN} values with \code{0} to ensure numerical stability.
 }
 
-Typically follows \code{\link{databaseCreator}} and precedes
-\code{\link{meanNormalization}} in the neuroSCC pipeline.
+This function typically follows \code{\link{databaseCreator}} and precedes
+\code{\link{meanNormalization}} in the neuroSCC workflow.
 }
 \examples{
 # Generate a database using databaseCreator
 dataDir <- system.file("extdata", package = "neuroSCC")
 controlPattern <- "^syntheticControl.*\\\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = FALSE)
+databaseControls <- databaseCreator(pattern = controlPattern,
+                                    control = TRUE,
+                                    quiet = FALSE)
 
 # Convert the database into a matrix format
 matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = FALSE)
@@ -57,6 +62,6 @@ dim(matrixControls)  # Show matrix dimensions
 
 }
 \seealso{
-\code{\link{databaseCreator}} for creating the input database.
-\code{\link{meanNormalization}} for normalizing PET intensity values.
+\code{\link{databaseCreator}} for generating the input database. \cr
+\code{\link{meanNormalization}} for scaling matrix data prior to SCC computation.
 }

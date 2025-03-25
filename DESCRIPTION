@@ -1,24 +1,30 @@
 Type: Package
 Package: neuroSCC
-Title: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET 'Neuroimaging'
+Title: Bridging Simultaneous Confidence Corridors With Applications and
+    Performance Evaluation in PET 'Neuroimaging'
 Version: 0.17.0
 Authors@R: c(
-    person("Juan A.", "Arias Lopez", email = "juanantonio.arias.lopez@usc.es", role = c("aut", "cre")),
-    person("Virgilio", "Gomez Rubio", email = "Virgilio.Gomez@uclm.es", role = "rev"),
-    person("Pablo", "Aguiar Fernandez", email = "pablo.aguiar@usc.es", role = c("ths", "cph")),
-    person("Andrew", "Haddon Kemp", email = "A.H.Kemp@swansea.ac.uk", role = "ths"))
+    person("Juan A.", "Arias Lopez", , "juanantonio.arias.lopez@usc.es", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-3355-6393")),
+    person("Virgilio", "Gomez Rubio", , "Virgilio.Gomez@uclm.es", role = "rev",
+           comment = c(ORCID = "0000-0002-4791-3072")),
+    person("Pablo", "Aguiar Fernandez", , "pablo.aguiar@usc.es", role = "ths",
+           comment = c(ORCID = "0000-0002-7322-2195")),
+    person("Andrew", "Haddon Kemp", , "A.H.Kemp@swansea.ac.uk", role = "ths",
+           comment = c(ORCID = "0000-0003-1146-3791"))
+  )
 Maintainer: Juan A. Arias Lopez <juanantonio.arias.lopez@usc.es>
 Description: Provides functions for the structured processing of PET
-    'Neuroimaging' data in preparation for the estimation of
-    'Simultaneous Confidence Corridors (SCCs)' for one-group, two-group,
-    or single-patient vs group comparisons. The package facilitates PET
-    image loading, data restructuring, integration into a Functional Data
+    'Neuroimaging' data in preparation for the estimation of 'Simultaneous
+    Confidence Corridors (SCCs)' for one-group, two-group, or
+    single-patient vs group comparisons. The package facilitates PET image
+    loading, data restructuring, integration into a Functional Data
     Analysis framework, contour extraction, post-SCC identification of
     significant results, and performance evaluation. It bridges
     established neuroimaging packages (e.g., 'oro.nifti') with novel
-    statistical methodologies (i.e., 'ImageSCC') and enables
-    reproducible analysis pipelines, including comparison with
-    Statistical Parametric Mapping ('SPM').
+    statistical methodologies (i.e., 'ImageSCC') and enables reproducible
+    analysis pipelines, including comparison with Statistical Parametric
+    Mapping ('SPM').
 License: MIT + file LICENSE
 URL: https://iguanamarina.github.io/neuroSCC/,
     https://github.com/iguanamarina/PhD-2023-SCC-vs-SPM-Group-vs-Group,
@@ -29,9 +35,12 @@ Depends:
 Imports:
     contoureR,
     dplyr,
+    graphics,
     memisc,
     oro.nifti,
-    tidyr
+    stats,
+    tidyr,
+    utils
 Suggests:
     BPST,
     ImageSCC,
@@ -47,6 +56,9 @@ Remotes:
     FIRST-Data-Lab/Triangulation    
 VignetteBuilder: 
     knitr
+Remotes:
+    FIRST-Data-Lab/ImageSCC,
+    FIRST-Data-Lab/Triangulation
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2

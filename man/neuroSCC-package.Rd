@@ -4,7 +4,7 @@
 \name{neuroSCC-package}
 \alias{neuroSCC}
 \alias{neuroSCC-package}
-\title{neuroSCC: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET 'Neuroimaging'}
+\title{neuroSCC: Bridging Simultaneous Confidence Corridors With Applications and Performance Evaluation in PET 'Neuroimaging'}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
@@ -21,13 +21,13 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Juan A. Arias Lopez \email{juanantonio.arias.lopez@usc.es}
+\strong{Maintainer}: Juan A. Arias Lopez \email{juanantonio.arias.lopez@usc.es} (\href{https://orcid.org/0000-0002-3355-6393}{ORCID}) [copyright holder]
 
 Other contributors:
 \itemize{
-  \item Virgilio Gomez Rubio \email{Virgilio.Gomez@uclm.es} [reviewer]
-  \item Pablo Aguiar Fernandez \email{pablo.aguiar@usc.es} [thesis advisor, copyright holder]
-  \item Andrew Haddon Kemp \email{A.H.Kemp@swansea.ac.uk} [thesis advisor]
+  \item Virgilio Gomez Rubio \email{Virgilio.Gomez@uclm.es} (\href{https://orcid.org/0000-0002-4791-3072}{ORCID}) [reviewer]
+  \item Pablo Aguiar Fernandez \email{pablo.aguiar@usc.es} (\href{https://orcid.org/0000-0002-7322-2195}{ORCID}) [thesis advisor]
+  \item Andrew Haddon Kemp \email{A.H.Kemp@swansea.ac.uk} (\href{https://orcid.org/0000-0003-1146-3791}{ORCID}) [thesis advisor]
 }
 
 }

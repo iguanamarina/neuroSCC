@@ -2,71 +2,62 @@
 % Please edit documentation in R/neuroCleaner.R
 \name{neuroCleaner}
 \alias{neuroCleaner}
-\title{Clean and load data from NIFTI neuroimaging files}
+\title{Clean and Load Data from NIfTI Neuroimaging Files}
 \usage{
 neuroCleaner(name, demo = NULL, demoRow = 1)
 }
 \arguments{
-\item{name}{A character string specifying the path to the NIFTI file.}
+\item{name}{\code{character}. The full path to the NIfTI file to process.}
 
-\item{demo}{An optional data frame containing demographic information for the participants.
-If provided, it should contain columns that match (case-insensitive): 'PPT', 'Group', 'Sex', and 'Age'.
-The 'PPT' column can contain participant IDs that match the \code{name} parameter for automatic matching,
-but if no match is found, the row specified by \code{demoRow} will be used.
-Default is \code{NULL}.}
+\item{demo}{Optional \code{data.frame} containing demographic information.
+If provided, it should include columns (case-insensitive): \code{PPT}, \code{Group}, \code{Sex}, and \code{Age}.
+If automatic matching via the \code{PPT} column fails, the row specified by \code{demoRow} is used. Default is \code{NULL}.}
 
-\item{demoRow}{An integer specifying which row of the demographic data to use when
-automatic matching fails or multiple matches are possible. Default is \code{1}.}
+\item{demoRow}{\code{integer}. Row to use from the demographic table if automatic matching fails. Default is \code{1}.}
 }
 \value{
-A data frame with the following columns:
-  \itemize{
-    \item If demographic data provided: \code{PPT}, \code{Group}, \code{Sex}, \code{Age}, \code{z}, \code{x}, \code{y}, \code{pet}
-    \item If no demographic data: \code{z}, \code{x}, \code{y}, \code{pet}
-  }
-  Each row represents a voxel (3D pixel) from the image, with \code{pet} containing the
-  intensity value at that location.
+A data frame where each row represents a voxel (3D pixel), with columns:
+\itemize{
+  \item If demographics are provided: \code{PPT}, \code{Group}, \code{Sex}, \code{Age}, \code{z}, \code{x}, \code{y}, \code{pet}
+  \item If not: \code{z}, \code{x}, \code{y}, \code{pet}
+}
+The \code{pet} column contains the PET intensity value at each voxel location.
 }
 \description{
-Loads a NIFTI-format neuroimaging file, converts it to a structured data frame,
-and organizes the data for further analysis. This function serves as the first step
-in the neuroimaging data processing pipeline, transforming raw PET data into a format
-suitable for functional data analysis. The neuroSCC package prepares and organizes neuroimaging
-data, while the actual Simultaneous Confidence Corridors (SCCs) are computed using
-functions from the ImageSCC package such as \code{ImageSCC::scc1g.image} or \code{ImageSCC::scc2g.image}.
+Loads a NIfTI-format neuroimaging file and transforms it into a structured data frame,
+organizing voxel-level information for downstream analysis. This function is the first step
+in the neuroimaging processing pipeline in \code{neuroSCC}, converting raw PET data into
+a format suitable for functional data analysis. SCCs are later computed using functions
+from the \code{ImageSCC} package, such as \code{ImageSCC::scc.image()}.
 }
 \details{
-The function performs several key operations:
-
+This function performs the following steps:
 \enumerate{
-  \item Reads the NIFTI file using \code{oro.nifti} package functions.
-  \item Converts the 3D image data to a structured data frame.
-  \item Extracts the dimensional information (\code{z}, \code{x}, \code{y} coordinates).
-  \item Organizes the PET intensity values.
-  \item If demographic data is provided, merges it with the image data.
+  \item Loads the NIfTI file using \code{oro.nifti::readNIfTI()}.
+  \item Converts the 3D image into a tidy data frame.
+  \item Adds \code{z}, \code{x}, and \code{y} voxel coordinates.
+  \item If demographic data is provided, attempts to match based on \code{PPT} (case-insensitive).
+        If no match is found, \code{demoRow} is used.
 }
-
-The resulting data frame serves as input for subsequent analysis functions in the
-\code{neuroSCC} pipeline, such as \code{databaseCreator} and \code{matrixCreator}, which prepare
-the data for eventual analysis with the \code{ImageSCC} package functions.
+The resulting data frame serves as input for \code{\link{databaseCreator}}, \code{\link{matrixCreator}},
+and other core functions in the \code{neuroSCC} pipeline.
 }
 \examples{
-# Get the file path for sample Control NIfTI file
+# Load a sample Control NIfTI file
 niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 
 # Example 1: Without demographic data
 petData <- neuroCleaner(niftiFile)
-petData[sample(nrow(petData), 10), ] # Show 10 random voxels
+petData[sample(nrow(petData), 10), ]  # Show 10 random voxels
 
 # Example 2: With demographic data
 demoFile <- system.file("extdata", "Demographics.csv", package = "neuroSCC")
 demoData <- read.csv(demoFile, stringsAsFactors = FALSE, sep = ";")
 petDataWithDemo <- neuroCleaner(niftiFile, demo = demoData)
-petDataWithDemo[sample(nrow(petDataWithDemo), 10), ] # Show 10 random voxels
+petDataWithDemo[sample(nrow(petDataWithDemo), 10), ]
 
 }
 \seealso{
-\code{\link{databaseCreator}} for creating databases from multiple NIFTI files.
-
-\code{\link[oro.nifti]{readNIfTI}} for the underlying function used to read NIFTI files.
+\code{\link{databaseCreator}} for batch image processing. \cr
+\code{\link[oro.nifti]{readNIfTI}} for reading NIfTI-format files.
 }

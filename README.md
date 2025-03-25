@@ -1,17 +1,13 @@
 
 # neuroSCC <img src="man/figures/logo.png" align="right" width="150"/>
 
-<!-- <a href="https://github.com/iguanamarina/neuroSCC"> -->
-<!--   <img src="man/figures/logo.png" alt="neuroSCC Package Logo" align="right" width="150" /> -->
-<!-- </a> -->
-
 [![Project
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-30-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-7-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-104478KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Commits](https://img.shields.io/badge/Commits-153-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Issues](https://img.shields.io/badge/Issues-4-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-106477KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -463,21 +459,25 @@ Workflow:
 
 # 6️⃣ References <a id="references"></a>
 
-- Wang, Y., Wang, G., Wang, L., Ogden, R.T. (2020). *Simultaneous
+- Wang, Y., Wang, G., Wang, L., & Ogden, R.T. (2020). *Simultaneous
   Confidence Corridors for Mean Functions in Functional Data Analysis of
-  Imaging Data*. Biometrics, 76(2), 427-437.  
+  Imaging Data*. Biometrics, 76(2), 427-437. <doi:10.1111/biom.13156>
+
 - Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2021).
   *Computational Issues in the Application of Functional Data Analysis
   to Imaging Data*. In *International Conference on Computational
   Science and Its Applications* (pp. 630–638). Springer International
-  Publishing Cham.  
+  Publishing, Cham. <doi:10.1007/978-3-030-86960-1_46>
+
 - Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2022).
   *Functional Data Analysis for Imaging Mean Function Estimation:
   Computing Times and Parameter Selection*. *Computers*, 11(6), 91.
-  MDPI.  
-- **Ph.D. Thesis: Development of Statistical Methods for Neuroimage Data
-  Analysis Towards Early Diagnosis of Neurodegenerative Diseases**
-  (*Under development*).
+  MDPI. <doi:10.3390/computers11060091>
+
+- **Ph.D. Thesis:** Arias-López, J. A. (Under development). *Development
+  of Statistical Methods for Neuroimage Data Analysis Towards Early
+  Diagnosis of Neurodegenerative Diseases*. University of Santiago de
+  Compostela.
 
 ------------------------------------------------------------------------
 

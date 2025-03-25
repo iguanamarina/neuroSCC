@@ -34,44 +34,57 @@ repo_owner <- "iguanamarina"
 repo_name <- "neuroSCC"
 base_url <- paste0("https://api.github.com/repos/", repo_owner, "/", repo_name)
 
-# Function to fetch API data safely
-fetch_api_data <- function(url) {
-  response <- GET(url)
-  if (status_code(response) == 200) {
-    return(content(response, as = "parsed", encoding = "UTF-8"))
-  } else {
-    return(NULL)
+# Function to safely fetch API data with retry mechanism for stats endpoint
+fetch_api_data <- function(url, max_retries = 5, wait_seconds = 2) {
+  retries <- 0
+  repeat {
+    response <- GET(url)
+    status <- status_code(response)
+    
+    if (status == 200) {
+      return(content(response, as = "parsed", encoding = "UTF-8"))
+    } else if (status == 202 && retries < max_retries) {
+      retries <- retries + 1
+      message("GitHub API returned 202. Retrying after ", wait_seconds, " seconds... (Attempt ", retries, "/", max_retries, ")")
+      Sys.sleep(wait_seconds)
+    } else {
+      warning("GitHub API request failed. Status code: ", status)
+      return(NULL)
+    }
   }
 }
 
-# Fetch dynamic data
+# Fetch dynamic data for badges
 contributors <- fetch_api_data(paste0(base_url, "/contributors"))
 issues <- fetch_api_data(paste0(base_url, "/issues"))
-commits <- fetch_api_data(paste0(base_url, "/commits"))
 repo_info <- fetch_api_data(base_url)
 
-# Generate badge URLs
+# Fetch total commits correctly using your confirmed working snippet
+contributors_stats <- fetch_api_data(paste0(base_url, "/stats/contributors"))
+total_commits <- if (!is.null(contributors_stats)) {
+  sum(sapply(contributors_stats, function(x) x$total))
+} else {
+  NA
+}
+
+# Generate badge URLs with fetched data
 badge_url_contributors <- paste0("https://img.shields.io/badge/Contributors-", length(contributors), "-brightgreen")
 badge_url_issues <- paste0("https://img.shields.io/badge/Issues-", length(issues), "-brightgreen")
-badge_url_commits <- paste0("https://img.shields.io/badge/Commits-", length(commits), "-brightgreen")
+badge_url_commits <- paste0("https://img.shields.io/badge/Commits-", total_commits, "-brightgreen")
 badge_url_size <- paste0("https://img.shields.io/badge/Size-", repo_info$size, "KB-brightgreen")
 
 # Get package version
 package_version <- as.character(packageVersion("neuroSCC"))
+
 ```
 
 
 # neuroSCC <img src="man/figures/logo.png" align="right" width="150"/>
 
-<!-- <a href="https://github.com/iguanamarina/neuroSCC"> -->
-<!--   <img src="man/figures/logo.png" alt="neuroSCC Package Logo" align="right" width="150" /> -->
-<!-- </a> -->
-
-
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://www.tidyverse.org/lifecycle/)
 [![Contributors](https://img.shields.io/badge/Contributors-`r length(contributors)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-`r length(commits)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-`r total_commits`-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-`r length(issues)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-`r repo_info$size`KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
@@ -432,13 +445,15 @@ A complete visual overview of how `neuroSCC` functions interact with data, the o
 
 # 6️⃣ References <a id="references"></a>
 
-- Wang, Y., Wang, G., Wang, L., Ogden, R.T. (2020). *Simultaneous Confidence Corridors for Mean Functions in Functional Data Analysis of Imaging Data*. Biometrics, 76(2), 427-437.  
-- Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2021). *Computational Issues in the Application of Functional Data Analysis to Imaging Data*. In *International Conference on Computational Science and Its Applications* (pp. 630–638). Springer International Publishing Cham.  
-- Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2022). *Functional Data Analysis for Imaging Mean Function Estimation: Computing Times and Parameter Selection*. *Computers*, 11(6), 91. MDPI.  
-- **Ph.D. Thesis: Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases** (*Under development*).  
+- Wang, Y., Wang, G., Wang, L., & Ogden, R.T. (2020). *Simultaneous Confidence Corridors for Mean Functions in Functional Data Analysis of Imaging Data*. Biometrics, 76(2), 427-437. <doi:10.1111/biom.13156>
+
+- Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2021). *Computational Issues in the Application of Functional Data Analysis to Imaging Data*. In *International Conference on Computational Science and Its Applications* (pp. 630–638). Springer International Publishing, Cham. <doi:10.1007/978-3-030-86960-1_46>
+
+- Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2022). *Functional Data Analysis for Imaging Mean Function Estimation: Computing Times and Parameter Selection*. *Computers*, 11(6), 91. MDPI. <doi:10.3390/computers11060091>
+
+- **Ph.D. Thesis:** Arias-López, J. A. (Under development). *Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases*. University of Santiago de Compostela.
 
 ------------------------------------------------------------------------
-
 
 # 📢 Contributing & Feedback <a id="contributing-feedback"></a>  
 
