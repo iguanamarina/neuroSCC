@@ -61,26 +61,48 @@ cat("Data preparation completed successfully.\n")
 
 This step requires the external `ImageSCC` package, currently not on CRAN. Ensure you have this package installed. If not, install it using:
 
-```r
-remotes::install_github("FIRST-Data-Lab/ImageSCC")
+```{r}
+
+if (requireNamespace("ImageSCC", quietly = TRUE)) {
+  message("'ImageSCC' package is available.")
+} else {
+  message("This vignette requires the 'ImageSCC' package.")
+  message("You can install it from GitHub with:")
+  message("  remotes::install_github('FIRST-Data-Lab/ImageSCC')")
+}
+
 ```
 
 The SCC estimation step is computationally intensive and thus typically skipped in vignette demonstrations. Below, we conditionally load a precomputed SCC result provided with the package.
 
+
 ```{r eval = requireNamespace("ImageSCC", quietly = TRUE), echo=TRUE}
-if (!requireNamespace("ImageSCC", quietly = TRUE)) {
-  cat("ImageSCC package is not installed.\nInstall it using: remotes::install_github('funstatpackages/ImageSCC')\n")
+
+# Check for Triangulation package
+triangulation_available <- requireNamespace("Triangulation", quietly = TRUE)
+
+if (triangulation_available) {
+  message("'Triangulation' package is available.")
 } else {
-  result_file <- "SCCcomp.RData"
-  scccomp_path <- system.file("data", result_file, package = "neuroSCC")
+  message("'Triangulation' package not available.")
+  message("Install with: remotes::install_github('FIRST-Data-Lab/Triangulation')")
+}
 
-  if (file.exists(scccomp_path)) {
-    cat("Precomputed SCC group comparison found. Loading data...\n")
-    load(scccomp_path)
-  } else {
-    cat("Precomputed SCC data not found. Actual computation is skipped due to computational complexity.\n")
+# Proceed only if both packages are available
+if (triangulation_available) {
 
-    # The following code shows how to perform the SCC computation (skipped by default)
+  # Try loading precomputed SCC object from data/
+  if (!exists("SCCcomp", inherits = FALSE) &&
+      "SCCcomp" %in% data(package = "neuroSCC")$results[, "Item"]) {
+    
+    message("Loading precomputed SCC group comparison from package data...")
+    suppressMessages(data("SCCcomp", package = "neuroSCC"))
+
+  } else if (!exists("SCCcomp", inherits = FALSE)) {
+
+    message("Precomputed data not found. Running SCC estimation...")
+
+    # Perform SCC computation (only for development)
     SCCcomp <- ImageSCC::scc.image(
       Ya = normalizedPathological,
       Yb = normalizedControls,
@@ -97,10 +119,9 @@ if (!requireNamespace("ImageSCC", quietly = TRUE)) {
       alpha.grid = c(0.10, 0.05, 0.01),
       adjust.sigma = TRUE
     )
-
-    save(SCCcomp, file = result_file)
   }
 }
+
 
 ```
 

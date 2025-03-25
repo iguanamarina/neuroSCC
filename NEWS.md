@@ -1,3 +1,7 @@
+# neuroSCC 0.17.0 (25-03-25)
+
+- Everything is working. **Check** and **Check --as--CRAN** also working with no errors or notes.
+
 # neuroSCC 0.16.0 (24-03-25)
 
 - **Webpage** and **Vignettes** are already working.
