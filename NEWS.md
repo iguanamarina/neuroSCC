@@ -1,6 +1,7 @@
 # neuroSCC 1.0.0
 
 - First **CRAN Release**.
+- **Additional_repositories** included using **drat**
 
 # neuroSCC 0.17.0 (25-03-25)
 
