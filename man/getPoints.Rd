@@ -2,43 +2,45 @@
 % Please edit documentation in R/getPoints.R
 \name{getPoints}
 \alias{getPoints}
-\title{Extract significant SCC points from an SCC comparison object}
+\title{Extract Significant SCC Points from an SCC Comparison Object}
 \usage{
 getPoints(sccResult)
 }
 \arguments{
-\item{sccResult}{A list containing SCC computation results from \code{\link[ImageSCC]{scc.image}}.
-       The list should include at least:
+\item{sccResult}{A list of SCC computation results from \code{\link[ImageSCC]{scc.image}}.
+       The list must contain:
 \itemize{
-  \item \code{Z.band}: Matrix specifying grid positions.
-  \item \code{ind.inside.cover}: Indices of grid points inside the confidence band.
-  \item \code{scc}: 3D array containing computed SCC values.
+  \item \code{Z.band}: A matrix specifying grid positions.
+  \item \code{ind.inside.cover}: Indices of grid points within the confidence band.
+  \item \code{scc}: A 3D array containing the computed SCC values.
 }}
 }
 \value{
-A named list:
+A named list with two elements:
 \itemize{
-  \item \code{positivePoints}: Data frame with coordinates where the \strong{first group (Ya) had significantly lower activity than the second (Yb)}.
-  \item \code{negativePoints}: Data frame with coordinates where the \strong{first group (Ya) had significantly higher activity than the second (Yb)}.
+  \item \code{positivePoints}: A data frame with coordinates where the \strong{first group (Ya)} shows
+        significantly lower activity than the \strong{second group (Yb)}.
+  \item \code{negativePoints}: A data frame with coordinates where the \strong{first group (Ya)} shows
+        significantly higher activity than the \strong{second group (Yb)}.
 }
 }
 \description{
-This function identifies and extracts coordinates where significant differences
-fall outside the simultaneous confidence corridors (SCCs).
-It processes the results from \code{ImageSCC::scc.image()}, returning the extracted coordinates
-where the differences are statistically significant.
+Identifies and extracts coordinates where differences fall outside the simultaneous confidence corridors (SCCs),
+indicating statistically significant regions. This function processes the results from
+\code{ImageSCC::scc.image()} and returns the voxel locations that represent either hypo- or hyperactivity.
 
-The interpretation of the results depends on how the SCC was computed.
-If SCC was computed as \code{scc.image(Ya = Y_AD, Yb = Y_CN, ...)}, meaning the
-\strong{Control group (CN) is the second argument}, the function extracts:
+The interpretation of results depends on the order of input in the SCC computation.
+If SCC was computed as \code{scc.image(Ya = Y_AD, Yb = Y_CN, ...)} — i.e., the
+\strong{Control group (CN)} is the second argument — then:
 \itemize{
-  \item \strong{positivePoints}: Regions where \strong{Control - Pathological} is significantly above SCC.
-    These represent \emph{areas where the Pathological group (AD) is hypoactive compared to the Control group}.
-  \item \strong{negativePoints}: Regions where \strong{Control - Pathological} is significantly below SCC.
-    These represent \emph{areas where the Pathological group (AD) is hyperactive compared to the Control group}.
+  \item \strong{positivePoints}: Regions where \strong{Control - Pathological} is significantly above the SCC.
+        These correspond to areas where the Pathological group (AD) is \emph{hypoactive} relative to Controls.
+  \item \strong{negativePoints}: Regions where \strong{Control - Pathological} is significantly below the SCC.
+        These correspond to areas where the Pathological group (AD) is \emph{hyperactive} relative to Controls.
 }
 
-\strong{Make sure to check the order of Ya and Yb in the SCC computation} before interpreting the results.
+\strong{Always confirm the order of \code{Ya} and \code{Yb} in the SCC computation}
+to interpret the directionality correctly.
 }
 \examples{
 # Load precomputed SCC example
@@ -47,9 +49,9 @@ data("SCCcomp", package = "neuroSCC")
 # Extract significant SCC points
 significantPoints <- getPoints(SCCcomp)
 
-# Show first extracted points (interpretation depends on SCC computation, see description)
-head(significantPoints$positivePoints)  # Regions where Pathological is hypoactive vs. Control
-head(significantPoints$negativePoints)  # Regions where Pathological is hyperactive vs. Control
+# Show extracted points (interpretation depends on SCC setup; see description)
+head(significantPoints$positivePoints)  # Pathological hypoactive vs. Control
+head(significantPoints$negativePoints)  # Pathological hyperactive vs. Control
 
 }
 \seealso{

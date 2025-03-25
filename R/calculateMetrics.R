@@ -2,67 +2,66 @@
 #'
 #' @description
 #' Computes Sensitivity, Specificity, Positive Predictive Value (PPV), and Negative Predictive Value (NPV)
-#' for detected points compared to ground truth ROI points. This function is used to evaluate
-#' SCC-based and SPM-based detection accuracy in neuroimaging analysis.
+#' by comparing detected points with ground truth ROI points. This function is used to assess
+#' the accuracy of SCC- or SPM-based detection in neuroimaging analysis.
 #'
-#' @param detectedPoints A data frame containing SCC- or SPM-detected points (\code{x}, \code{y}).
+#' @param detectedPoints A data frame containing detected coordinates (\code{x}, \code{y}).
 #' \itemize{
-#'   \item SCC-detected points should come from \code{\link{getPoints}}.
-#'   \item SPM-detected points should come from \code{\link{getSPMbinary}}.
+#'   \item SCC-detected points should be obtained using \code{\link{getPoints}}.
+#'   \item SPM-detected points should be obtained using \code{\link{getSPMbinary}}.
 #' }
-#' @param truePoints A data frame containing ground truth ROI points (\code{x}, \code{y}),
-#'        obtained using \code{\link{processROIs}}.
-#' @param totalCoords A data frame containing all possible voxel coordinates (\code{x}, \code{y}),
-#'        obtained using \code{\link{getDimensions}}.
-#' @param regionName A character string used for labeling the results.
+#' @param truePoints A data frame with ground truth ROI coordinates (\code{x}, \code{y}),
+#'        extracted via \code{\link{processROIs}}.
+#' @param totalCoords A list with the full voxel grid dimensions, created by \code{\link{getDimensions}}.
+#'        Must include named elements \code{xDim} and \code{yDim}.
+#' @param regionName A character string used to label the output region.
 #'
 #' @return A data frame with the following evaluation metrics:
 #' \itemize{
-#'   \item \code{region}: The analyzed region.
+#'   \item \code{region}: Name of the analyzed region.
 #'   \item \code{sensitivity}: True positive rate (TP / (TP + FN) * 100).
 #'   \item \code{specificity}: True negative rate (TN / (TN + FP) * 100).
-#'   \item \code{PPV}: Positive Predictive Value (TP / (TP + FP) * 100).
-#'   \item \code{NPV}: Negative Predictive Value (TN / (TN + FN) * 100).
+#'   \item \code{PPV}: Positive predictive value (TP / (TP + FP) * 100).
+#'   \item \code{NPV}: Negative predictive value (TN / (TN + FN) * 100).
 #' }
 #'
 #' @details
-#' The user must precompute the following objects before calling this function:
+#' This function requires three precomputed objects:
 #' \itemize{
-#'   \item \code{detectedPoints}: Extracted using \code{\link{getPoints}} (for SCC) or \code{\link{getSPMbinary}} (for SPM).
-#'   \item \code{truePoints}: Extracted using \code{\link{processROIs}}, representing ground truth ROIs.
-#'   \item \code{totalCoords}: Generated using \code{\link{getDimensions}}, providing the full voxel grid.
+#'   \item \code{detectedPoints}: From \code{\link{getPoints}} (SCC) or \code{\link{getSPMbinary}} (SPM).
+#'   \item \code{truePoints}: From \code{\link{processROIs}}, representing ground truth ROIs.
+#'   \item \code{totalCoords}: From \code{\link{getDimensions}}, providing the full voxel grid.
 #' }
 #'
 #' @examples
-#' # Extract detected SCC points
+#' # Extract SCC-detected points
 #' detectedSCC <- getPoints(SCCcomp)$positivePoints
 #'
-#' # Extract detected SPM points
+#' # Extract SPM-detected points
 #' spmFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
 #' detectedSPM <- getSPMbinary(spmFile, paramZ = 35)
 #'
-#' # Extract true ROI points
+#' # Load true ROI points
 #' roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
 #' trueROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
 #'
-#' # Generate totalCoords from getDimensions()
+#' # Get full coordinate grid
 #' totalCoords <- getDimensions(roiFile)
 #'
-#' # Compute SCC detection performance
+#' # Evaluate SCC detection
 #' metricsSCC <- calculateMetrics(detectedSCC, trueROI, totalCoords, "Region2_SCC")
 #'
-#' # Compute SPM detection performance
+#' # Evaluate SPM detection
 #' metricsSPM <- calculateMetrics(detectedSPM, trueROI, totalCoords, "Region2_SPM")
 #'
-#' # Print both results
 #' print(metricsSCC)
 #' print(metricsSPM)
 #'
 #' @seealso
-#' \code{\link{getPoints}} for SCC-based detection points.
-#' \code{\link{getSPMbinary}} for extracting SPM-detected points.
-#' \code{\link{processROIs}} for ground truth ROI extraction.
-#' \code{\link{getDimensions}} for obtaining the full coordinate grid.
+#' \code{\link{getPoints}} for SCC-detected regions. \cr
+#' \code{\link{getSPMbinary}} for binary SPM-detected points. \cr
+#' \code{\link{processROIs}} for defining ground truth ROIs. \cr
+#' \code{\link{getDimensions}} for generating the coordinate grid.
 #'
 #' @export
 #' @importFrom stats rpois

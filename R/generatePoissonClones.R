@@ -1,24 +1,25 @@
 #' Generate Synthetic Poisson Clones for PET Data
 #'
 #' @description
-#' This function generates synthetic clones of a PET data matrix by adding Poisson-distributed
-#' noise to each non-zero voxel. This is necessary to circumvent the limitations of functional
+#' Generates synthetic clones of a PET data matrix by adding Poisson-distributed
+#' noise to each non-zero voxel. This approach helps address the limitations of functional
 #' data analysis (FDA) in **single patient vs. group (1 vs. Group) setups**, where a single subject
-#' does not provide enough variability to estimate Simultaneous Confidence Corridors (SCCs) reliably.
+#' lacks sufficient variability to reliably estimate Simultaneous Confidence Corridors (SCCs).
 #'
 #' @param originalMatrix A numeric matrix where each row represents a flattened PET image.
 #' @param numClones An integer specifying the number of synthetic clones to generate.
-#' @param lambdaFactor A positive numeric value controlling the magnitude of Poisson noise.
+#' @param lambdaFactor A positive numeric value that scales the magnitude of Poisson noise.
 #'
-#' @return A numeric matrix with `numClones` rows, each containing a modified version of `originalMatrix`
-#'         with added Poisson noise.
+#' @return A numeric matrix with \code{numClones} rows, each representing a noisy version
+#'         of \code{originalMatrix} with Poisson noise added.
 #'
 #' @details
-#' - Values of `0` remain unchanged to preserve background regions.
-#' - `NA` values are replaced with `0` before adding noise.
-#' - Poisson noise is applied only to positive values, scaled by `lambdaFactor`.
-#' - This approach allows **SCC methods to operate in 1 vs. Group analyses**, ensuring statistical
-#'   validity when a single observation is not sufficient.
+#' \itemize{
+#'   \item Values equal to \code{0} remain unchanged to preserve background regions.
+#'   \item \code{NA} values are replaced with \code{0} before adding noise.
+#'   \item Poisson noise is applied only to positive values, scaled by \code{lambdaFactor}.
+#'   \item Enables valid SCC estimation in single-subject settings by artificially increasing sample size.
+#' }
 #'
 #' @examples
 #' # Get a single patient's PET data matrix

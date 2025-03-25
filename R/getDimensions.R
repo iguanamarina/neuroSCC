@@ -1,23 +1,24 @@
 #' Get Dimensions from a Neuroimaging File
 #'
 #' @description
-#' Extracts dimensional information from NIFTI or similar neuroimaging files.
-#' This function is designed to work together with \code{neuroCleaner()}
-#' but can also be used independently for informative purposes.
+#' Extracts voxel dimension information from a NIfTI or similar neuroimaging file.
+#' This function is designed to work with \code{\link{neuroCleaner}}, but it can also be used
+#' independently to inspect image dimensions.
 #'
-#' @param file A NIFTI file object or filename to extract dimensions from.
+#' @param file A NIfTI file object or a file path pointing to a NIfTI image.
 #'
-#' @return A list containing:
+#' @return A named list with image dimensions:
 #' \itemize{
-#'   \item \code{xDim}: Number of voxels in the X dimension
-#'   \item \code{yDim}: Number of voxels in the Y dimension
-#'   \item \code{zDim}: Number of slices in the Z dimension
-#'   \item \code{dim}: Total number of voxels (xDim * yDim)
+#'   \item \code{xDim}: Number of voxels along the X axis
+#'   \item \code{yDim}: Number of voxels along the Y axis
+#'   \item \code{zDim}: Number of slices along the Z axis
+#'   \item \code{dim}: Total number of voxels in a 2D slice (\code{xDim * yDim})
 #' }
 #'
 #' @details
-#' The function can handle both NIFTI file paths and pre-loaded oro.nifti file objects.
-#' It provides a consistent way to extract dimensional information across the package.
+#' The function accepts either a file path or a preloaded \code{nifti} object.
+#' If a file path is provided, it uses \code{oro.nifti::readNIfTI()} to load the image.
+#' This function ensures consistent dimension extraction across the \code{neuroSCC} pipeline.
 #'
 #' @examples
 #' # Get the file path for a sample NIfTI file

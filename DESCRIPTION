@@ -36,6 +36,7 @@ Suggests:
     BPST,
     ImageSCC,
     knitr,
+    rcmdcheck,
     remotes,
     rmarkdown,
     roxygen2 (>= 7.1.0),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/databaseCreator.R
 \name{databaseCreator}
 \alias{databaseCreator}
-\title{Create a database of processed PET image data}
+\title{Create a Database of Processed PET Image Data}
 \usage{
 databaseCreator(
   pattern,
@@ -13,54 +13,48 @@ databaseCreator(
 )
 }
 \arguments{
-\item{pattern}{\code{character}, a regular expression pattern specifying which files to process.
-The function extracts the subject number directly from the filename based on this pattern.}
+\item{pattern}{\code{character}. A regular expression defining the file pattern to match.
+Subject identifiers are extracted from filenames based on this pattern.}
 
-\item{control}{\code{logical}, if \code{TRUE}, the function processes control group images;
-if \code{FALSE}, it processes pathological group images. Default is \code{TRUE}.}
+\item{control}{\code{logical}. If \code{TRUE}, files are treated as control group data;
+if \code{FALSE}, as pathological group data. Default is \code{TRUE}.}
 
-\item{useSequentialNumbering}{\code{logical}, if \code{TRUE}, assigns sequential numbers (1,2,3,...)
-to files instead of extracting from filenames. Default is \code{FALSE}.}
+\item{useSequentialNumbering}{\code{logical}. If \code{TRUE}, assigns sequential subject numbers
+instead of extracting them from filenames. Default is \code{FALSE}.}
 
-\item{demo}{\code{data.frame}, optional demographic data. If provided, this information will be
-included in the output database for each file. Default is \code{NULL}.}
+\item{demo}{\code{data.frame}, optional. If provided, demographic information is included for each file.
+Default is \code{NULL}.}
 
-\item{quiet}{\code{logical}, if \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.}
+\item{quiet}{\code{logical}. If \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.}
 }
 \value{
-A \code{data.frame} that aggregates processed data from all matched images.
-        Each row represents data from one voxel (3D pixel), including:
+A \code{data.frame} combining processed voxel-level data from all matched files.
+        Each row represents a voxel (3D pixel), with the following structure:
         \itemize{
-          \item For control group (\code{control=TRUE}): \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
-          \item For pathological group (\code{control=FALSE}): \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
-          \item If demographic data is provided: Additional columns like \code{PPT}, \code{Group}, \code{Sex}, \code{Age}
+          \item Control group: \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+          \item Pathological group: \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+          \item With demographics: Additional columns such as \code{PPT}, \code{Group}, \code{Sex}, \code{Age}
         }
-        The \code{CN_number} or \code{AD_number} column contains the subject identifier extracted from
-        the filename or assigned sequentially. The \code{pet} column contains intensity values.
 }
 \description{
-This function processes PET images based on a specified file name pattern.
-It reads each file matching the pattern, processes it using \code{\link{neuroCleaner}},
-and compiles the results into a structured data frame.
-The function is a key step in the neuroSCC workflow, bridging individual
-image processing and preparation for functional data analysis with Simultaneous Confidence Corridors (SCCs).
+Processes multiple PET image files matching a specified filename pattern.
+Each file is processed using \code{\link{neuroCleaner}}, and the results are aggregated
+into a unified data frame for functional data analysis. This function serves as a key step
+in the \code{neuroSCC} workflow, bridging raw image data and Simultaneous Confidence Corridors (SCC) computation.
 }
 \details{
-The function performs the following operations:
-
+The function performs the following steps:
 \enumerate{
-  \item Identifies files in the working directory that match the specified pattern.
-  \item For each file:
-  \itemize{
-    \item Extracts the subject number from the filename (or assigns a sequential number if \code{useSequentialNumbering=TRUE}).
-    \item Processes the file using \code{\link{neuroCleaner}}, integrating demographic data if provided.
-    \item Adds subject identifier information to each row.
-    \item Merges all processed data into a structured database.
-  }
+  \item Identifies image files matching the given pattern.
+  \item Processes each file using \code{\link{neuroCleaner}}, optionally merging demographic data.
+  \item Adds a subject identifier column (\code{CN_number} or \code{AD_number}).
+  \item Aggregates all results into a single data frame.
 }
 
-This function is typically followed by \code{\link{matrixCreator}} in the analysis pipeline,
-which transforms the database into a format suitable for SCC computation.
+If no files are successfully processed, an empty data frame is returned with a warning.
+
+This function is typically followed by \code{\link{matrixCreator}}, which converts the output
+into a matrix format for functional analysis.
 }
 \examples{
 # Get the file path for sample data
