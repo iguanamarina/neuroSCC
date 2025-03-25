@@ -39,6 +39,9 @@ Suggests:
     rmarkdown,
     roxygen2 (>= 7.1.0),
     Triangulation
+Remotes:
+    FIRST-Data-Lab/ImageSCC,
+    FIRST-Data-Lab/Triangulation    
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
