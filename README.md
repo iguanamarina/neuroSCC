@@ -5,7 +5,7 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-155-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-NA-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-5-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-106477KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
@@ -80,7 +80,7 @@ approaches**.
 
 ``` r
 # Install the latest stable release (Future)
-remotes::install_github("iguanamarina/neuroSCC@94f4f65")
+remotes::install_github("iguanamarina/neuroSCC@1a91f8e")
 library(neuroSCC)
 ```
 

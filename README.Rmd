@@ -143,7 +143,7 @@ It is **particularly suited for**:
 
 ```{r, eval = FALSE, echo = TRUE}
 # Install the latest stable release (Future)
-remotes::install_github("iguanamarina/neuroSCC@94f4f65")
+remotes::install_github("iguanamarina/neuroSCC@1a91f8e")
 library(neuroSCC)
 ```
 
