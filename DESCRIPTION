@@ -15,12 +15,12 @@ Authors@R: c(
 Maintainer: Juan A. Arias Lopez <juanantonio.arias.lopez@usc.es>
 Description: Provides functions for the structured processing of PET
     'Neuroimaging' data in preparation for the estimation of 'Simultaneous
-    Confidence Corridors (SCCs)' for one-group, two-group, or
+    Confidence Corridors ('SCCs')' for one-group, two-group, or
     single-patient vs group comparisons. The package facilitates PET image
     loading, data restructuring, integration into a Functional Data
     Analysis framework, contour extraction, identification of
     significant results, and performance evaluation. It bridges
-    established neuroimaging packages (e.g., 'oro.nifti') with novel
+    established packages (e.g., 'oro.nifti') with novel
     statistical methodologies (i.e., 'ImageSCC') and enables reproducible
     analysis pipelines, including comparison with Statistical Parametric
     Mapping ('SPM').

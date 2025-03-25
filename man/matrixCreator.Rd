@@ -23,7 +23,7 @@ instead of extracting them from filenames. Not currently used inside this functi
 \item{quiet}{\code{logical}. If \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.}
 }
 \value{
-A numeric matrix where:
+A numeric matrix where
 \itemize{
   \item Each row represents one subject's PET values at the selected z-slice.
   \item Each column corresponds to a voxel (flattened as a 1D row).
@@ -36,7 +36,7 @@ Each row of the resulting matrix corresponds to a subject, and each column to a 
 values at a specified brain slice.
 }
 \details{
-This function performs the following steps:
+This function performs the following steps
 \enumerate{
   \item Verifies that the specified z-slice exists in the database.
   \item Identifies the correct subject grouping column (\code{CN_number} or \code{AD_number}).

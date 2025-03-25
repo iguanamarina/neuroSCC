@@ -9,7 +9,7 @@
 #' This dataset is used in the examples of \code{\link{getPoints}} and \code{\link{calculateMetrics}},
 #' allowing users to explore SCC outputs without needing to recompute them.
 #'
-#' @format A named list of class \code{"image"} with the following elements:
+#' @format A named list of class \code{"image"} with the following elements
 #' \describe{
 #'   \item{\code{scc}}{3D array of SCC confidence bands, dimensions \code{[n, 2, alpha]}.}
 #'   \item{\code{Z.band}}{Matrix of grid coordinates corresponding to evaluated locations.}

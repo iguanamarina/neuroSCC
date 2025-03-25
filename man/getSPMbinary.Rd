@@ -12,9 +12,9 @@ getSPMbinary(niftiFile, paramZ = 35)
 \item{paramZ}{\code{integer}. The specific z-slice to extract. Default is \code{35}.}
 }
 \value{
-A data frame with detected point coordinates:
+A data frame with the following columns:
 \itemize{
-  \item \code{x}, \code{y}: Coordinates of significant voxels at the specified slice.
+  \item \code{x}, \code{y} – Coordinates of significant voxels at the specified slice.
 }
 }
 \description{

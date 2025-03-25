@@ -28,13 +28,13 @@ returns a data frame in the console. Default is \code{TRUE}.}
 \item{verbose}{\code{logical}. If \code{TRUE}, displays progress messages. Default is \code{TRUE}.}
 }
 \value{
-A data frame with voxel-level ROI information:
+A data frame with voxel-level ROI information.
 \itemize{
-  \item \code{group}: Combined identifier built from \code{region + number}.
-  \item \code{z}, \code{x}, \code{y}: Voxel coordinates.
-  \item \code{pet}: Binary value indicating ROI membership (\code{1} = ROI, \code{0} = non-ROI).
+  \item \code{group} – Combined identifier built from \code{region} and \code{number}.
+  \item \code{z}, \code{x}, \code{y} – Voxel coordinates.
+  \item \code{pet} – Binary value indicating ROI membership (\code{1} = ROI, \code{0} = non-ROI).
 }
-If \code{save = TRUE}, the data frame is saved as an \code{.RDS} file and nothing is returned.
+If \code{save = TRUE}, the data frame is saved as an \code{.RDS} file and not returned to the console.
 }
 \description{
 Processes Regions of Interest (ROIs) from a binary NIfTI file by extracting voxel-level

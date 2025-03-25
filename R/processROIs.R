@@ -14,13 +14,13 @@
 #' @param outputDir \code{character}. Directory where the ROI table will be saved if \code{save = TRUE}.
 #' @param verbose \code{logical}. If \code{TRUE}, displays progress messages. Default is \code{TRUE}.
 #'
-#' @return A data frame with voxel-level ROI information:
+#' @return A data frame with voxel-level ROI information.
 #' \itemize{
-#'   \item \code{group}: Combined identifier built from \code{region + number}.
-#'   \item \code{z}, \code{x}, \code{y}: Voxel coordinates.
-#'   \item \code{pet}: Binary value indicating ROI membership (\code{1} = ROI, \code{0} = non-ROI).
+#'   \item \code{group} – Combined identifier built from \code{region} and \code{number}.
+#'   \item \code{z}, \code{x}, \code{y} – Voxel coordinates.
+#'   \item \code{pet} – Binary value indicating ROI membership (\code{1} = ROI, \code{0} = non-ROI).
 #' }
-#' If \code{save = TRUE}, the data frame is saved as an \code{.RDS} file and nothing is returned.
+#' If \code{save = TRUE}, the data frame is saved as an \code{.RDS} file and not returned to the console.
 #'
 #' @details
 #' The function uses \code{\link{neuroCleaner}} to load and flatten the NIfTI file into a structured

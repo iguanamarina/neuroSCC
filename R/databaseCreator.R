@@ -17,15 +17,15 @@
 #' @param quiet \code{logical}. If \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.
 #'
 #' @return A \code{data.frame} combining processed voxel-level data from all matched files.
-#'         Each row represents a voxel (3D pixel), with the following structure:
-#'         \itemize{
-#'           \item Control group: \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
-#'           \item Pathological group: \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
-#'           \item With demographics: Additional columns such as \code{PPT}, \code{Group}, \code{Sex}, \code{Age}
-#'         }
+#' Each row represents a voxel (3D pixel). The column structure depends on input
+#' \itemize{
+#'   \item For the control group: \code{CN_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+#'   \item For the pathological group: \code{AD_number}, \code{z}, \code{x}, \code{y}, \code{pet}
+#'   \item If demographics are included: additional columns \code{PPT}, \code{Group}, \code{Sex}, \code{Age}
+#' }
 #'
 #' @details
-#' The function performs the following steps:
+#' The function performs the following steps
 #' \enumerate{
 #'   \item Identifies image files matching the given pattern.
 #'   \item Processes each file using \code{\link{neuroCleaner}}, optionally merging demographic data.
@@ -48,8 +48,7 @@
 #' head(databaseControls)
 #'
 #' @seealso
-#' \code{\link{neuroCleaner}} for the underlying image processing function.
-#'
+#' \code{\link{neuroCleaner}} for the underlying image processing function. \cr
 #' \code{\link{matrixCreator}} for the next step in the workflow that converts
 #' the database to a matrix format for SCC analysis.
 #'

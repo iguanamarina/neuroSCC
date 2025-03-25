@@ -20,7 +20,7 @@ A numeric matrix with \code{numClones} rows, each representing a noisy version
 \description{
 Generates synthetic clones of a PET data matrix by adding Poisson-distributed
 noise to each non-zero voxel. This approach helps address the limitations of functional
-data analysis (FDA) in **single patient vs. group (1 vs. Group) setups**, where a single subject
+data analysis (FDA) in single-subject versus group (1 vs. Group) setups, where a single subject
 lacks sufficient variability to reliably estimate Simultaneous Confidence Corridors (SCCs).
 }
 \details{
@@ -45,11 +45,8 @@ patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patien
 set.seed(123)
 sampledCols <- sample(ncol(patientMatrix), 10)
 
-# Show voxel intensity values before cloning
-patientMatrix[, sampledCols]
-
-# Generate 5 synthetic clones with Poisson noise
-clones <- generatePoissonClones(patientMatrix, numClones = 5, lambdaFactor = 0.25)
+# Generate 2 synthetic clones with Poisson noise
+clones <- generatePoissonClones(patientMatrix, numClones = 2, lambdaFactor = 0.25)
 
 # Show voxel intensity values after cloning
 clones[, sampledCols]

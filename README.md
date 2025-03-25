@@ -5,9 +5,9 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-168-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-169-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-5-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-106625KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-106755KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
 data for the estimation of Simultaneous Confidence Corridors (SCCs).**
@@ -119,12 +119,11 @@ Click to expand
 </summary>
 
 ``` r
-# Load a sample NIFTI file included in the package
+# Load a sample Control NIfTI file
 niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
-
-# Structure the data
-clean_data <- neuroCleaner(niftiFile)
-head(clean_data)
+# Example Without demographic data
+petData <- neuroCleaner(niftiFile)
+petData[sample(nrow(petData), 10), ]  # Show 10 random voxels
 ```
 
 </details>
@@ -220,21 +219,17 @@ Click to expand
 </summary>
 
 ``` r
-# Generate a database and create a matrix
+# Generate a minimal database and create a matrix (1 control subject)
 dataDir <- system.file("extdata", package = "neuroSCC")
-controlPattern <- "^syntheticControl.*\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+controlPattern <- "^syntheticControl1\\.nii\\.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern,
+                                    control = TRUE,
+                                    quiet = TRUE)
 matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
-
-# Normalize the matrix with detailed output
-normalizationResult <- meanNormalization(matrixControls, returnDetails = TRUE, quiet = FALSE)
-
-# Show problematic rows if any
-if (length(normalizationResult$problemRows) == 0) {
-  cat("No problematic rows detected.\n")
-} else {
-  print(normalizationResult$problemRows)
-}
+# Normalize the matrix (with diagnostics)
+normalizationResult <- meanNormalization(matrixControls,
+                                         returnDetails = TRUE,
+                                         quiet = FALSE)
 ```
 
 </details>
@@ -357,20 +352,16 @@ Click to expand
 # Get a single patient's PET data matrix
 dataDir <- system.file("extdata", package = "neuroSCC")
 pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
-databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+databasePathological <- databaseCreator(pattern = pathologicalPattern,
+                                        control = FALSE,
+                                        quiet = TRUE)
 matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
 patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
-
 # Select 10 random columns for visualization
 set.seed(123)
 sampledCols <- sample(ncol(patientMatrix), 10)
-
-# Show voxel intensity values before cloning
-patientMatrix[, sampledCols]
-
-# Generate 5 synthetic clones with Poisson noise
-clones <- generatePoissonClones(patientMatrix, numClones = 5, lambdaFactor = 0.25)
-
+# Generate 2 synthetic clones with Poisson noise
+clones <- generatePoissonClones(patientMatrix, numClones = 2, lambdaFactor = 0.25)
 # Show voxel intensity values after cloning
 clones[, sampledCols]
 ```

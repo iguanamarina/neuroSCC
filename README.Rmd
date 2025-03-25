@@ -176,12 +176,11 @@ It is the **first preprocessing step**, ensuring that PET images are cleaned and
 <summary>Click to expand</summary>
 
 ```r
-# Load a sample NIFTI file included in the package
+# Load a sample Control NIfTI file
 niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
-
-# Structure the data
-clean_data <- neuroCleaner(niftiFile)
-head(clean_data)
+# Example Without demographic data
+petData <- neuroCleaner(niftiFile)
+petData[sample(nrow(petData), 10), ]  # Show 10 random voxels
 ```
 </details>
 
@@ -252,21 +251,17 @@ This removes global intensity differences, making datasets comparable in **Funct
 <summary>Click to expand</summary>
 
 ```r
-# Generate a database and create a matrix
+# Generate a minimal database and create a matrix (1 control subject)
 dataDir <- system.file("extdata", package = "neuroSCC")
-controlPattern <- "^syntheticControl.*\\.nii.gz$"
-databaseControls <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+controlPattern <- "^syntheticControl1\\.nii\\.gz$"
+databaseControls <- databaseCreator(pattern = controlPattern,
+                                    control = TRUE,
+                                    quiet = TRUE)
 matrixControls <- matrixCreator(databaseControls, paramZ = 35, quiet = TRUE)
-
-# Normalize the matrix with detailed output
-normalizationResult <- meanNormalization(matrixControls, returnDetails = TRUE, quiet = FALSE)
-
-# Show problematic rows if any
-if (length(normalizationResult$problemRows) == 0) {
-  cat("No problematic rows detected.\n")
-} else {
-  print(normalizationResult$problemRows)
-}
+# Normalize the matrix (with diagnostics)
+normalizationResult <- meanNormalization(matrixControls,
+                                         returnDetails = TRUE,
+                                         quiet = FALSE)
 ```
 </details>
 
@@ -358,20 +353,16 @@ head(processedROI)  # Display first few rows
 # Get a single patient's PET data matrix
 dataDir <- system.file("extdata", package = "neuroSCC")
 pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
-databasePathological <- databaseCreator(pattern = pathologicalPattern, control = FALSE, quiet = TRUE)
+databasePathological <- databaseCreator(pattern = pathologicalPattern,
+                                        control = FALSE,
+                                        quiet = TRUE)
 matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
 patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
-
 # Select 10 random columns for visualization
 set.seed(123)
 sampledCols <- sample(ncol(patientMatrix), 10)
-
-# Show voxel intensity values before cloning
-patientMatrix[, sampledCols]
-
-# Generate 5 synthetic clones with Poisson noise
-clones <- generatePoissonClones(patientMatrix, numClones = 5, lambdaFactor = 0.25)
-
+# Generate 2 synthetic clones with Poisson noise
+clones <- generatePoissonClones(patientMatrix, numClones = 2, lambdaFactor = 0.25)
 # Show voxel intensity values after cloning
 clones[, sampledCols]
 ```

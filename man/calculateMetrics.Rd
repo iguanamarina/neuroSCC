@@ -8,10 +8,8 @@ calculateMetrics(detectedPoints, truePoints, totalCoords, regionName)
 }
 \arguments{
 \item{detectedPoints}{A data frame containing detected coordinates (\code{x}, \code{y}).
-\itemize{
-  \item SCC-detected points should be obtained using \code{\link{getPoints}}.
-  \item SPM-detected points should be obtained using \code{\link{getSPMbinary}}.
-}}
+SCC-detected points should be obtained using \code{\link{getPoints}}.
+SPM-detected points should be obtained using \code{\link{getSPMbinary}}.}
 
 \item{truePoints}{A data frame with ground truth ROI coordinates (\code{x}, \code{y}),
 extracted via \code{\link{processROIs}}.}
@@ -22,7 +20,7 @@ Must include named elements \code{xDim} and \code{yDim}.}
 \item{regionName}{A character string used to label the output region.}
 }
 \value{
-A data frame with the following evaluation metrics:
+A data frame with the following evaluation metrics
 \itemize{
   \item \code{region}: Name of the analyzed region.
   \item \code{sensitivity}: True positive rate (TP / (TP + FN) * 100).
@@ -37,11 +35,11 @@ by comparing detected points with ground truth ROI points. This function is used
 the accuracy of SCC- or SPM-based detection in neuroimaging analysis.
 }
 \details{
-This function requires three precomputed objects:
+This function requires three precomputed objects
 \itemize{
-  \item \code{detectedPoints}: From \code{\link{getPoints}} (SCC) or \code{\link{getSPMbinary}} (SPM).
-  \item \code{truePoints}: From \code{\link{processROIs}}, representing ground truth ROIs.
-  \item \code{totalCoords}: From \code{\link{getDimensions}}, providing the full voxel grid.
+  \item \code{detectedPoints}: SCC-detected points from \code{\link{getPoints}} or SPM-detected points from \code{\link{getSPMbinary}}.
+  \item \code{truePoints}: Ground truth ROIs extracted using \code{\link{processROIs}}.
+  \item \code{totalCoords}: Full voxel coordinate grid from \code{\link{getDimensions}}.
 }
 }
 \examples{

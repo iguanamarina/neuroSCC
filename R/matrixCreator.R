@@ -13,14 +13,14 @@
 #'        instead of extracting them from filenames. Not currently used inside this function. Default is \code{FALSE}.
 #' @param quiet \code{logical}. If \code{TRUE}, suppresses progress messages. Default is \code{FALSE}.
 #'
-#' @return A numeric matrix where:
+#' @return A numeric matrix where
 #' \itemize{
 #'   \item Each row represents one subject's PET values at the selected z-slice.
 #'   \item Each column corresponds to a voxel (flattened as a 1D row).
 #' }
 #'
 #' @details
-#' This function performs the following steps:
+#' This function performs the following steps
 #' \enumerate{
 #'   \item Verifies that the specified z-slice exists in the database.
 #'   \item Identifies the correct subject grouping column (\code{CN_number} or \code{AD_number}).

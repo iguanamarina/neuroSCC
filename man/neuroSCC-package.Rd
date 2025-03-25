@@ -2,23 +2,29 @@
 % Please edit documentation in R/neuroSCC-package.R
 \docType{package}
 \name{neuroSCC-package}
-\alias{neuroSCC}
 \alias{neuroSCC-package}
-\title{neuroSCC: Bridging Simultaneous Confidence Corridors with Applications and Performance Evaluation in PET 'Neuroimaging'}
+\alias{neuroSCC}
+\title{neuroSCC: Wrappers for Neuroimaging Functional Data Preparation and SCC Analysis}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+The \code{neuroSCC} package provides tools to preprocess and structure neuroimaging data
+for functional data analysis using Simultaneous Confidence Corridors (SCCs). It wraps external packages
+to prepare data from PET images, extract contours, generate meshes, and evaluate regions of statistical significance.
 
-Provides functions for the structured processing of PET 'Neuroimaging' data in preparation for the estimation of 'Simultaneous Confidence Corridors (SCCs)' for one-group, two-group, or single-patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, identification of significant results, and performance evaluation. It bridges established neuroimaging packages (e.g., 'oro.nifti') with novel statistical methodologies (i.e., 'ImageSCC') and enables reproducible analysis pipelines, including comparison with Statistical Parametric Mapping ('SPM').
+The methods implemented support both group comparisons and single-subject vs. group inference,
+following the methodology described in Wang et al. (2020) and the author's PhD thesis.
+}
+\details{
+This package serves as a bridge between neuroimaging file formats (e.g., NIfTI) and advanced
+statistical tools like \code{ImageSCC::scc.image}. It includes the following key components.
+\itemize{
+  \item Loading and cleaning PET image data.
+  \item Extracting ROIs and constructing functional data matrices.
+  \item Generating synthetic Poisson clones for 1-vs-group settings.
+  \item Extracting SCC-detected points and evaluating detection metrics.
+}
 }
 \seealso{
-Useful links:
-\itemize{
-  \item \url{https://iguanamarina.github.io/neuroSCC/}
-  \item \url{https://github.com/iguanamarina/PhD-2023-SCC-vs-SPM-Group-vs-Group}
-  \item \url{https://github.com/iguanamarina/PhD-2024-SCC-vs-SPM-SinglePatient-vs-Group}
-  \item Report bugs at \url{https://github.com/iguanamarina/neuroSCC/issues}
-}
-
+\code{\link{neuroCleaner}}, \code{\link{databaseCreator}}, \code{\link{getPoints}}
 }
 \author{
 \strong{Maintainer}: Juan A. Arias Lopez \email{juanantonio.arias.lopez@usc.es} (\href{https://orcid.org/0000-0002-3355-6393}{ORCID}) [copyright holder]
@@ -31,4 +37,3 @@ Other contributors:
 }
 
 }
-\keyword{internal}

@@ -7,20 +7,20 @@
 getPoints(sccResult)
 }
 \arguments{
-\item{sccResult}{A list of SCC computation results from \code{ImageSCC::scc.image}.
-       The list must contain:
+\item{sccResult}{A list of SCC computation results, as returned by \code{ImageSCC::scc.image}.
+Must include the following components
 \itemize{
-  \item \code{Z.band}: A matrix specifying grid positions.
-  \item \code{ind.inside.cover}: Indices of grid points within the confidence band.
-  \item \code{scc}: A 3D array containing the computed SCC values.
+  \item \code{Z.band} — A matrix specifying grid positions.
+  \item \code{ind.inside.cover} — Indices of grid points within the confidence band.
+  \item \code{scc} — A 3D array containing the computed SCC values.
 }}
 }
 \value{
-A named list with two elements:
+A named list with two elements
 \itemize{
-  \item \code{positivePoints}: A data frame with coordinates where the \strong{first group (Ya)} shows
+  \item \code{positivePoints} — A data frame with coordinates where the \strong{first group (Ya)} shows
         significantly lower activity than the \strong{second group (Yb)}.
-  \item \code{negativePoints}: A data frame with coordinates where the \strong{first group (Ya)} shows
+  \item \code{negativePoints} — A data frame with coordinates where the \strong{first group (Ya)} shows
         significantly higher activity than the \strong{second group (Yb)}.
 }
 }
@@ -29,14 +29,14 @@ Identifies and extracts coordinates where differences fall outside the simultane
 indicating statistically significant regions. This function processes the results from
 \code{ImageSCC::scc.image()} and returns the voxel locations that represent either hypo- or hyperactivity.
 
-The interpretation of results depends on the order of input in the SCC computation.
-If SCC was computed as \code{scc.image(Ya = Y_AD, Yb = Y_CN, ...)} — i.e., the
-\strong{Control group (CN)} is the second argument — then:
+Interpretation depends on the order of inputs in the SCC computation.
+If SCC was computed as \code{scc.image(Ya = Y_AD, Yb = Y_CN, ...)} (i.e., the Control group is the second argument).
+
 \itemize{
-  \item \strong{positivePoints}: Regions where \strong{Control - Pathological} is significantly above the SCC.
-        These correspond to areas where the Pathological group (AD) is \emph{hypoactive} relative to Controls.
-  \item \strong{negativePoints}: Regions where \strong{Control - Pathological} is significantly below the SCC.
-        These correspond to areas where the Pathological group (AD) is \emph{hyperactive} relative to Controls.
+  \item \code{positivePoints} — Regions where Control minus Pathological is significantly above the SCC.
+    These correspond to areas where the Pathological group (AD) is \emph{hypoactive} relative to Controls.
+  \item \code{negativePoints} — Regions where Control minus Pathological is significantly below the SCC.
+    These correspond to areas where the Pathological group is \emph{hyperactive} relative to Controls.
 }
 
 \strong{Always confirm the order of \code{Ya} and \code{Yb} in the SCC computation}

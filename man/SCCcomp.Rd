@@ -5,7 +5,7 @@
 \alias{SCCcomp}
 \title{Example SCC Computation Result}
 \format{
-A named list of class \code{"image"} with the following elements:
+A named list of class \code{"image"} with the following elements
 \describe{
   \item{\code{scc}}{3D array of SCC confidence bands, dimensions \code{[n, 2, alpha]}.}
   \item{\code{Z.band}}{Matrix of grid coordinates corresponding to evaluated locations.}

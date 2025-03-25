@@ -13,22 +13,22 @@
 #'        If automatic matching via the \code{PPT} column fails, the row specified by \code{demoRow} is used. Default is \code{NULL}.
 #' @param demoRow \code{integer}. Row to use from the demographic table if automatic matching fails. Default is \code{1}.
 #'
-#' @return A data frame where each row represents a voxel (3D pixel), with columns:
+#' @return A data frame where each row represents a voxel (3D pixel).
 #' \itemize{
-#'   \item If demographics are provided: \code{PPT}, \code{Group}, \code{Sex}, \code{Age}, \code{z}, \code{x}, \code{y}, \code{pet}
-#'   \item If not: \code{z}, \code{x}, \code{y}, \code{pet}
+#'   \item If demographics are provided: the columns include \code{PPT}, \code{Group}, \code{Sex}, \code{Age}, \code{z}, \code{x}, \code{y}, and \code{pet}.
+#'   \item If demographics are not provided: the columns include \code{z}, \code{x}, \code{y}, and \code{pet}.
 #' }
 #' The \code{pet} column contains the PET intensity value at each voxel location.
 #'
 #' @details
-#' This function performs the following steps:
+#' The function performs the following steps
 #' \enumerate{
 #'   \item Loads the NIfTI file using \code{oro.nifti::readNIfTI()}.
 #'   \item Converts the 3D image into a tidy data frame.
 #'   \item Adds \code{z}, \code{x}, and \code{y} voxel coordinates.
-#'   \item If demographic data is provided, attempts to match based on \code{PPT} (case-insensitive).
-#'         If no match is found, \code{demoRow} is used.
+#'   \item If demographic data is provided, attempts to match based on \code{PPT} (case-insensitive). If no match is found, \code{demoRow} is used.
 #' }
+#'
 #' The resulting data frame serves as input for \code{\link{databaseCreator}}, \code{\link{matrixCreator}},
 #' and other core functions in the \code{neuroSCC} pipeline.
 #'
@@ -36,21 +36,16 @@
 #' # Load a sample Control NIfTI file
 #' niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 #'
-#' # Example 1: Without demographic data
+#' # Example Without demographic data
 #' petData <- neuroCleaner(niftiFile)
 #' petData[sample(nrow(petData), 10), ]  # Show 10 random voxels
-#'
-#' # Example 2: With demographic data
-#' demoFile <- system.file("extdata", "Demographics.csv", package = "neuroSCC")
-#' demoData <- read.csv(demoFile, stringsAsFactors = FALSE, sep = ";")
-#' petDataWithDemo <- neuroCleaner(niftiFile, demo = demoData)
-#' petDataWithDemo[sample(nrow(petDataWithDemo), 10), ]
 #'
 #' @seealso
 #' \code{\link{databaseCreator}} for batch image processing. \cr
 #' \code{\link[oro.nifti]{readNIfTI}} for reading NIfTI-format files.
 #'
 #' @export
+
 neuroCleaner <- function(name, demo = NULL, demoRow = 1) {
   # 1. Input validation
   # ---------------------------

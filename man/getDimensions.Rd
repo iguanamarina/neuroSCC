@@ -10,12 +10,12 @@ getDimensions(file)
 \item{file}{A NIfTI file object or a file path pointing to a NIfTI image.}
 }
 \value{
-A named list with image dimensions:
+A named list with the following elements
 \itemize{
-  \item \code{xDim}: Number of voxels along the X axis
-  \item \code{yDim}: Number of voxels along the Y axis
-  \item \code{zDim}: Number of slices along the Z axis
-  \item \code{dim}: Total number of voxels in a 2D slice (\code{xDim * yDim})
+  \item \code{xDim} – Number of voxels along the X axis.
+  \item \code{yDim} – Number of voxels along the Y axis.
+  \item \code{zDim} – Number of slices along the Z axis.
+  \item \code{dim} – Total number of voxels in a 2D slice (calculated as \code{xDim * yDim}).
 }
 }
 \description{
