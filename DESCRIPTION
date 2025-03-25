@@ -33,6 +33,7 @@ Imports:
     oro.nifti,
     tidyr
 Suggests:
+    BPST,
     ImageSCC,
     knitr,
     remotes,
@@ -40,6 +41,7 @@ Suggests:
     roxygen2 (>= 7.1.0),
     Triangulation
 Remotes:
+    FIRST-Data-Lab/BPST,
     FIRST-Data-Lab/ImageSCC,
     FIRST-Data-Lab/Triangulation    
 VignetteBuilder: 
