@@ -354,9 +354,9 @@ head(processedROI)
 data("generatePoissonClonesExample", package = "neuroSCC")
 # Select 10 random voxel positions for display
 set.seed(123)
-sampledCols <- sample(ncol(patientMatrix), 10)
+sampledCols <- sample(ncol(generatePoissonClonesExample), 10)
 # Generate 1 synthetic clone
-clones <- generatePoissonClones(patientMatrix, numClones = 1, lambdaFactor = 0.25)
+clones <- generatePoissonClones(generatePoissonClonesExample, numClones = 1, lambdaFactor = 0.25)
 # Show voxel intensity values after cloning
 clones[, sampledCols]
 ```

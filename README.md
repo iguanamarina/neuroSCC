@@ -5,7 +5,7 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-171-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-NA-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-4-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-106889KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
@@ -355,9 +355,9 @@ Click to expand
 data("generatePoissonClonesExample", package = "neuroSCC")
 # Select 10 random voxel positions for display
 set.seed(123)
-sampledCols <- sample(ncol(patientMatrix), 10)
+sampledCols <- sample(ncol(generatePoissonClonesExample), 10)
 # Generate 1 synthetic clone
-clones <- generatePoissonClones(patientMatrix, numClones = 1, lambdaFactor = 0.25)
+clones <- generatePoissonClones(generatePoissonClonesExample, numClones = 1, lambdaFactor = 0.25)
 # Show voxel intensity values after cloning
 clones[, sampledCols]
 ```

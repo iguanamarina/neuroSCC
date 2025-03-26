@@ -9,7 +9,7 @@
 #'
 #' The example avoids long runtime by generating only one synthetic clone.
 #'
-#' @format A numeric matrix named \code{patientMatrix}, with 1 row and all voxel columns.
+#' @format A numeric matrix named \code{generatePoissonClonesExample}, with 1 row and all voxel columns.
 #'
 #' @usage data("generatePoissonClonesExample")
 #'

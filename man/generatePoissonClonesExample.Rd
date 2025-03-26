@@ -5,7 +5,7 @@
 \alias{generatePoissonClonesExample}
 \title{Example Input for Poisson Clone Generation}
 \format{
-A numeric matrix named \code{patientMatrix}, with 1 row and all voxel columns.
+A numeric matrix named \code{generatePoissonClonesExample}, with 1 row and all voxel columns.
 }
 \source{
 Simulated PET neuroimaging dataset included with \code{neuroSCC}.
