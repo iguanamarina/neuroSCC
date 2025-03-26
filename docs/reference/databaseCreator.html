@@ -86,13 +86,13 @@ Default is <code>NULL</code>.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>data.frame</code> combining processed voxel-level data from all matched files.
-        Each row represents a voxel (3D pixel), with the following structure:</p><ul><li><p>Control group: <code>CN_number</code>, <code>z</code>, <code>x</code>, <code>y</code>, <code>pet</code></p></li>
-<li><p>Pathological group: <code>AD_number</code>, <code>z</code>, <code>x</code>, <code>y</code>, <code>pet</code></p></li>
-<li><p>With demographics: Additional columns such as <code>PPT</code>, <code>Group</code>, <code>Sex</code>, <code>Age</code></p></li>
+Each row represents a voxel (3D pixel). The column structure depends on input</p><ul><li><p>For the control group: <code>CN_number</code>, <code>z</code>, <code>x</code>, <code>y</code>, <code>pet</code></p></li>
+<li><p>For the pathological group: <code>AD_number</code>, <code>z</code>, <code>x</code>, <code>y</code>, <code>pet</code></p></li>
+<li><p>If demographics are included: additional columns <code>PPT</code>, <code>Group</code>, <code>Sex</code>, <code>Age</code></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function performs the following steps:</p><ol><li><p>Identifies image files matching the given pattern.</p></li>
+    <p>The function performs the following steps</p><ol><li><p>Identifies image files matching the given pattern.</p></li>
 <li><p>Processes each file using <code><a href="neuroCleaner.html">neuroCleaner</a></code>, optionally merging demographic data.</p></li>
 <li><p>Adds a subject identifier column (<code>CN_number</code> or <code>AD_number</code>).</p></li>
 <li><p>Aggregates all results into a single data frame.</p></li>
@@ -102,20 +102,19 @@ into a matrix format for functional analysis.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="neuroCleaner.html">neuroCleaner</a></code> for the underlying image processing function.</p>
-<p><code><a href="matrixCreator.html">matrixCreator</a></code> for the next step in the workflow that converts
+    <div class="dont-index"><p><code><a href="neuroCleaner.html">neuroCleaner</a></code> for the underlying image processing function. <br><code><a href="matrixCreator.html">matrixCreator</a></code> for the next step in the workflow that converts
 the database to a matrix format for SCC analysis.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get the file path for sample data</span></span></span>
-<span class="r-in"><span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># NOTE: To keep runtime below CRAN limits, this example processes only 1 subject.</span></span></span>
+<span class="r-in"><span><span class="co"># You can expand the pattern to include all subjects for real use.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example: Create database for Controls</span></span></span>
-<span class="r-in"><span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii.gz$"</span></span></span>
+<span class="r-in"><span><span class="co"># Example: Create a database from a single synthetic PET image (control group)</span></span></span>
+<span class="r-in"><span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl1\\.nii\\.gz$"</span></span></span>
 <span class="r-in"><span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu">databaseCreator</span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   CN_number z x y pet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         1 1 1 1   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         1 1 1 2   0</span>
@@ -123,17 +122,6 @@ the database to a matrix format for SCC analysis.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4         1 1 1 4   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5         1 1 1 5   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6         1 1 1 6   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         CN_number  z  x   y pet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805253         2 91 91 104   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805254         2 91 91 105   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805255         2 91 91 106   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805256         2 91 91 107   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805257         2 91 91 108   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1805258         2 91 91 109   0</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span>  <span class="co"># Total number of rows</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1805258</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">$</span><span class="va">CN_number</span><span class="op">)</span>  <span class="co"># Show unique subjects</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

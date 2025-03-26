@@ -16,8 +16,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="neuroSCC">
-<meta name="description" content="Provides functions for the structured processing of PET Neuroimaging data in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) for one-group, two-group, or single-patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, identification of significant results, and performance evaluation. It bridges established neuroimaging packages (e.g., oro.nifti) with novel statistical methodologies (i.e., ImageSCC) and enables reproducible analysis pipelines, including comparison with Statistical Parametric Mapping (SPM).">
-<meta property="og:description" content="Provides functions for the structured processing of PET Neuroimaging data in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) for one-group, two-group, or single-patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, identification of significant results, and performance evaluation. It bridges established neuroimaging packages (e.g., oro.nifti) with novel statistical methodologies (i.e., ImageSCC) and enables reproducible analysis pipelines, including comparison with Statistical Parametric Mapping (SPM).">
+<meta name="description" content="Tools for the structured processing of PET neuroimaging data in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) for one-group, two-group, or single-patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, identification of significant results, and performance evaluation. It bridges established packages (e.g., oro.nifti) with novel statistical methodologies (e.g., ImageSCC) and enables reproducible analysis pipelines, including comparison with Statistical Parametric Mapping (SPM).">
+<meta property="og:description" content="Tools for the structured processing of PET neuroimaging data in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) for one-group, two-group, or single-patient vs group comparisons. The package facilitates PET image loading, data restructuring, integration into a Functional Data Analysis framework, contour extraction, identification of significant results, and performance evaluation. It bridges established packages (e.g., oro.nifti) with novel statistical methodologies (e.g., ImageSCC) and enables reproducible analysis pipelines, including comparison with Statistical Parametric Mapping (SPM).">
 <meta property="og:image" content="https://iguanamarina.github.io/neuroSCC/logo.png">
 </head>
 <body>
@@ -52,8 +52,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 
-<p><a href="https://www.repostatus.org/" class="external-link"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle"></a> <a href="https://github.com/iguanamarina/neuroSCC/graphs/contributors" class="external-link"><img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"></a> <a href="https://github.com/iguanamarina/neuroSCC/commits/main" class="external-link"><img src="https://img.shields.io/badge/Commits-166-brightgreen" alt="Commits"></a> <a href="https://github.com/iguanamarina/neuroSCC/issues" class="external-link"><img src="https://img.shields.io/badge/Issues-5-brightgreen" alt="Issues"></a> <a href="https://github.com/iguanamarina/neuroSCC" class="external-link"><img src="https://img.shields.io/badge/Size-106625KB-brightgreen" alt="Size"></a></p>
-<p>🚀 <strong><code>neuroSCC</code> facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs).</strong> It integrates neuroimaging and statistical methodologies to:</p>
+<p><a href="https://www.repostatus.org/" class="external-link"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle"></a> <a href="https://github.com/iguanamarina/neuroSCC/graphs/contributors" class="external-link"><img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"></a> <a href="https://github.com/iguanamarina/neuroSCC/commits/main" class="external-link"><img src="https://img.shields.io/badge/Commits-170-brightgreen" alt="Commits"></a> <a href="https://github.com/iguanamarina/neuroSCC/issues" class="external-link"><img src="https://img.shields.io/badge/Issues-4-brightgreen" alt="Issues"></a> <a href="https://github.com/iguanamarina/neuroSCC" class="external-link"><img src="https://img.shields.io/badge/Size-106798KB-brightgreen" alt="Size"></a></p>
+<p>🚀 <strong><code>neuroSCC</code> Bridging Simultaneous Confidence Corridors and PET Neuroimaging.</strong> This package facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs). It integrates neuroimaging and statistical methodologies to:</p>
 <ul>
 <li>📥 <strong>Load and preprocess</strong> PET neuroimaging files.<br>
 </li>
@@ -141,12 +141,11 @@ It is the <strong>first preprocessing step</strong>, ensuring that PET images ar
 <details><summary>
 Click to expand
 </summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load a sample NIFTI file included in the package</span></span>
+<code class="sourceCode R"><span><span class="co"># Load a sample Control NIfTI file</span></span>
 <span><span class="va">niftiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"syntheticControl1.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Structure the data</span></span>
-<span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/neuroCleaner.html">neuroCleaner</a></span><span class="op">(</span><span class="va">niftiFile</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Example Without demographic data</span></span>
+<span><span class="va">petData</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/neuroCleaner.html">neuroCleaner</a></span><span class="op">(</span><span class="va">niftiFile</span><span class="op">)</span></span>
+<span><span class="va">petData</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">petData</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>  <span class="co"># Show 10 random voxels</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level2">
@@ -158,22 +157,15 @@ This function is <strong>critical for batch analysis</strong>, preparing data fo
 <details><summary>
 Click to expand
 </summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Get the file path for sample data</span></span>
-<span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Example 1: Create database for Controls</span></span>
-<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii.gz$"</span></span>
-<span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">)</span>  <span class="co"># Total number of rows</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">databaseControls</span><span class="op">$</span><span class="va">CN_number</span><span class="op">)</span>  <span class="co"># Show unique subjects</span></span>
-<span></span>
-<span><span class="co"># Example 2: Create database for Pathological group</span></span>
-<span><span class="va">pathologicalPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticPathological.*\\.nii.gz$"</span></span>
-<span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>, control <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">)</span>  <span class="co"># Total number of rows</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">databasePathological</span><span class="op">$</span><span class="va">AD_number</span><span class="op">)</span>  <span class="co"># Show unique subjects</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' @examples</span></span>
+<span><span class="co">#' # NOTE: To keep runtime below CRAN limits, this example processes only 1 subject.</span></span>
+<span><span class="co">#' # You can expand the pattern to include all subjects for real use.</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' # Example: Create a database from a single synthetic PET image (control group)</span></span>
+<span><span class="co">#' controlPattern &lt;- "^syntheticControl1\\.nii\\.gz$"</span></span>
+<span><span class="co">#' databaseControls &lt;- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' head(databaseControls)</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level2">
@@ -200,15 +192,15 @@ Each row represents a subject’s PET data, formatted to align with FDA methodol
 <details><summary>
 Click to expand
 </summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Generate a database using databaseCreator</span></span>
-<span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
-<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii.gz$"</span></span>
-<span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>,</span>
-<span>                                   control <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                   quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co"># Convert the database into a matrix format</span></span>
-<span><span class="va">matrixControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databaseControls</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">matrixControls</span><span class="op">)</span>  <span class="co"># Show matrix dimensions</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># NOTE: To keep example runtime short, only one synthetic PET file is used.</span></span>
+<span><span class="co"># For full analysis, expand the filename pattern accordingly.</span></span>
+<span><span class="co"># Step 1: Generate a database for a single subject</span></span>
+<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl1\\.nii\\.gz$"</span></span>
+<span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Step 2: Convert the database into a matrix format</span></span>
+<span><span class="va">matrixControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databaseControls</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Display dimensions of the matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">matrixControls</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level2">
@@ -220,21 +212,17 @@ This removes global intensity differences, making datasets comparable in <strong
 <details><summary>
 Click to expand
 </summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Generate a database and create a matrix</span></span>
+<code class="sourceCode R"><span><span class="co"># Generate a minimal database and create a matrix (1 control subject)</span></span>
 <span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
-<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii.gz$"</span></span>
-<span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl1\\.nii\\.gz$"</span></span>
+<span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>,</span>
+<span>                                    control <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                    quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">matrixControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databaseControls</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Normalize the matrix with detailed output</span></span>
-<span><span class="va">normalizationResult</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">matrixControls</span>, returnDetails <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Show problematic rows if any</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">normalizationResult</span><span class="op">$</span><span class="va">problemRows</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"No problematic rows detected.\n"</span><span class="op">)</span></span>
-<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">normalizationResult</span><span class="op">$</span><span class="va">problemRows</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="co"># Normalize the matrix (with diagnostics)</span></span>
+<span><span class="va">normalizationResult</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">matrixControls</span>,</span>
+<span>                                         returnDetails <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                         quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level2">
@@ -304,10 +292,10 @@ It extracts voxel coordinates for <strong>predefined hypoactive regions</strong>
 <details><summary>
 Click to expand
 </summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Process an ROI NIfTI file (show results in console)</span></span>
-<span><span class="va">roiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ROIsample_Region2_18.nii"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Load and process a sample ROI NIfTI file (console output)</span></span>
+<span><span class="va">roiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ROIsample_Region2_18.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
 <span><span class="va">processedROI</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processROIs.html">processROIs</a></span><span class="op">(</span><span class="va">roiFile</span>, region <span class="op">=</span> <span class="st">"Region2"</span>, number <span class="op">=</span> <span class="st">"18"</span>, save <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">processedROI</span><span class="op">)</span>  <span class="co"># Display first few rows</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">processedROI</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level2">
@@ -320,20 +308,16 @@ Click to expand
 <code class="sourceCode R"><span><span class="co"># Get a single patient's PET data matrix</span></span>
 <span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
 <span><span class="va">pathologicalPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticPathological.*\\.nii.gz$"</span></span>
-<span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>, control <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>,</span>
+<span>                                        control <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                        quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">matrixPathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databasePathological</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">patientMatrix</span> <span class="op">&lt;-</span> <span class="va">matrixPathological</span><span class="op">[</span><span class="fl">1</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>  <span class="co"># Select a single patient</span></span>
-<span></span>
 <span><span class="co"># Select 10 random columns for visualization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">sampledCols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">patientMatrix</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Show voxel intensity values before cloning</span></span>
-<span><span class="va">patientMatrix</span><span class="op">[</span>, <span class="va">sampledCols</span><span class="op">]</span></span>
-<span></span>
-<span><span class="co"># Generate 5 synthetic clones with Poisson noise</span></span>
-<span><span class="va">clones</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generatePoissonClones.html">generatePoissonClones</a></span><span class="op">(</span><span class="va">patientMatrix</span>, numClones <span class="op">=</span> <span class="fl">5</span>, lambdaFactor <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span>
-<span></span>
+<span><span class="co"># Generate 2 synthetic clones with Poisson noise</span></span>
+<span><span class="va">clones</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generatePoissonClones.html">generatePoissonClones</a></span><span class="op">(</span><span class="va">patientMatrix</span>, numClones <span class="op">=</span> <span class="fl">2</span>, lambdaFactor <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span>
 <span><span class="co"># Show voxel intensity values after cloning</span></span>
 <span><span class="va">clones</span><span class="op">[</span>, <span class="va">sampledCols</span><span class="op">]</span></span></code></pre></div>
 </details>

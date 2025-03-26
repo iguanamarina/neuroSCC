@@ -12,6 +12,7 @@
 #' @param save \code{logical}. If \code{TRUE}, saves the result as an \code{.RDS} file. If \code{FALSE},
 #'        returns a data frame in the console. Default is \code{TRUE}.
 #' @param outputDir \code{character}. Directory where the ROI table will be saved if \code{save = TRUE}.
+#'        Default is a temporary file: \code{tempdir()}.
 #' @param verbose \code{logical}. If \code{TRUE}, displays progress messages. Default is \code{TRUE}.
 #'
 #' @return A data frame with voxel-level ROI information.
@@ -31,24 +32,29 @@
 #'
 #' @examples
 #' # Load and process a sample ROI NIfTI file (console output)
-#' roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
-#' processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-#' head(processedROI)
+# roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
+# processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+# head(processedROI)
 #'
 #' @seealso
 #' \code{\link{calculateMetrics}} for evaluating SCC detection performance. \cr
 #' \code{\link{neuroCleaner}} for reading and structuring voxel data.
 #'
 #' @export
-processROIs <- function(roiFile, region, number, save = TRUE, outputDir = "results/ROIs", verbose = TRUE) {
+processROIs <- function(roiFile,
+                        region,
+                        number,
+                        save = TRUE,
+                        outputDir = tempdir(),
+                        verbose = TRUE) {
 
   # 1. Validate Inputs
   # ---------------------------
   if (!file.exists(roiFile)) stop("ROI file not found: ", roiFile)
-  if (!is.character(region) || nchar(region) == 0) stop("'region' must be a non-empty string.")
-  if (!is.character(number) || nchar(number) == 0) stop("'number' must be a non-empty string.")
-  if (!is.logical(save) || length(save) != 1) stop("'save' must be TRUE or FALSE.")
-  if (!is.logical(verbose) || length(verbose) != 1) stop("'verbose' must be TRUE or FALSE.")
+  if (!is.character(region) || nchar(region) == 0) stop("region must be a non-empty string.")
+  if (!is.character(number) || nchar(number) == 0) stop("number must be a non-empty string.")
+  if (!is.logical(save) || length(save) != 1) stop("save must be TRUE or FALSE.")
+  if (!is.logical(verbose) || length(verbose) != 1) stop("verbose must be TRUE or FALSE.")
 
   # 2. Load NIfTI File Using neuroCleaner
   # ---------------------------
@@ -59,7 +65,7 @@ processROIs <- function(roiFile, region, number, save = TRUE, outputDir = "resul
   # ---------------------------
   voxelData$group <- paste0(region, "_number", number)
 
-  # 4. Reorder Columns to Ensure 'group' is First
+  # 4. Reorder Columns to Ensure group is First
   # ---------------------------
   columnOrder <- c("group", "z", "x", "y", "pet")
   voxelData <- voxelData[, columnOrder]

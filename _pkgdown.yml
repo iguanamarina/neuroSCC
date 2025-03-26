@@ -36,6 +36,10 @@ articles:
       - one_vs_group
 
 reference:
+  - title: Package Overview
+    contents:
+      - neuroSCC-package
+
   - title: "Core Functions"
     contents:
       - neuroCleaner

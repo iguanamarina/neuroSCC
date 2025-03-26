@@ -51,9 +51,9 @@ the accuracy of SCC- or SPM-based detection in neuroimaging analysis.</p>
 
 
 <dl><dt id="arg-detectedpoints">detectedPoints<a class="anchor" aria-label="anchor" href="#arg-detectedpoints"></a></dt>
-<dd><p>A data frame containing detected coordinates (<code>x</code>, <code>y</code>).</p><ul><li><p>SCC-detected points should be obtained using <code><a href="getPoints.html">getPoints</a></code>.</p></li>
-<li><p>SPM-detected points should be obtained using <code><a href="getSPMbinary.html">getSPMbinary</a></code>.</p></li>
-</ul></dd>
+<dd><p>A data frame containing detected coordinates (<code>x</code>, <code>y</code>).
+SCC-detected points should be obtained using <code><a href="getPoints.html">getPoints</a></code>.
+SPM-detected points should be obtained using <code><a href="getSPMbinary.html">getSPMbinary</a></code>.</p></dd>
 
 
 <dt id="arg-truepoints">truePoints<a class="anchor" aria-label="anchor" href="#arg-truepoints"></a></dt>
@@ -72,7 +72,7 @@ Must include named elements <code>xDim</code> and <code>yDim</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame with the following evaluation metrics:</p><ul><li><p><code>region</code>: Name of the analyzed region.</p></li>
+    <p>A data frame with the following evaluation metrics</p><ul><li><p><code>region</code>: Name of the analyzed region.</p></li>
 <li><p><code>sensitivity</code>: True positive rate (TP / (TP + FN) * 100).</p></li>
 <li><p><code>specificity</code>: True negative rate (TN / (TN + FP) * 100).</p></li>
 <li><p><code>PPV</code>: Positive predictive value (TP / (TP + FP) * 100).</p></li>
@@ -80,9 +80,9 @@ Must include named elements <code>xDim</code> and <code>yDim</code>.</p></dd>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function requires three precomputed objects:</p><ul><li><p><code>detectedPoints</code>: From <code><a href="getPoints.html">getPoints</a></code> (SCC) or <code><a href="getSPMbinary.html">getSPMbinary</a></code> (SPM).</p></li>
-<li><p><code>truePoints</code>: From <code><a href="processROIs.html">processROIs</a></code>, representing ground truth ROIs.</p></li>
-<li><p><code>totalCoords</code>: From <code><a href="getDimensions.html">getDimensions</a></code>, providing the full voxel grid.</p></li>
+    <p>This function requires three precomputed objects</p><ul><li><p><code>detectedPoints</code>: SCC-detected points from <code><a href="getPoints.html">getPoints</a></code> or SPM-detected points from <code><a href="getSPMbinary.html">getSPMbinary</a></code>.</p></li>
+<li><p><code>truePoints</code>: Ground truth ROIs extracted using <code><a href="processROIs.html">processROIs</a></code>.</p></li>
+<li><p><code>totalCoords</code>: Full voxel coordinate grid from <code><a href="getDimensions.html">getDimensions</a></code>.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -102,7 +102,10 @@ Must include named elements <code>xDim</code> and <code>yDim</code>.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">metricsSCC</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">metricsSPM</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'calculateMetricsExample' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        region sensitivity specificity      PPV      NPV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Region2_SCC    85.12872    95.62596 97.22839 78.10603</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        region sensitivity specificity      PPV      NPV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Region2_SPM    75.14124    96.31291 96.33654 75.01638</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

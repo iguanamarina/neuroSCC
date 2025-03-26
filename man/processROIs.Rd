@@ -9,7 +9,7 @@ processROIs(
   region,
   number,
   save = TRUE,
-  outputDir = "results/ROIs",
+  outputDir = tempdir(),
   verbose = TRUE
 )
 }
@@ -23,7 +23,8 @@ processROIs(
 \item{save}{\code{logical}. If \code{TRUE}, saves the result as an \code{.RDS} file. If \code{FALSE},
 returns a data frame in the console. Default is \code{TRUE}.}
 
-\item{outputDir}{\code{character}. Directory where the ROI table will be saved if \code{save = TRUE}.}
+\item{outputDir}{\code{character}. Directory where the ROI table will be saved if \code{save = TRUE}.
+Default is a temporary file: \code{tempdir()}.}
 
 \item{verbose}{\code{logical}. If \code{TRUE}, displays progress messages. Default is \code{TRUE}.}
 }
@@ -51,9 +52,6 @@ This output is used as ground truth for evaluating detection performance in SCC 
 }
 \examples{
 # Load and process a sample ROI NIfTI file (console output)
-roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
-processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-head(processedROI)
 
 }
 \seealso{

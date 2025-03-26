@@ -5,13 +5,15 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-169-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-5-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-106755KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Commits](https://img.shields.io/badge/Commits-170-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Issues](https://img.shields.io/badge/Issues-4-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-106798KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
-🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging
-data for the estimation of Simultaneous Confidence Corridors (SCCs).**
-It integrates neuroimaging and statistical methodologies to:
+🚀 **`neuroSCC` Bridging Simultaneous Confidence Corridors and PET
+Neuroimaging.** This package facilitates structured processing of PET
+neuroimaging data for the estimation of Simultaneous Confidence
+Corridors (SCCs). It integrates neuroimaging and statistical
+methodologies to:
 
 - 📥 **Load and preprocess** PET neuroimaging files.  
 - 🔬 **Transform data** for a **Functional Data Analysis (FDA)**
@@ -327,10 +329,10 @@ Click to expand
 </summary>
 
 ``` r
-# Process an ROI NIfTI file (show results in console)
-roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
+# Load and process a sample ROI NIfTI file (console output)
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
 processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-head(processedROI)  # Display first few rows
+head(processedROI)
 ```
 
 </details>

@@ -3,13 +3,13 @@
 It processes the NIFTI file with neuroCleaner to extract structured neuroimaging data, then extracts contours
 using contoureR::getContourLines. These contours serve as input for Triangulation::TriMesh,
 which is used in Simultaneous Confidence Corridors (SCCs) calculations.
-While **not mandatory**, it is **highly recommended** that the input NIFTI file be pre-processed
+While not mandatory, it is highly recommended that the input NIFTI file be pre-processed
 such that zero values represent the background and non-zero values represent regions of interest.
 The function's default behavior extracts contours at level 0, which is ideal for well-masked data."><meta property="og:description" content="This function extracts contours from a neuroimaging NIFTI file where values change according to specified levels.
 It processes the NIFTI file with neuroCleaner to extract structured neuroimaging data, then extracts contours
 using contoureR::getContourLines. These contours serve as input for Triangulation::TriMesh,
 which is used in Simultaneous Confidence Corridors (SCCs) calculations.
-While **not mandatory**, it is **highly recommended** that the input NIFTI file be pre-processed
+While not mandatory, it is highly recommended that the input NIFTI file be pre-processed
 such that zero values represent the background and non-zero values represent regions of interest.
 The function's default behavior extracts contours at level 0, which is ideal for well-masked data."><meta property="og:image" content="https://iguanamarina.github.io/neuroSCC/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -48,7 +48,7 @@ The function's default behavior extracts contours at level 0, which is ideal for
 It processes the NIFTI file with <code>neuroCleaner</code> to extract structured neuroimaging data, then extracts contours
 using <code><a href="https://rdrr.io/pkg/contoureR/man/getContourLines.html" class="external-link">contoureR::getContourLines</a></code>. These contours serve as input for <code><a href="https://rdrr.io/pkg/Triangulation/man/TriMesh.html" class="external-link">Triangulation::TriMesh</a></code>,
 which is used in Simultaneous Confidence Corridors (SCCs) calculations.</p>
-<p>While **not mandatory**, it is **highly recommended** that the input NIFTI file be pre-processed
+<p>While <strong>not mandatory</strong>, it is <strong>highly recommended</strong> that the input NIFTI file be pre-processed
 such that zero values represent the background and non-zero values represent regions of interest.
 The function's default behavior extracts contours at level <code>0</code>, which is ideal for well-masked data.</p>
     </div>
@@ -83,12 +83,12 @@ Ideally, the file should be masked so that zero values represent the background.
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>list</code> of data frames, where each data frame contains the x and y coordinates of a contour.
 The first element typically represents the external boundary, while subsequent elements (if present)
-represent internal contours or holes. Each data frame has two columns:</p><ul><li><p><code>x</code>: x-coordinates of the contour points</p></li>
-<li><p><code>y</code>: y-coordinates of the contour points</p></li>
+represent internal contours or holes. Each data frame has two columns:</p><ul><li><p><code>x</code> – x-coordinates of the contour points.</p></li>
+<li><p><code>y</code> – y-coordinates of the contour points.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function extracts contours from a **NIFTI** file, typically a **masked** image where background values
+    <p>This function extracts contours from a <strong>NIFTI</strong> file, typically a <strong>masked</strong> image where background values
 are set to zero, and regions of interest contain non-zero values. While users can specify a different
 boundary level, the recommended approach is to use <code>levels = 0</code> for masked data.</p>
 <p>The extracted contours are typically used as input to <code><a href="https://rdrr.io/pkg/Triangulation/man/TriMesh.html" class="external-link">Triangulation::TriMesh</a></code> to create
@@ -96,8 +96,7 @@ a triangular mesh of the region, which is then used for Simultaneous Confidence 
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="https://rdrr.io/pkg/contoureR/man/getContourLines.html" class="external-link">getContourLines</a> for the underlying contour extraction.
-<code><a href="https://rdrr.io/pkg/Triangulation/man/TriMesh.html" class="external-link">Triangulation::TriMesh</a></code> for the next step in the SCC calculation process.</p></div>
+    <div class="dont-index"><p><a href="https://rdrr.io/pkg/contoureR/man/getContourLines.html" class="external-link">getContourLines</a> for the underlying contour extraction. <br><code><a href="https://rdrr.io/pkg/Triangulation/man/TriMesh.html" class="external-link">Triangulation::TriMesh</a></code> for the next step in the SCC calculation process.</p></div>
     </div>
 
     <div class="section level2">
@@ -109,10 +108,8 @@ a triangular mesh of the region, which is then used for Simultaneous Confidence 
 <span class="r-in"><span><span class="va">contours</span> <span class="op">&lt;-</span> <span class="fu">neuroContour</span><span class="op">(</span><span class="va">niftiFile</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, levels <span class="op">=</span> <span class="fl">0</span>, plotResult <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="neuroContour-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Display the extracted contour coordinates</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">contours</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>  <span class="co"># Show first few points of the main contour</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co"># Display the first few points of the main contour</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">contours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   x  y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 8 44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 9 43</span>

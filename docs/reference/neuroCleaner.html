@@ -72,17 +72,16 @@ If automatic matching via the <code>PPT</code> column fails, the row specified b
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame where each row represents a voxel (3D pixel), with columns:</p><ul><li><p>If demographics are provided: <code>PPT</code>, <code>Group</code>, <code>Sex</code>, <code>Age</code>, <code>z</code>, <code>x</code>, <code>y</code>, <code>pet</code></p></li>
-<li><p>If not: <code>z</code>, <code>x</code>, <code>y</code>, <code>pet</code></p></li>
+    <p>A data frame where each row represents a voxel (3D pixel).</p><ul><li><p>If demographics are provided: the columns include <code>PPT</code>, <code>Group</code>, <code>Sex</code>, <code>Age</code>, <code>z</code>, <code>x</code>, <code>y</code>, and <code>pet</code>.</p></li>
+<li><p>If demographics are not provided: the columns include <code>z</code>, <code>x</code>, <code>y</code>, and <code>pet</code>.</p></li>
 </ul><p>The <code>pet</code> column contains the PET intensity value at each voxel location.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function performs the following steps:</p><ol><li><p>Loads the NIfTI file using <code><a href="https://rdrr.io/pkg/oro.nifti/man/read_nifti.html" class="external-link">oro.nifti::readNIfTI()</a></code>.</p></li>
+    <p>The function performs the following steps</p><ol><li><p>Loads the NIfTI file using <code><a href="https://rdrr.io/pkg/oro.nifti/man/read_nifti.html" class="external-link">oro.nifti::readNIfTI()</a></code>.</p></li>
 <li><p>Converts the 3D image into a tidy data frame.</p></li>
 <li><p>Adds <code>z</code>, <code>x</code>, and <code>y</code> voxel coordinates.</p></li>
-<li><p>If demographic data is provided, attempts to match based on <code>PPT</code> (case-insensitive).
-        If no match is found, <code>demoRow</code> is used.</p></li>
+<li><p>If demographic data is provided, attempts to match based on <code>PPT</code> (case-insensitive). If no match is found, <code>demoRow</code> is used.</p></li>
 </ol><p>The resulting data frame serves as input for <code><a href="databaseCreator.html">databaseCreator</a></code>, <code><a href="matrixCreator.html">matrixCreator</a></code>,
 and other core functions in the <code>neuroSCC</code> pipeline.</p>
     </div>
@@ -96,37 +95,20 @@ and other core functions in the <code>neuroSCC</code> pipeline.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Load a sample Control NIfTI file</span></span></span>
 <span class="r-in"><span><span class="va">niftiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"syntheticControl1.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 1: Without demographic data</span></span></span>
+<span class="r-in"><span><span class="co"># Example Without demographic data</span></span></span>
 <span class="r-in"><span><span class="va">petData</span> <span class="op">&lt;-</span> <span class="fu">neuroCleaner</span><span class="op">(</span><span class="va">niftiFile</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">petData</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">petData</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>  <span class="co"># Show 10 random voxels</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         z  x   y pet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 733492 74 87  31   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 509788 52 36 104   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 476381 49  3  51   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 873783 89  9  39   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 292075 30 41  64   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 710662 72 59  91   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 652240 66 69  93   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 416645 43  1  47   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 372737 38 53  66   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 728070 74 37  59   8</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 2: With demographic data</span></span></span>
-<span class="r-in"><span><span class="va">demoFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Demographics.csv"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">demoData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">demoFile</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>, sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">petDataWithDemo</span> <span class="op">&lt;-</span> <span class="fu">neuroCleaner</span><span class="op">(</span><span class="va">niftiFile</span>, demo <span class="op">=</span> <span class="va">demoData</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">petDataWithDemo</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">petDataWithDemo</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      PPT Group Sex Age  z  x   y pet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 790615 syntheticControl1    CN   M  73 80 65  38   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 178862 syntheticControl1    CN   M  73 19  3 102   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 787474 syntheticControl1    CN   M  73 80 36  58   3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 377992 syntheticControl1    CN   M  73 39 10  89   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 827832 syntheticControl1    CN   M  73 84 42  86   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 883405 syntheticControl1    CN   M  73 90  6  69   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 824259 syntheticControl1    CN   M  73 84 10   1   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 341496 syntheticControl1    CN   M  73 35 39 108   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 207252 syntheticControl1    CN   M  73 21 82  43   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 490932 syntheticControl1    CN   M  73 50 45 105   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 322376 33 46  63   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250997 26 28  79   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 474467 48 76  99   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65971   7 60  26   6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 251027 26 28 109   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 614513 62 87  80   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 358519 37 14  18   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 684484 70  1  73   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 164718 17 56  19   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 727937 74 36  35   6</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

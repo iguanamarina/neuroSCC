@@ -78,12 +78,12 @@ instead of extracting them from filenames. Not currently used inside this functi
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A numeric matrix where:</p><ul><li><p>Each row represents one subject's PET values at the selected z-slice.</p></li>
+    <p>A numeric matrix where</p><ul><li><p>Each row represents one subject's PET values at the selected z-slice.</p></li>
 <li><p>Each column corresponds to a voxel (flattened as a 1D row).</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function performs the following steps:</p><ol><li><p>Verifies that the specified z-slice exists in the database.</p></li>
+    <p>This function performs the following steps</p><ol><li><p>Verifies that the specified z-slice exists in the database.</p></li>
 <li><p>Identifies the correct subject grouping column (<code>CN_number</code> or <code>AD_number</code>).</p></li>
 <li><p>Determines the matrix dimensions using <code>x</code> and <code>y</code> coordinates.</p></li>
 <li><p>Extracts PET intensities per subject at the given slice.</p></li>
@@ -98,21 +98,19 @@ instead of extracting them from filenames. Not currently used inside this functi
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Generate a database using databaseCreator</span></span></span>
-<span class="r-in"><span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii.gz$"</span></span></span>
-<span class="r-in"><span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>,</span></span>
-<span class="r-in"><span>                                    control <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>                                    quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Processing CN_number 1 - File 1 of 2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Processing CN_number 2 - File 2 of 2</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># NOTE: To keep example runtime short, only one synthetic PET file is used.</span></span></span>
+<span class="r-in"><span><span class="co"># For full analysis, expand the filename pattern accordingly.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Convert the database into a matrix format</span></span></span>
-<span class="r-in"><span><span class="va">matrixControls</span> <span class="op">&lt;-</span> <span class="fu">matrixCreator</span><span class="op">(</span><span class="va">databaseControls</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Processing Subject 1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Processing Subject 2</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">matrixControls</span><span class="op">)</span>  <span class="co"># Show matrix dimensions</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]    2 9919</span>
+<span class="r-in"><span><span class="co"># Step 1: Generate a database for a single subject</span></span></span>
+<span class="r-in"><span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl1\\.nii\\.gz$"</span></span></span>
+<span class="r-in"><span><span class="va">databaseControls</span> <span class="op">&lt;-</span> <span class="fu"><a href="databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Step 2: Convert the database into a matrix format</span></span></span>
+<span class="r-in"><span><span class="va">matrixControls</span> <span class="op">&lt;-</span> <span class="fu">matrixCreator</span><span class="op">(</span><span class="va">databaseControls</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Display dimensions of the matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">matrixControls</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]    1 9919</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

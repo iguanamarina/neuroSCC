@@ -88,7 +88,7 @@ package_version <- as.character(packageVersion("neuroSCC"))
 [![Issues](https://img.shields.io/badge/Issues-`r length(issues)`-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
 [![Size](https://img.shields.io/badge/Size-`r repo_info$size`KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
-🚀 **`neuroSCC` facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs).** It integrates neuroimaging and statistical methodologies to:  
+🚀 **`neuroSCC` Bridging Simultaneous Confidence Corridors and PET Neuroimaging.** This package facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs). It integrates neuroimaging and statistical methodologies to:  
 
 - 📥 **Load and preprocess** PET neuroimaging files.  
 - 🔬 **Transform data** for a **Functional Data Analysis (FDA)** setup.  
@@ -335,10 +335,10 @@ It extracts voxel coordinates for **predefined hypoactive regions**, structuring
 <summary>Click to expand</summary>
 
 ```r
-# Process an ROI NIfTI file (show results in console)
-roiFile <- system.file("extdata", "ROIsample_Region2_18.nii", package = "neuroSCC")
+# Load and process a sample ROI NIfTI file (console output)
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
 processedROI <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
-head(processedROI)  # Display first few rows
+head(processedROI)
 ```
 </details>
 
