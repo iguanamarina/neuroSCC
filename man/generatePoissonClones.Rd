@@ -34,13 +34,12 @@ lacks sufficient variability to reliably estimate Simultaneous Confidence Corrid
 \examples{
 # Load example input matrix for Poisson cloning
 data("generatePoissonClonesExample", package = "neuroSCC")
-
-# Evaluate Poisson clone generation on reduced example
-with(generatePoissonClonesExample, {
-  set.seed(123)
-  sampledCols <- sample(ncol(.), 10)
-  clone <- generatePoissonClones(., numClones = 1, lambdaFactor = 0.25)
-  clone[, sampledCols]
-})
+# Select 10 random voxel positions for display
+set.seed(123)
+sampledCols <- sample(ncol(generatePoissonClonesExample), 10)
+# Generate 1 synthetic clone
+clones <- generatePoissonClones(generatePoissonClonesExample, numClones = 1, lambdaFactor = 0.25)
+# Show voxel intensity values after cloning
+clones[, sampledCols]
 
 }
