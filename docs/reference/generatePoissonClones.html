@@ -81,27 +81,19 @@ lacks sufficient variability to reliably estimate Simultaneous Confidence Corrid
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get a single patient's PET data matrix</span></span></span>
-<span class="r-in"><span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pathologicalPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticPathological.*\\.nii.gz$"</span></span></span>
-<span class="r-in"><span><span class="va">databasePathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">pathologicalPattern</span>,</span></span>
-<span class="r-in"><span>                                        control <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>                                        quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">matrixPathological</span> <span class="op">&lt;-</span> <span class="fu"><a href="matrixCreator.html">matrixCreator</a></span><span class="op">(</span><span class="va">databasePathological</span>, paramZ <span class="op">=</span> <span class="fl">35</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">patientMatrix</span> <span class="op">&lt;-</span> <span class="va">matrixPathological</span><span class="op">[</span><span class="fl">1</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>  <span class="co"># Select a single patient</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Load example input matrix for Poisson cloning</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"generatePoissonClonesExample"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Select 10 random columns for visualization</span></span></span>
+<span class="r-in"><span><span class="co"># Select 10 random voxel positions for display</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sampledCols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">patientMatrix</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Generate 2 synthetic clones with Poisson noise</span></span></span>
-<span class="r-in"><span><span class="va">clones</span> <span class="op">&lt;-</span> <span class="fu">generatePoissonClones</span><span class="op">(</span><span class="va">patientMatrix</span>, numClones <span class="op">=</span> <span class="fl">2</span>, lambdaFactor <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Generate 1 synthetic clone</span></span></span>
+<span class="r-in"><span><span class="va">clones</span> <span class="op">&lt;-</span> <span class="fu">generatePoissonClones</span><span class="op">(</span><span class="va">patientMatrix</span>, numClones <span class="op">=</span> <span class="fl">1</span>, lambdaFactor <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show voxel intensity values after cloning</span></span></span>
 <span class="r-in"><span><span class="va">clones</span><span class="op">[</span>, <span class="va">sampledCols</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]   12    0    0    5    0    0    0    7   10     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    8    0    0    6    0    0    0   11   12     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 12  0  0  5  0  0  0  7 10  0</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

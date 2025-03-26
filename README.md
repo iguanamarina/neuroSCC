@@ -5,9 +5,9 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-170-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-171-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-4-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-106798KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-106889KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` Bridging Simultaneous Confidence Corridors and PET
 Neuroimaging.** This package facilitates structured processing of PET
@@ -351,19 +351,13 @@ Click to expand
 </summary>
 
 ``` r
-# Get a single patient's PET data matrix
-dataDir <- system.file("extdata", package = "neuroSCC")
-pathologicalPattern <- "^syntheticPathological.*\\.nii.gz$"
-databasePathological <- databaseCreator(pattern = pathologicalPattern,
-                                        control = FALSE,
-                                        quiet = TRUE)
-matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
-patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
-# Select 10 random columns for visualization
+# Load example input matrix for Poisson cloning
+data("generatePoissonClonesExample", package = "neuroSCC")
+# Select 10 random voxel positions for display
 set.seed(123)
 sampledCols <- sample(ncol(patientMatrix), 10)
-# Generate 2 synthetic clones with Poisson noise
-clones <- generatePoissonClones(patientMatrix, numClones = 2, lambdaFactor = 0.25)
+# Generate 1 synthetic clone
+clones <- generatePoissonClones(patientMatrix, numClones = 1, lambdaFactor = 0.25)
 # Show voxel intensity values after cloning
 clones[, sampledCols]
 ```

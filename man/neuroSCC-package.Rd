@@ -4,7 +4,7 @@
 \name{neuroSCC-package}
 \alias{neuroSCC-package}
 \alias{neuroSCC}
-\title{neuroSCC: Wrappers for Neuroimaging Functional Data Preparation and SCC Analysis}
+\title{Wrappers for Neuroimaging Functional Data Preparation and SCC Analysis}
 \description{
 The \code{neuroSCC} package provides tools to preprocess and structure neuroimaging data
 for functional data analysis using Simultaneous Confidence Corridors (SCCs). It wraps external packages

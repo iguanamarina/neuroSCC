@@ -32,21 +32,15 @@ lacks sufficient variability to reliably estimate Simultaneous Confidence Corrid
 }
 }
 \examples{
-# Get a single patient's PET data matrix
-dataDir <- system.file("extdata", package = "neuroSCC")
-pathologicalPattern <- "^syntheticPathological.*\\\\.nii.gz$"
-databasePathological <- databaseCreator(pattern = pathologicalPattern,
-                                        control = FALSE,
-                                        quiet = TRUE)
-matrixPathological <- matrixCreator(databasePathological, paramZ = 35, quiet = TRUE)
-patientMatrix <- matrixPathological[1, , drop = FALSE]  # Select a single patient
+# Load example input matrix for Poisson cloning
+data("generatePoissonClonesExample", package = "neuroSCC")
 
-# Select 10 random columns for visualization
+# Select 10 random voxel positions for display
 set.seed(123)
 sampledCols <- sample(ncol(patientMatrix), 10)
 
-# Generate 2 synthetic clones with Poisson noise
-clones <- generatePoissonClones(patientMatrix, numClones = 2, lambdaFactor = 0.25)
+# Generate 1 synthetic clone
+clones <- generatePoissonClones(patientMatrix, numClones = 1, lambdaFactor = 0.25)
 
 # Show voxel intensity values after cloning
 clones[, sampledCols]

@@ -1,4 +1,4 @@
-#' neuroSCC: Wrappers for Neuroimaging Functional Data Preparation and SCC Analysis
+#' Wrappers for Neuroimaging Functional Data Preparation and SCC Analysis
 #'
 #' @description
 #' The \code{neuroSCC} package provides tools to preprocess and structure neuroimaging data
