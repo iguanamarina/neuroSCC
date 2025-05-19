@@ -34,7 +34,7 @@
 - **Function Integration**:
   - Included `plotSCC()` for visualization.
   - Included `generatePoissonClones()` for 1vsGroup setups.
-  - Included `calculateMetrics()` for performante estimation.
+  - Included `calculateMetrics()` for performance estimation.
 
 ### Major Changes
 
