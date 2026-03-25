@@ -1,3 +1,5 @@
+# neuroSCC 1.0.1
+
 # neuroSCC 1.0.0
 
 - First **CRAN Release**.
