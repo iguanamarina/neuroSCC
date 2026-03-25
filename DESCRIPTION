@@ -30,7 +30,6 @@ BugReports: https://github.com/iguanamarina/neuroSCC/issues
 Depends: 
     R (>= 4.2.0)
 Imports:
-    contoureR,
     dplyr,
     graphics,
     memisc,

@@ -495,6 +495,9 @@ devtools::check()
 devtools::build_manual(pkg = ".", path = getwd())
 devtools::build()
 pkgdown::build_site()
+
+# Fake load del paquete
+devtools::load_all()
 ```
 
 
