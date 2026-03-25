@@ -5,9 +5,9 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-180-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Commits](https://img.shields.io/badge/Commits-NA-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-22-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-107527KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-107686KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` Bridging Simultaneous Confidence Corridors and PET
 Neuroimaging.** This package facilitates structured processing of PET
@@ -548,7 +548,7 @@ Before submitting, please:
 ## 📧 Contact & Support
 
 For questions not related to bugs or feature requests, feel free to:  
-📬 Email the maintainer: <juanantonio.arias.lopez@usc.es>  
+📬 Email the maintainer: <iguanamarina@protonmail.com>  
 💬 Join the discussion on **[GitHub
 Discussions](https://github.com/iguanamarina/neuroSCC/discussions)**
 

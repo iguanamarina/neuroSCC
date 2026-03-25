@@ -27,7 +27,7 @@ statistical tools like \code{ImageSCC::scc.image}. It includes the following key
 \code{\link{neuroCleaner}}, \code{\link{databaseCreator}}, \code{\link{getPoints}}
 }
 \author{
-\strong{Maintainer}: Juan A. Arias Lopez \email{juanantonio.arias.lopez@usc.es} (\href{https://orcid.org/0000-0002-3355-6393}{ORCID}) [copyright holder]
+\strong{Maintainer}: Juan A. Arias Lopez \email{iguanamarina@protonmail.com} (\href{https://orcid.org/0000-0002-3355-6393}{ORCID}) [copyright holder]
 
 Other contributors:
 \itemize{

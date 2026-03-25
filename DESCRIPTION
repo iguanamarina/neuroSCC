@@ -3,7 +3,7 @@ Package: neuroSCC
 Title: Bridging Simultaneous Confidence Corridors and PET Neuroimaging
 Version: 1.0.1
 Authors@R: c(
-    person("Juan A.", "Arias Lopez", , "juanantonio.arias.lopez@usc.es", role = c("aut", "cre", "cph"),
+    person("Juan A.", "Arias Lopez", , "iguanamarina@protonmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-3355-6393")),
     person("Virgilio", "Gomez Rubio", , "Virgilio.Gomez@uclm.es", role = "rev",
            comment = c(ORCID = "0000-0002-4791-3072")),
@@ -12,7 +12,7 @@ Authors@R: c(
     person("Andrew", "Haddon Kemp", , "A.H.Kemp@swansea.ac.uk", role = "ths",
            comment = c(ORCID = "0000-0003-1146-3791"))
   )
-Maintainer: Juan A. Arias Lopez <juanantonio.arias.lopez@usc.es>
+Maintainer: Juan A. Arias Lopez <iguanamarina@protonmail.com>
 Description: Tools for the structured processing of PET neuroimaging data 
     in preparation for the estimation of Simultaneous Confidence Corridors (SCCs) 
     for one-group, two-group, or single-patient vs group comparisons. 

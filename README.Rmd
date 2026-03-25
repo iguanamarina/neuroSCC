@@ -472,7 +472,7 @@ Before submitting, please:
 
 ## 📧 Contact & Support  
 For questions not related to bugs or feature requests, feel free to:  
-📬 Email the maintainer: [juanantonio.arias.lopez@usc.es](mailto:juanantonio.arias.lopez@usc.es)  
+📬 Email the maintainer: [iguanamarina@protonmail.com](mailto:iguanamarina@protonmail.com)  
 💬 Join the discussion on **[GitHub Discussions](https://github.com/iguanamarina/neuroSCC/discussions)**  
 
 ------------------------------------------------------------------------
