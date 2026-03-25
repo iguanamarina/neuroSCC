@@ -43,7 +43,7 @@ normalizedMatrix <- meanNormalization(matrixControls)
 normalizedPathological <- meanNormalization(matrixPathological)
 
 niftiPath <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
-contours <- neuroContour(niftiPath, paramZ = 35, levels = c(0), plotResult = FALSE)
+contours <- neuroContour(niftiPath, paramZ = 35, plotResult = FALSE)
 
 cat("Data prepared successfully.\n")
 ```

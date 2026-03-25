@@ -90,7 +90,7 @@ Contours from the neuroimage are used to set boundaries for SCC computations.
 
 ```{r, fig.alt="Contours for brain imaging data"}
 # Extract contours from sample data
-contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
+contours <- neuroContour(niftiFile, paramZ = 35, plotResult = TRUE)
 
 # Check contours structure
 length(contours)

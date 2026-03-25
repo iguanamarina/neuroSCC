@@ -49,7 +49,7 @@ normalizedPathological <- meanNormalization(matrixPathological)
 
 # Extract contours from a control subject for SCC triangulation
 niftiPath <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
-contours <- neuroContour(niftiPath, paramZ = 35, levels = c(0), plotResult = FALSE)
+contours <- neuroContour(niftiPath, paramZ = 35, plotResult = FALSE)
 
 cat("Data preparation completed successfully.\n")
 

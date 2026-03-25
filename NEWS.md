@@ -1,5 +1,10 @@
 # neuroSCC 1.0.1
 
+- Removed dependency on `contoureR`, which is no longer available on CRAN.
+- Reimplemented contour extraction using base R (`grDevices::contourLines`).
+- Simplified `neuroContour()` interface by removing the `levels` argument.
+- Updated documentation, examples, and vignettes to reflect the new behavior.
+
 # neuroSCC 1.0.0
 
 - First **CRAN Release**.

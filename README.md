@@ -5,9 +5,9 @@
 Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
-[![Commits](https://img.shields.io/badge/Commits-NA-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
-[![Issues](https://img.shields.io/badge/Issues-4-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-106889KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Commits](https://img.shields.io/badge/Commits-180-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
+[![Issues](https://img.shields.io/badge/Issues-22-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
+[![Size](https://img.shields.io/badge/Size-107527KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` Bridging Simultaneous Confidence Corridors and PET
 Neuroimaging.** This package facilitates structured processing of PET
@@ -116,7 +116,9 @@ demographic data when available.
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -140,7 +142,9 @@ group-level SCC comparisons.
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -167,7 +171,9 @@ processing.
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -189,7 +195,9 @@ methodologies.
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -216,7 +224,9 @@ This removes global intensity differences, making datasets comparable in
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -240,12 +250,15 @@ normalizationResult <- meanNormalization(matrixControls,
 
 `neuroContour()` extracts **region boundaries (contours) from
 neuroimaging data**.  
-It is particularly useful for defining **masks or Regions of Interest
-(ROIs)** before SCC computation.
+It identifies the boundary of the **non-zero support** in a given slice,
+making it useful for defining **masks or Regions of Interest (ROIs)**
+before SCC computation.
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -253,8 +266,8 @@ Click to expand
 # Get the file path for a sample NIfTI file
 niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 
-# Extract contours at level 0
-contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
+# Extract contours from the non-zero support
+contours <- neuroContour(niftiFile, paramZ = 35, plotResult = TRUE)
 
 # Display the extracted contour coordinates
 if (length(contours) > 0) {
@@ -273,7 +286,9 @@ After `ImageSCC::scc.image()` computes SCCs, `getPoints()` extracts
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -300,7 +315,9 @@ differences**, making it comparable to SCC results.
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -324,7 +341,9 @@ structuring them for SCC analysis.
 
 *Example with Code:*
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -346,7 +365,9 @@ be expanded to allow for valid statistical inference.
 
 *Example with Code:*  
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -373,7 +394,9 @@ evaluation of SCC performance.
 
 *Example with Code:*  
 <details>
+
 <summary>
+
 Click to expand
 </summary>
 
@@ -418,6 +441,7 @@ data, the objects they return, and more, can be found in the Visual
 Workflow:
 
 <p align="center">
+
 <img src="man/figures/workflow.png" alt="NeuroSCC Workflow" width="100%">
 </p>
 

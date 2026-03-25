@@ -267,7 +267,7 @@ normalizationResult <- meanNormalization(matrixControls,
 
 ## 📈 neuroContour(): Extract Contours
 `neuroContour()` extracts **region boundaries (contours) from neuroimaging data**.  
-It is particularly useful for defining **masks or Regions of Interest (ROIs)** before SCC computation.
+It identifies the boundary of the **non-zero support** in a given slice, making it useful for defining **masks or Regions of Interest (ROIs)** before SCC computation.
 
 *Example with Code:*
 <details>
@@ -277,8 +277,8 @@ It is particularly useful for defining **masks or Regions of Interest (ROIs)** b
 # Get the file path for a sample NIfTI file
 niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 
-# Extract contours at level 0
-contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
+# Extract contours from the non-zero support
+contours <- neuroContour(niftiFile, paramZ = 35, plotResult = TRUE)
 
 # Display the extracted contour coordinates
 if (length(contours) > 0) {

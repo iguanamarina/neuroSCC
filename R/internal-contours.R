@@ -1,6 +1,6 @@
 # Internal helpers for contour extraction from non-zero image support
 
-#' Internal helper: polygon area
+# Internal helper: polygon area
 #' @keywords internal
 .poly_area_xy <- function(x, y) {
   if (!(x[1] == x[length(x)] && y[1] == y[length(y)])) {
@@ -11,7 +11,7 @@
   abs(sum(x[-1] * y[-length(y)] - x[-length(x)] * y[-1])) / 2
 }
 
-#' Internal helper: extract contours from non-zero image support
+# Internal helper: extract contours from non-zero image support
 #' @keywords internal
 .extract_mask_contours <- function(dat, contour_level = 0.1) {
   if (!is.data.frame(dat) || !all(c("x", "y", "value") %in% names(dat))) {

@@ -2,17 +2,15 @@
 % Please edit documentation in R/neuroContour.R
 \name{neuroContour}
 \alias{neuroContour}
-\title{Obtain and save neuroimaging contours from a NIFTI file}
+\title{Obtain neuroimaging contours from a NIFTI file}
 \usage{
-neuroContour(niftiFile, paramZ = 35, levels = c(0), plotResult = FALSE)
+neuroContour(niftiFile, paramZ = 35, plotResult = FALSE)
 }
 \arguments{
 \item{niftiFile}{\code{character}, the path to the NIFTI file containing neuroimaging data.
 Ideally, the file should be masked so that zero values represent the background.}
 
 \item{paramZ}{\code{integer}, the specific z-slice to extract contours from. Default is \code{35}.}
-
-\item{levels}{\code{numeric}, a vector of levels at which to draw the contours. Default is \code{c(0)}.}
 
 \item{plotResult}{\code{logical}, if \code{TRUE}, plots the extracted contours. Default is \code{FALSE}.}
 }
@@ -21,40 +19,39 @@ A \code{list} of data frames, where each data frame contains the x and y coordin
 The first element typically represents the external boundary, while subsequent elements (if present)
 represent internal contours or holes. Each data frame has two columns:
 \itemize{
-  \item \code{x} – x-coordinates of the contour points.
-  \item \code{y} – y-coordinates of the contour points.
+  \item \code{x} - x-coordinates of the contour points.
+  \item \code{y} - y-coordinates of the contour points.
 }
 }
 \description{
-This function extracts contours from a neuroimaging NIFTI file where values change according to specified levels.
-It processes the NIFTI file with \code{neuroCleaner} to extract structured neuroimaging data, then extracts contours
-using \code{contoureR::getContourLines}. These contours serve as input for \code{Triangulation::TriMesh},
+This function extracts contours from a neuroimaging NIFTI file by identifying
+the boundary of the non-zero image support in a selected z-slice.
+These contours serve as input for \code{Triangulation::TriMesh},
 which is used in Simultaneous Confidence Corridors (SCCs) calculations.
 
-While \strong{not mandatory}, it is \strong{highly recommended} that the input NIFTI file be pre-processed
-such that zero values represent the background and non-zero values represent regions of interest.
-The function's default behavior extracts contours at level \code{0}, which is ideal for well-masked data.
+It is highly recommended that the input NIFTI file be pre-processed such that
+zero values represent the background and non-zero values represent regions of interest.
 }
 \details{
-This function extracts contours from a \strong{NIFTI} file, typically a \strong{masked} image where background values
-are set to zero, and regions of interest contain non-zero values. While users can specify a different
-boundary level, the recommended approach is to use \code{levels = 0} for masked data.
+This function extracts contours from a \strong{NIFTI} file, typically a masked image where
+background values are zero and regions of interest contain non-zero values.
+Contours are computed from the boundary of the non-zero support of the selected slice.
 
-The extracted contours are typically used as input to \code{Triangulation::TriMesh} to create
-a triangular mesh of the region, which is then used for Simultaneous Confidence Corridors calculations.
+The extracted contours are typically used as input to \code{Triangulation::TriMesh}
+to create a triangular mesh of the region, which is then used for
+Simultaneous Confidence Corridors calculations.
 }
 \examples{
 # Get the file path for a sample NIfTI file
 niftiFile <- system.file("extdata", "syntheticControl1.nii.gz", package = "neuroSCC")
 
-# Extract contours at level 0
-contours <- neuroContour(niftiFile, paramZ = 35, levels = 0, plotResult = TRUE)
+# Extract contours from the non-zero support
+contours <- neuroContour(niftiFile, paramZ = 35, plotResult = TRUE)
 
 # Display the first few points of the main contour
 head(contours[[1]])
 
 }
 \seealso{
-\link[contoureR]{getContourLines} for the underlying contour extraction. \cr
 \code{Triangulation::TriMesh} for the next step in the SCC calculation process.
 }
