@@ -1,3 +1,5 @@
+# neuroSCC 1.0.2
+
 # neuroSCC 1.0.1
 
 - Removed dependency on `contoureR`, which is no longer available on CRAN.
