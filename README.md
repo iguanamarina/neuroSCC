@@ -464,10 +464,7 @@ Workflow:
   Computing Times and Parameter Selection*. *Computers*, 11(6), 91.
   MDPI. <doi:10.3390/computers11060091>
 
-- **Ph.D. Thesis:** Arias-López, J. A. (Under development). *Development
-  of Statistical Methods for Neuroimage Data Analysis Towards Early
-  Diagnosis of Neurodegenerative Diseases*. University of Santiago de
-  Compostela.
+- **Ph.D. Thesis:** Arias-López, J. A. (2025). *Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases*. University of Santiago de Compostela. Outstanding *Summa Cum Laude*.
 
 ------------------------------------------------------------------------
 
