@@ -54,6 +54,12 @@ reference:
       - processROIs
       - calculateMetrics
 
+  - title: "Visualization"
+    contents:
+      - plotSCCpanel
+      - plotSCCcomparisonPanel
+      - plotValidationPanel
+
   - title: "Secondary Functions"
     contents:
       - neuroContour
@@ -63,6 +69,7 @@ reference:
   - title: "Datasets"
     contents:
       - SCCcomp
+      - sccOneGroup
       - calculateMetricsExample
       - generatePoissonClonesExample
 

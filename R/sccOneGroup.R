@@ -1,0 +1,33 @@
+#' Example SCC object for one-group analysis
+#'
+#' A single-group Simultaneous Confidence Corridor (SCC) result object
+#' used in examples and visualization functions of \pkg{neuroSCC}.
+#'
+#' The object contains the estimated mean function, SCC bands, spatial
+#' coordinates, and triangulation-related components needed for
+#' plotting and downstream SCC workflows.
+#'
+#' @format A list with 14 components, including:
+#' \describe{
+#'   \item{\code{Yhat}}{Estimated mean function.}
+#'   \item{\code{scc}}{Simultaneous confidence corridor bands.}
+#'   \item{\code{bw}}{Bandwidth values.}
+#'   \item{\code{Ya}}{Observed one-group imaging data.}
+#'   \item{\code{V.est.a}}{Triangulation vertices for estimation.}
+#'   \item{\code{Tr.est.a}}{Triangulation triangles for estimation.}
+#'   \item{\code{Z}}{Spatial coordinates of the imaging domain.}
+#'   \item{\code{Z.band}}{Spatial coordinates used for SCC band computation.}
+#'   \item{\code{d.est}}{Estimation neighborhood parameter.}
+#'   \item{\code{r}}{Radius or smoothing-related SCC parameter.}
+#'   \item{\code{ind.inside}}{Indices of points inside the domain.}
+#'   \item{\code{ind.inside.cover}}{Indices of covered points inside the domain.}
+#'   \item{\code{alpha}}{Significance levels.}
+#'   \item{\code{call}}{Call used to generate the SCC object.}
+#' }
+#'
+#' @source Generated from the neuroSCC methodological workflow for one-group SCC analysis.
+#'
+#' @seealso
+#' \code{\link{plotSCCpanel}} for visualization of this object. \cr
+#' \code{\link{SCCcomp}} for a two-group SCC example object.
+"sccOneGroup"

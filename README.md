@@ -7,7 +7,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-NA-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-22-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-107686KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-106908KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` Bridging Simultaneous Confidence Corridors and PET
 Neuroimaging.** This package facilitates structured processing of PET
@@ -413,6 +413,109 @@ with(calculateMetricsExample, {
 
 </details>
 
+## 🎨 plotSCCpanel(): Visualize One-Group SCC Bands
+
+`plotSCCpanel()` displays the **lower SCC band, mean estimate, and upper
+SCC band** for a **single-group SCC analysis** in a clean three-panel
+layout. It is especially useful for creating **publication-ready
+figures** of one-group SCC results.
+
+*Example with Code:*  
+<details>
+
+<summary>
+
+Click to expand
+</summary>
+
+``` r
+data("sccOneGroup", package = "neuroSCC")
+
+plotSCCpanel(
+  scc = sccOneGroup,
+  title = "SCC FOR CONTROL GROUP"
+)
+```
+
+</details>
+
+## 🔬 plotSCCcomparisonPanel(): Compare Two SCC Groups
+
+`plotSCCcomparisonPanel()` visualizes **two group mean estimates side by
+side** together with an **SCC overlay panel highlighting detected
+differences**. This is ideal for **group-vs-group SCC interpretation and
+figure generation**.
+
+*Example with Code:*  
+<details>
+
+<summary>
+
+Click to expand
+</summary>
+
+``` r
+data("SCCcomp", package = "neuroSCC")
+
+plotSCCcomparisonPanel(
+  scc = SCCcomp,
+  title = "SCC COMPARISON PANEL"
+)
+```
+
+</details>
+
+## 🧪 plotValidationPanel(): Validate SCC Against SPM
+
+`plotValidationPanel()` creates a **three-panel validation figure**
+comparing the **ground-truth ROI**, **SCC detections**, and **SPM
+detections** over the same neuroimaging background. It is designed for
+**method comparison, validation studies, and article figures**.
+
+*Example with Code:*
+
+<details>
+
+<summary>
+
+Click to expand
+</summary>
+
+``` r
+paramZ <- 35
+
+controlPattern <- "^syntheticControl.*\\.nii\\.gz$"
+databaseCN <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+matrixCN <- matrixCreator(database = databaseCN, paramZ = paramZ, quiet = TRUE)
+matrixCN <- meanNormalization(matrixCN)
+
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
+truePoints <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+roiPoints <- subset(truePoints, z == paramZ & pet == 1, select = c("x", "y"))
+
+spmFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
+spmPoints <- getSPMbinary(spmFile, paramZ = paramZ)
+
+data("SCCcomp", package = "neuroSCC")
+
+plotValidationPanel(
+  template = roiFile,
+  backgroundMatrix = matrixCN,
+  roiPoints = roiPoints,
+  sccPoints = list(
+    positivePoints = getPoints(SCCcomp)$positivePoints,
+    negativePoints = data.frame(x = numeric(0), y = numeric(0))
+  ),
+  spmPoints = spmPoints,
+  title = "Performance Validation Panel",
+  label1 = "Ground Truth (ROI)",
+  label2 = "SCC Detected",
+  label3 = "SPM Detected"
+)
+```
+
+</details>
+
 ------------------------------------------------------------------------
 
 # 4️⃣ Vignette <a id="vignette"></a>
@@ -464,7 +567,14 @@ Workflow:
   Computing Times and Parameter Selection*. *Computers*, 11(6), 91.
   MDPI. <doi:10.3390/computers11060091>
 
+<<<<<<< Updated upstream
 - **Ph.D. Thesis:** Arias-López, J. A. (2025). *Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases*. University of Santiago de Compostela. Outstanding *Summa Cum Laude*.
+=======
+- **Ph.D. Thesis:** Arias-López, J. A. (2025). *Development of
+  Statistical Methods for Neuroimage Data Analysis Towards Early
+  Diagnosis of Neurodegenerative Diseases*. University of Santiago de
+  Compostela. **Summa Cum Laude**.
+>>>>>>> Stashed changes
 
 ------------------------------------------------------------------------
 

@@ -146,6 +146,40 @@ if (triangulation_available) {
 
 ```
 
+```{r eval=TRUE}
+if (!exists("SCCcomp", inherits = FALSE)) {
+  data("SCCcomp", package = "neuroSCC")
+}
+```
+
+---
+
+# Visualizing the SCC Result
+
+Although the main value of a one-vs-group SCC analysis is inferential rather than visual, it can still be useful to inspect the estimated mean function and its SCC bands. The following plot provides a compact visual summary of the one-group SCC object included with the package.
+
+```{r eval=TRUE, fig.alt="Single-group SCC panel for the control group"}
+data("sccOneGroup", package = "neuroSCC")
+
+plotSCCpanel(
+  scc = sccOneGroup,
+  title = "SCC FOR CONTROL GROUP"
+)
+```
+
+---
+
+# Visualizing Group Means and SCC Differences
+
+Once the SCC result is available, it is often useful to visualize both group mean estimates together with the SCC-detected differences. The panel below provides a compact summary of the two-group comparison.
+
+```{r eval=TRUE, fig.alt="Two-group SCC comparison panel"}
+plotSCCcomparisonPanel(
+  scc = SCCcomp,
+  title = "SCC COMPARISON PANEL"
+)
+```
+
 ---
 
 # Extracting Significant Points and Evaluating Metrics
@@ -174,6 +208,43 @@ metrics <- calculateMetrics(
 
 # Display metrics
 print(metrics)
+```
+
+---
+
+# Visual Validation Against ROI and SPM
+
+In addition to numerical metrics, it can be useful to visually compare the ground-truth ROI, SCC detections, and SPM detections over the same anatomical background. The following panel provides that comparison.
+
+```{r eval=TRUE, fig.alt="Validation panel comparing ROI, SCC, and SPM detections"}
+paramZ <- 35
+
+controlPattern <- "^syntheticControl.*\\.nii\\.gz$"
+databaseCN <- databaseCreator(pattern = controlPattern, control = TRUE, quiet = TRUE)
+matrixCN <- matrixCreator(database = databaseCN, paramZ = paramZ, quiet = TRUE)
+matrixCN <- meanNormalization(matrixCN)
+
+roiFile <- system.file("extdata", "ROIsample_Region2_18.nii.gz", package = "neuroSCC")
+truePoints <- processROIs(roiFile, region = "Region2", number = "18", save = FALSE)
+roiPoints <- subset(truePoints, z == paramZ & pet == 1, select = c("x", "y"))
+
+spmFile <- system.file("extdata", "binary.nii.gz", package = "neuroSCC")
+spmPoints <- getSPMbinary(spmFile, paramZ = paramZ)
+
+plotValidationPanel(
+  template = roiFile,
+  backgroundMatrix = matrixCN,
+  roiPoints = roiPoints,
+  sccPoints = list(
+    positivePoints = getPoints(SCCcomp)$positivePoints,
+    negativePoints = data.frame(x = numeric(0), y = numeric(0))
+  ),
+  spmPoints = spmPoints,
+  title = "Performance Validation Panel",
+  label1 = "Ground Truth (ROI)",
+  label2 = "SCC Detected",
+  label3 = "SPM Detected"
+)
 ```
 
 ---

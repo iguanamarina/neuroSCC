@@ -1,4 +1,10 @@
 # neuroSCC 1.0.2
+- Added three new visualization functions for SCC workflows:
+  - `plotSCCpanel()` for one-group SCC band visualization
+  - `plotSCCcomparisonPanel()` for two-group SCC comparison panels
+  - `plotValidationPanel()` for SCC vs SPM validation plots
+- Added new example dataset `sccOneGroup`
+- Expanded package visualization capabilities for publication-ready figures
 
 # neuroSCC 1.0.1
 

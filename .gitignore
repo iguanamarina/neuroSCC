@@ -27,3 +27,5 @@ Meta/
 *.o
 *.so
 *.dll
+/doc/
+/Meta/

@@ -13,3 +13,4 @@
 ^\.gitignore$
 ^cran-comments\.md$
 ^dev$
+^CRAN-SUBMISSION$

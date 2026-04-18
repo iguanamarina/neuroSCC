@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">neuroSCC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 
-<p><a href="https://www.repostatus.org/" class="external-link"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle"></a> <a href="https://github.com/iguanamarina/neuroSCC/graphs/contributors" class="external-link"><img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"></a> <a href="https://github.com/iguanamarina/neuroSCC/commits/main" class="external-link"><img src="https://img.shields.io/badge/Commits-NA-brightgreen" alt="Commits"></a> <a href="https://github.com/iguanamarina/neuroSCC/issues" class="external-link"><img src="https://img.shields.io/badge/Issues-22-brightgreen" alt="Issues"></a> <a href="https://github.com/iguanamarina/neuroSCC" class="external-link"><img src="https://img.shields.io/badge/Size-107686KB-brightgreen" alt="Size"></a></p>
+<p><a href="https://www.repostatus.org/" class="external-link"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-Stable-4cc71e.svg" alt="Lifecycle"></a> <a href="https://github.com/iguanamarina/neuroSCC/graphs/contributors" class="external-link"><img src="https://img.shields.io/badge/Contributors-1-brightgreen" alt="Contributors"></a> <a href="https://github.com/iguanamarina/neuroSCC/commits/main" class="external-link"><img src="https://img.shields.io/badge/Commits-NA-brightgreen" alt="Commits"></a> <a href="https://github.com/iguanamarina/neuroSCC/issues" class="external-link"><img src="https://img.shields.io/badge/Issues-22-brightgreen" alt="Issues"></a> <a href="https://github.com/iguanamarina/neuroSCC" class="external-link"><img src="https://img.shields.io/badge/Size-106908KB-brightgreen" alt="Size"></a></p>
 <p>🚀 <strong><code>neuroSCC</code> Bridging Simultaneous Confidence Corridors and PET Neuroimaging.</strong> This package facilitates structured processing of PET neuroimaging data for the estimation of Simultaneous Confidence Corridors (SCCs). It integrates neuroimaging and statistical methodologies to:</p>
 <ul>
 <li>📥 <strong>Load and preprocess</strong> PET neuroimaging files.<br>
@@ -331,6 +331,76 @@ Click to expand
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">metricsSCC</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">metricsSPM</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level2">
+<h2 id="art-plotsccpanel-visualize-one-group-scc-bands">🎨 plotSCCpanel(): Visualize One-Group SCC Bands<a class="anchor" aria-label="anchor" href="#art-plotsccpanel-visualize-one-group-scc-bands"></a>
+</h2>
+<p><code><a href="reference/plotSCCpanel.html">plotSCCpanel()</a></code> displays the <strong>lower SCC band, mean estimate, and upper SCC band</strong> for a <strong>single-group SCC analysis</strong> in a clean three-panel layout. It is especially useful for creating <strong>publication-ready figures</strong> of one-group SCC results.</p>
+<em>Example with Code:</em><br><details><summary>
+Click to expand
+</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sccOneGroup"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plotSCCpanel.html">plotSCCpanel</a></span><span class="op">(</span></span>
+<span>  scc <span class="op">=</span> <span class="va">sccOneGroup</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"SCC FOR CONTROL GROUP"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level2">
+<h2 id="microscope-plotscccomparisonpanel-compare-two-scc-groups">🔬 plotSCCcomparisonPanel(): Compare Two SCC Groups<a class="anchor" aria-label="anchor" href="#microscope-plotscccomparisonpanel-compare-two-scc-groups"></a>
+</h2>
+<p><code><a href="reference/plotSCCcomparisonPanel.html">plotSCCcomparisonPanel()</a></code> visualizes <strong>two group mean estimates side by side</strong> together with an <strong>SCC overlay panel highlighting detected differences</strong>. This is ideal for <strong>group-vs-group SCC interpretation and figure generation</strong>.</p>
+<em>Example with Code:</em><br><details><summary>
+Click to expand
+</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"SCCcomp"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plotSCCcomparisonPanel.html">plotSCCcomparisonPanel</a></span><span class="op">(</span></span>
+<span>  scc <span class="op">=</span> <span class="va">SCCcomp</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"SCC COMPARISON PANEL"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level2">
+<h2 id="test_tube-plotvalidationpanel-validate-scc-against-spm">🧪 plotValidationPanel(): Validate SCC Against SPM<a class="anchor" aria-label="anchor" href="#test_tube-plotvalidationpanel-validate-scc-against-spm"></a>
+</h2>
+<p><code><a href="reference/plotValidationPanel.html">plotValidationPanel()</a></code> creates a <strong>three-panel validation figure</strong> comparing the <strong>ground-truth ROI</strong>, <strong>SCC detections</strong>, and <strong>SPM detections</strong> over the same neuroimaging background. It is designed for <strong>method comparison, validation studies, and article figures</strong>.</p>
+<p><em>Example with Code:</em></p>
+<details><summary>
+Click to expand
+</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">paramZ</span> <span class="op">&lt;-</span> <span class="fl">35</span></span>
+<span></span>
+<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii\\.gz$"</span></span>
+<span><span class="va">databaseCN</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">matrixCN</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span>database <span class="op">=</span> <span class="va">databaseCN</span>, paramZ <span class="op">=</span> <span class="va">paramZ</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">matrixCN</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">matrixCN</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">roiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ROIsample_Region2_18.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span><span class="va">truePoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processROIs.html">processROIs</a></span><span class="op">(</span><span class="va">roiFile</span>, region <span class="op">=</span> <span class="st">"Region2"</span>, number <span class="op">=</span> <span class="st">"18"</span>, save <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">roiPoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">truePoints</span>, <span class="va">z</span> <span class="op">==</span> <span class="va">paramZ</span> <span class="op">&amp;</span> <span class="va">pet</span> <span class="op">==</span> <span class="fl">1</span>, select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">spmFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"binary.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span><span class="va">spmPoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSPMbinary.html">getSPMbinary</a></span><span class="op">(</span><span class="va">spmFile</span>, paramZ <span class="op">=</span> <span class="va">paramZ</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"SCCcomp"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plotValidationPanel.html">plotValidationPanel</a></span><span class="op">(</span></span>
+<span>  template <span class="op">=</span> <span class="va">roiFile</span>,</span>
+<span>  backgroundMatrix <span class="op">=</span> <span class="va">matrixCN</span>,</span>
+<span>  roiPoints <span class="op">=</span> <span class="va">roiPoints</span>,</span>
+<span>  sccPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    positivePoints <span class="op">=</span> <span class="fu"><a href="reference/getPoints.html">getPoints</a></span><span class="op">(</span><span class="va">SCCcomp</span><span class="op">)</span><span class="op">$</span><span class="va">positivePoints</span>,</span>
+<span>    negativePoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  spmPoints <span class="op">=</span> <span class="va">spmPoints</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Performance Validation Panel"</span>,</span>
+<span>  label1 <span class="op">=</span> <span class="st">"Ground Truth (ROI)"</span>,</span>
+<span>  label2 <span class="op">=</span> <span class="st">"SCC Detected"</span>,</span>
+<span>  label3 <span class="op">=</span> <span class="st">"SPM Detected"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </details><hr>
 </div>
 </div>
@@ -362,7 +432,7 @@ Click to expand
 <li><p>Wang, Y., Wang, G., Wang, L., &amp; Ogden, R.T. (2020). <em>Simultaneous Confidence Corridors for Mean Functions in Functional Data Analysis of Imaging Data</em>. Biometrics, 76(2), 427-437. <a href="doi:10.1111/biom.13156" class="uri">doi:10.1111/biom.13156</a></p></li>
 <li><p>Arias-López, J. A., Cadarso-Suárez, C., &amp; Aguiar-Fernández, P. (2021). <em>Computational Issues in the Application of Functional Data Analysis to Imaging Data</em>. In <em>International Conference on Computational Science and Its Applications</em> (pp. 630–638). Springer International Publishing, Cham. <a href="doi:10.1007/978-3-030-86960-1_46" class="uri">doi:10.1007/978-3-030-86960-1_46</a></p></li>
 <li><p>Arias-López, J. A., Cadarso-Suárez, C., &amp; Aguiar-Fernández, P. (2022). <em>Functional Data Analysis for Imaging Mean Function Estimation: Computing Times and Parameter Selection</em>. <em>Computers</em>, 11(6), 91. MDPI. <a href="doi:10.3390/computers11060091" class="uri">doi:10.3390/computers11060091</a></p></li>
-<li><p><strong>Ph.D. Thesis:</strong> Arias-López, J. A. (Under development). <em>Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases</em>. University of Santiago de Compostela.</p></li>
+<li><p><strong>Ph.D. Thesis:</strong> Arias-López, J. A. (2025). <em>Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases</em>. University of Santiago de Compostela. <strong>Summa Cum Laude</strong>.</p></li>
 </ul>
 <hr>
 </div>
@@ -415,21 +485,21 @@ Click to expand
 <li><p><strong>Fork the repository</strong> on GitHub.</p></li>
 <li>
 <p><strong>Clone your fork</strong> to your local machine:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>git clone https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>YOUR_USERNAME<span class="sc">/</span>neuroSCC.git</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>cd neuroSCC</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>git clone https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>YOUR_USERNAME<span class="sc">/</span>neuroSCC.git</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>cd neuroSCC</span></code></pre></div>
 </li>
 <li>
 <p><strong>Create a new branch</strong> for your feature or fix:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>git checkout <span class="sc">-</span>b feature<span class="sc">-</span>new<span class="sc">-</span>functionality</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>git checkout <span class="sc">-</span>b feature<span class="sc">-</span>new<span class="sc">-</span>functionality</span></code></pre></div>
 </li>
 <li>
 <p><strong>Make your changes</strong> and commit them:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>git add .</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>git commit <span class="sc">-</span>m <span class="st">"Added new functionality XYZ"</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>git add .</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>git commit <span class="sc">-</span>m <span class="st">"Added new functionality XYZ"</span></span></code></pre></div>
 </li>
 <li>
 <p><strong>Push your changes</strong> to your fork:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>git push origin feature<span class="sc">-</span>new<span class="sc">-</span>functionality</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>git push origin feature<span class="sc">-</span>new<span class="sc">-</span>functionality</span></code></pre></div>
 </li>
 <li><p><strong>Submit a pull request</strong> (PR) from your forked repository to the main <code>neuroSCC</code> repository.</p></li>
 </ol>
