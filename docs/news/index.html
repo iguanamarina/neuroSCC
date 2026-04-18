@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">neuroSCC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,21 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.1" id="neuroscc-101">neuroSCC 1.0.1<a class="anchor" aria-label="anchor" href="#neuroscc-101"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.2" id="neuroscc-102">neuroSCC 1.0.2<a class="anchor" aria-label="anchor" href="#neuroscc-102"></a></h2>
+<ul><li>Added three new visualization functions for SCC workflows:
+<ul><li>
+<code><a href="../reference/plotSCCpanel.html">plotSCCpanel()</a></code> for one-group SCC band visualization</li>
+<li>
+<code><a href="../reference/plotSCCcomparisonPanel.html">plotSCCcomparisonPanel()</a></code> for two-group SCC comparison panels</li>
+<li>
+<code><a href="../reference/plotValidationPanel.html">plotValidationPanel()</a></code> for SCC vs SPM validation plots</li>
+</ul></li>
+<li>Added new example dataset <code>sccOneGroup</code>
+</li>
+<li>Expanded package visualization capabilities for publication-ready figures</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.1" id="neuroscc-101">neuroSCC 1.0.1<a class="anchor" aria-label="anchor" href="#neuroscc-101"></a></h2><p class="text-muted">CRAN release: 2026-03-25</p>
 <ul><li>Removed dependency on <code>contoureR</code>, which is no longer available on CRAN.</li>
 <li>Reimplemented contour extraction using base R (<code><a href="https://rdrr.io/r/grDevices/contourLines.html" class="external-link">grDevices::contourLines</a></code>).</li>
 <li>Simplified <code><a href="../reference/neuroContour.html">neuroContour()</a></code> interface by removing the <code>levels</code> argument.</li>

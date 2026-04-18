@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">neuroSCC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -201,6 +201,42 @@ skip actual computation and load a precomputed result from the package
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span>
 <span><span class="co">#&gt; Loading precomputed SCC object from package data...</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"SCCcomp"</span>, inherits <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"SCCcomp"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="visualizing-the-scc-result">Visualizing the SCC Result<a class="anchor" aria-label="anchor" href="#visualizing-the-scc-result"></a>
+</h2>
+<p>Although the main value of a one-vs-group SCC analysis is inferential
+rather than visual, it can still be useful to inspect the estimated mean
+function and its SCC bands. The following plot provides a compact visual
+summary of the one-group SCC object included with the package.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sccOneGroup"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plotSCCpanel.html">plotSCCpanel</a></span><span class="op">(</span></span>
+<span>  scc <span class="op">=</span> <span class="va">sccOneGroup</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"SCC FOR CONTROL GROUP"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="one_vs_group_files/figure-html/unnamed-chunk-8-1.png" alt="Single-group SCC panel for the control group" width="700"></p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="visualizing-group-means-and-scc-differences">Visualizing Group Means and SCC Differences<a class="anchor" aria-label="anchor" href="#visualizing-group-means-and-scc-differences"></a>
+</h2>
+<p>Once the SCC result is available, it is often useful to visualize
+both group mean estimates together with the SCC-detected differences.
+The panel below provides a compact summary of the two-group
+comparison.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plotSCCcomparisonPanel.html">plotSCCcomparisonPanel</a></span><span class="op">(</span></span>
+<span>  scc <span class="op">=</span> <span class="va">SCCcomp</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"SCC COMPARISON PANEL"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="one_vs_group_files/figure-html/unnamed-chunk-9-1.png" alt="Two-group SCC comparison panel" width="700"></p>
 <hr>
 </div>
 <div class="section level2">
@@ -209,7 +245,7 @@ skip actual computation and load a precomputed result from the package
 <p>Once the SCC computation results (<code>SCCcomp</code>) are
 available, we can extract significant points and compute relevant
 performance metrics:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract significant points</span></span>
 <span><span class="va">significantPoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getPoints.html">getPoints</a></span><span class="op">(</span><span class="va">SCCcomp</span><span class="op">)</span></span>
 <span></span>
@@ -234,6 +270,50 @@ performance metrics:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">metrics</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                   region sensitivity specificity      PPV      NPV</span></span>
 <span><span class="co">#&gt; 1 SinglePatient_vs_Group    85.12872    95.62596 97.22839 78.10603</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="visual-validation-against-roi-and-spm">Visual Validation Against ROI and SPM<a class="anchor" aria-label="anchor" href="#visual-validation-against-roi-and-spm"></a>
+</h2>
+<p>In addition to numerical metrics, it can be useful to visually
+compare the ground-truth ROI, SCC detections, and SPM detections over
+the same anatomical background. The following panel provides that
+comparison.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">paramZ</span> <span class="op">&lt;-</span> <span class="fl">35</span></span>
+<span></span>
+<span><span class="va">controlPattern</span> <span class="op">&lt;-</span> <span class="st">"^syntheticControl.*\\.nii\\.gz$"</span></span>
+<span><span class="va">databaseCN</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/databaseCreator.html">databaseCreator</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">controlPattern</span>, control <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">matrixCN</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/matrixCreator.html">matrixCreator</a></span><span class="op">(</span>database <span class="op">=</span> <span class="va">databaseCN</span>, paramZ <span class="op">=</span> <span class="va">paramZ</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">matrixCN</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meanNormalization.html">meanNormalization</a></span><span class="op">(</span><span class="va">matrixCN</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Mean before normalization: 4.345851</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Normalization completed.</span></span>
+<span></span>
+<span><span class="va">roiFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ROIsample_Region2_18.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span><span class="va">truePoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/processROIs.html">processROIs</a></span><span class="op">(</span><span class="va">roiFile</span>, region <span class="op">=</span> <span class="st">"Region2"</span>, number <span class="op">=</span> <span class="st">"18"</span>, save <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading NIfTI file...</span></span>
+<span><span class="va">roiPoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">truePoints</span>, <span class="va">z</span> <span class="op">==</span> <span class="va">paramZ</span> <span class="op">&amp;</span> <span class="va">pet</span> <span class="op">==</span> <span class="fl">1</span>, select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">spmFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"binary.nii.gz"</span>, package <span class="op">=</span> <span class="st">"neuroSCC"</span><span class="op">)</span></span>
+<span><span class="va">spmPoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getSPMbinary.html">getSPMbinary</a></span><span class="op">(</span><span class="va">spmFile</span>, paramZ <span class="op">=</span> <span class="va">paramZ</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plotValidationPanel.html">plotValidationPanel</a></span><span class="op">(</span></span>
+<span>  template <span class="op">=</span> <span class="va">roiFile</span>,</span>
+<span>  backgroundMatrix <span class="op">=</span> <span class="va">matrixCN</span>,</span>
+<span>  roiPoints <span class="op">=</span> <span class="va">roiPoints</span>,</span>
+<span>  sccPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    positivePoints <span class="op">=</span> <span class="fu"><a href="../reference/getPoints.html">getPoints</a></span><span class="op">(</span><span class="va">SCCcomp</span><span class="op">)</span><span class="op">$</span><span class="va">positivePoints</span>,</span>
+<span>    negativePoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  spmPoints <span class="op">=</span> <span class="va">spmPoints</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Performance Validation Panel"</span>,</span>
+<span>  label1 <span class="op">=</span> <span class="st">"Ground Truth (ROI)"</span>,</span>
+<span>  label2 <span class="op">=</span> <span class="st">"SCC Detected"</span>,</span>
+<span>  label3 <span class="op">=</span> <span class="st">"SPM Detected"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="one_vs_group_files/figure-html/unnamed-chunk-11-1.png" alt="Validation panel comparing ROI, SCC, and SPM detections" width="700"></p>
 <hr>
 </div>
 <div class="section level2">
