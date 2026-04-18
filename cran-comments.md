@@ -4,16 +4,15 @@
 
 ## Resubmission
 
-This is a resubmission of `neuroSCC`.
+This is a new maintenance release of `neuroSCC`.
 
-The previous CRAN version was archived because it depended on `contoureR`, which is no longer available on CRAN.
-
-In this update:
-
-- the dependency on `contoureR` has been removed from `DESCRIPTION`;
-- contour extraction has been reimplemented internally using base R;
-- `neuroContour()` has been updated accordingly;
-- documentation, examples, and vignettes have been revised to reflect the new behavior.
+Changes in this version include:
+- added three new plotting functions for SCC visualization:
+  - `plotSCCpanel()`
+  - `plotSCCcomparisonPanel()`
+  - `plotValidationPanel()`
+- added the example dataset `sccOneGroup`
+- updated README, vignettes, and pkgdown site accordingly
 
 ## Notes
 
