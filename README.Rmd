@@ -501,7 +501,7 @@ A complete visual overview of how `neuroSCC` functions interact with data, the o
 
 - Arias-López, J. A., Cadarso-Suárez, C., & Aguiar-Fernández, P. (2022). *Functional Data Analysis for Imaging Mean Function Estimation: Computing Times and Parameter Selection*. *Computers*, 11(6), 91. MDPI. <doi:10.3390/computers11060091>
 
-- **Ph.D. Thesis:** Arias-López, J. A. (2025). *Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases*. University of Santiago de Compostela. **Summa Cum Laude**.
+- **Ph.D. Thesis:** Arias-López, J. A. (2025). *Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases*. University of Santiago de Compostela (Spain). **Summa Cum Laude**.
 
 ------------------------------------------------------------------------
 

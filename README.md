@@ -7,7 +7,7 @@ Status](http://www.repostatus.org/badges/latest/active.svg)](https://www.reposta
 [![Contributors](https://img.shields.io/badge/Contributors-1-brightgreen)](https://github.com/iguanamarina/neuroSCC/graphs/contributors)
 [![Commits](https://img.shields.io/badge/Commits-NA-brightgreen)](https://github.com/iguanamarina/neuroSCC/commits/main)
 [![Issues](https://img.shields.io/badge/Issues-22-brightgreen)](https://github.com/iguanamarina/neuroSCC/issues)
-[![Size](https://img.shields.io/badge/Size-106908KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
+[![Size](https://img.shields.io/badge/Size-107978KB-brightgreen)](https://github.com/iguanamarina/neuroSCC)
 
 🚀 **`neuroSCC` Bridging Simultaneous Confidence Corridors and PET
 Neuroimaging.** This package facilitates structured processing of PET
@@ -567,14 +567,10 @@ Workflow:
   Computing Times and Parameter Selection*. *Computers*, 11(6), 91.
   MDPI. <doi:10.3390/computers11060091>
 
-<<<<<<< Updated upstream
-- **Ph.D. Thesis:** Arias-López, J. A. (2025). *Development of Statistical Methods for Neuroimage Data Analysis Towards Early Diagnosis of Neurodegenerative Diseases*. University of Santiago de Compostela. Outstanding *Summa Cum Laude*.
-=======
 - **Ph.D. Thesis:** Arias-López, J. A. (2025). *Development of
   Statistical Methods for Neuroimage Data Analysis Towards Early
   Diagnosis of Neurodegenerative Diseases*. University of Santiago de
-  Compostela. **Summa Cum Laude**.
->>>>>>> Stashed changes
+  Compostela (Spain). **Summa Cum Laude**.
 
 ------------------------------------------------------------------------
 
