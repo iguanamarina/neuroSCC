@@ -53,7 +53,7 @@ Once the functional representation has been constructed, `neuroSCC` supports the
 
 Beyond estimation, the package provides tools to extract significant regions of change, compare SCC detections with alternative approaches such as SPM, and evaluate performance against ground truth ROI data. This makes it possible to use SCC not only as a methodological construct, but as part of a complete applied workflow for neuroimaging studies and for the visualization and presentation of results. The overall workflow is summarized in Figure 1.
 
-![Overview of the `neuroSCC` workflow, from neuroimaging data ingestion to SCC-based inference and performance evaluation, including comparison with SPM.](paper/workflow.png)
+![Overview of the `neuroSCC` workflow, from neuroimaging data ingestion to SCC-based inference and performance evaluation, including comparison with SPM.](paper/workflow.png){ width=70% }
 
 # Research impact statement
 
