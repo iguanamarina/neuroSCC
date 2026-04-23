@@ -73,6 +73,6 @@ This work was developed as part of the Ph.D. thesis of the author at the Univers
 
 The author acknowledges Virgilio Gómez-Rubio for his support and guidance during a research stay at the University of Castilla-La Mancha.
 
-The author also thanks the Nuclear Medicine Department and Molecular Imaging Group of the University Clinical Hospital of Santiago de Compostela (CHUS) and the Health Research Institute of Santiago de Compostela (IDIS) for providing the clinical PET data used in this work.
+The author also thanks the Nuclear Medicine Department and Molecular Imaging Group of the University Clinical Hospital of Santiago de Compostela (CHUS) and the Health Research Institute of Santiago de Compostela (IDIS) for providing the clinical PET data used in this study.
 
 # References
